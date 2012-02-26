@@ -1,1 +1,2 @@
+#To install Free Lex (Flex), Free Yacc (Bison) and Subversion (version control manager).
 apt-get install flex bison subversion
