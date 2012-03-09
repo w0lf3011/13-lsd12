@@ -1,0 +1,54 @@
+//dot -Tjpg -oArbreGraph.jpg ArbreGraph.dot
+digraph LSD12{
+	bgcolor=white
+	node [color="#9DACBF", fontcolor="#000000", style=filled];
+	edge [arrowsize=2, color="#000000"];
+
+// A remplacer avec ce qu'il y a entre ";*** BEGIN printTreeGraphViz(..) +locations ***" et ";*** END printTreeGraphViz(..) +locations ***"
+
+"0x86d0378";
+"0x86d0378"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_ROOT \n Ival = 0"];
+"0x86d0378" -> "0x86d0358";
+"0x86d0378" -> "0x86d0068";
+"0x86d0358"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_FUNCT \n Ival = 0"];
+"0x86d0358" -> "0x86d0338";
+"0x86d0358" -> "0x86d00b8";
+"0x86d0338"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_CORPS \n Ival = 0"];
+"0x86d0338" -> "0x86d0268";
+"0x86d0338" -> "0x86d0318";
+"0x86d0268"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_BLOCDECLA \n Ival = 0"];
+"0x86d0268" -> "0x86d0248";
+"0x86d0248"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_DECLA \n Ival = 0"];
+"0x86d0248" -> "0x86d0228";
+"0x86d0248" -> "0x86d00e8";
+"0x86d0228"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_DECLA \n Ival = 0"];
+"0x86d0228" -> "0x86d0208";
+"0x86d0228" -> "0x86d0118";
+"0x86d0208"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_DECLA \n Ival = 0"];
+"0x86d0208" -> "0x86d01e8";
+"0x86d0208" -> "0x86d0148";
+"0x86d01e8"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_DECLA \n Ival = 0"];
+"0x86d01e8" -> "0x86d01c8";
+"0x86d01e8" -> "0x86d0178";
+"0x86d01c8"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_DECLA \n Ival = 0"];
+"0x86d01c8" -> "0x86d01a8";
+"0x86d01a8"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_VAR \n Ival = 0\n Sval = ensB"];
+"0x86d0178"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_VAR \n Ival = 0\n Sval = ensA"];
+"0x86d0148"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_VAR \n Ival = 0\n Sval = c"];
+"0x86d0118"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_VAR \n Ival = 0\n Sval = b"];
+"0x86d00e8"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_VAR \n Ival = 0\n Sval = a"];
+"0x86d0318"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_IMPLEMENT \n Ival = 0"];
+"0x86d0318" -> "0x86d02f8";
+"0x86d02f8"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_INSTRUCTION \n Ival = 0"];
+"0x86d02f8" -> "0x86d02d8";
+"0x86d02d8"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_AFFECT \n Ival = 0"];
+"0x86d02d8" -> "0x86d0298";
+"0x86d02d8" -> "0x86d02b8";
+"0x86d0298"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_VAR \n Ival = 0\n Sval = c"];
+"0x86d02b8"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_NB \n Ival = 69"];
+"0x86d00b8"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_HEADFUNCT \n Ival = 0"];
+"0x86d00b8" -> "0x86d0098";
+"0x86d0098"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_VAR \n Ival = 0\n Sval = main"];
+"0x86d0068"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_VAR \n Ival = 0\n Sval = LSD"];
+
+}
