@@ -21,10 +21,11 @@ var       [A-Za-z]([A-Za-z]|[0-9])*
 nbr       (0|[1-9][0-9]*)
 boolean   ("true"|"false")
 blank     [ \t]+
-type	  ("int"|"bool"|"iest"|"void")
+type	  ("int"|"bool"|"iset"|"void")
+
 %%
 
-"print"      {return PRINT;}
+"return" {return RETURN;}
 "read"       {return READ;}
 "write"     {return WRITE;}
 "add"     	{return ADD;}
@@ -33,7 +34,7 @@ type	  ("int"|"bool"|"iest"|"void")
 "var" 		{return REF;}
 "remove" 	{return REMOVE;}
 "from" 		{return FROM;}
-"progamme" 	{return PROG;}
+"program" 	{return PROG;}
 "forward" {return FORWARD;}
 
 "+"          {return PLUS;}
@@ -53,6 +54,7 @@ type	  ("int"|"bool"|"iest"|"void")
 ">="			  {return GE;}
 "&&"			  {return AND;}
 "||"			  {return OR;}
+"/"			{return DIVISE;}
 
 "#" {return CARDINAL;}
 
@@ -63,14 +65,13 @@ type	  ("int"|"bool"|"iest"|"void")
 "while" {return WHILE;}
 "do" {return DO;}
 "od" {return OD;}
-"return" {return RETURN;}
-"begin" {return BEGIN;}
+"begin" {return BEG;}
 "end" {return END;}
 
 ";" {return FIN;}
 
-"{" {return COMMENTBEGIN;}
-"}" {return COMMENTEND;}
+"{" {return COMMENTB;}
+"}" {return COMMENTE;}
 
 
 {type} {
