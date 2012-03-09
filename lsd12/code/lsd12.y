@@ -6,9 +6,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "arbre.h"
+#include "ast.h"
 #include "sym.h"
-#include "pcode.h"
+// #include "pcode.h"
 
 extern int num_lines;
 extern char* yytext;
@@ -31,120 +31,134 @@ ASTTREE root;
 
 %token PRINT READ WRITE 
 
-%token MODULO PLUS MINUS TIMES ADD AND NOT LT GT EQUAL OR
+%token MODULO PLUS MINUS TIMES ADD AND NOT LT GT EQUAL OR LE GE
 
 %token TO FUNCTION REF REMOVE FROM PROG FORWARD 
 
 %token LP RP COMMA AFFECT CARDINAL TWOPOINT
 
-%token IF FI THEN ELSE WHILE DO OD RETURN BEGIN END FIN COMMENTBEGIN COMMENTEND 
+%token IF FI THEN ELSE WHILE DO OD RETURN BEG END FIN COMMENTB COMMENTE 
 
-%token TYPE BOOLEAN VAR NB
+%token <sval> VAR
+// token des valeurs de variables
+%token <ival> NB BOOLEAN 
+// token des types
+%token <ival> TYPE
 
 %left MODULO 
-%left PLUS MINUS TIMES ADD
+%left PLUS MINUS TIMES ADD DIVISE
 %left AND NOT OR
-%left LT GT EQUAL
+%left LT GT EQUAL LE GE
 
-%type <tval> Lsd12 PROG Declaration BlocDecla Decla listVar InstructionList Instruction ExprD Var appelArg
+%type <tval> Lsd12 BlocDecla Decla Var Funct HeadFunct Corps Implement ExprD Instruction InstructionList
+
+// indiquer le non-terminal de commencement
+%start Lsd12
 
 %%
 
-Lsd12: PROG VAR FIN FUNCTION VAR LP RP TWOPOINT TYPE FIN InstructList END
-	{ root = createNodeTree(AT_ROOT, -1, $3, VAL_NOTYPE, 0, NULL, $5, NULL); }
+Lsd12: PROG Var FIN Funct END FIN
+	{ root = createNode(AT_ROOT, VAL_NOTYPE, 0, NULL, $4, $2);}
+;
+
+Funct: FUNCTION VAR HeadFunct TWOPOINT TYPE FIN Corps
+	{ $$ = createNode(AT_FUNCT, VAL_NOTYPE, 0, $2, $7, $3);}
+
+;
+
+Corps: BlocDecla BEG Implement END FIN
+	{ $$ = createNode(AT_CORPS, VAL_NOTYPE, 0, NULL, $1, $3);}
+       | FORWARD FIN
+	{ $$ = createNode(AT_FORWARD, VAL_NOTYPE, 0, NULL, NULL, NULL);}
+;
+
+Implement: InstructionList 
+	{ $$ = createNode(AT_IMPLEMENT, VAL_NOTYPE, 0, NULL, $1, NULL);}
+
+;
+
+HeadFunct: LP RP
+	{ $$ = createNode(AT_HEADFUNCT, VAL_NOTYPE, 0, NULL, NULL, NULL);}
+	| LP Decla RP
+	{ $$ = createNode(AT_HEADFUNCT, VAL_NOTYPE, 0, NULL, $2, NULL);}
 ;
 
 BlocDecla: REF Decla 
-	{ $$ = createNodeTree(AT_BLOCDECL, -1, NULL, VAL_NOTYPE, 0, $2, NULL, NULL); }
+	{ $$ = createNode(AT_BLOCDECLA, VAL_NOTYPE, 0, NULL, $2, NULL);}
 ;
 
-Decla: {$$ = NULL;}
-	| Declaration Decla
-	{ $$ = createNodeTree(AT_DECLA, -1, NULL, VAL_NOTYPE, 0, $1, NULL, $2); }
+Decla:  Var TYPE FIN 
+	{ $$ = createNode(AT_DECLA, $2, 0, NULL, NULL, $1);}
+	| Var TYPE FIN Decla
+	{ $$ = createNode(AT_DECLA, $2, 0, NULL, $4, $1);}
+	| Funct 
+	{ $$ = createNode(AT_DECLA, VAL_NOTYPE, 0, NULL, $1, NULL);}
+	| Funct Decla
+	{ $$ = createNode(AT_DECLA, VAL_NOTYPE, 0, NULL, $1, $2);}
 ;
 
-Declaration: TYPE listVar FIN
-	{ $$ = createNodeTree(AT_DECLARATION, -1, NULL, $1, 0, $2, NULL, NULL); }
+InstructionList : { $$ = NULL;}
+		| FIN 
+   	        { $$ = createNode(AT_INSTRUCTION, VAL_NOTYPE, 0, NULL, NULL, NULL);}
+                | Instruction FIN InstructionList
+                { $$ = createNode(AT_INSTRUCTION, VAL_NOTYPE, 0, NULL, $1, $3);}
 ;
 
-listVar: VAR
-	{ $$ = createNodeTree(AT_VAR, 1, $1, VAL_NOTYPE, 0, NULL, NULL,NULL);}
-	| VAR listVar
-	{ $$ = createNodeTree(AT_VAR, 1, $1, VAL_NOTYPE, 0, NULL, NULL,$2);}
+Instruction : ExprD
+              { $$ = createNode(AT_EXPRD, VAL_NOTYPE, 0, NULL, $1, NULL);}
+	      | Var AFFECT ExprD
+              { $$ = createNode(AT_AFFECT, VAL_NOTYPE, 0, NULL, $1, $3);}
+	      | READ ExprD
+	      { $$ = createNode(AT_READ, VAL_NOTYPE, 0, NULL, NULL, $2);}
+	      | WRITE ExprD
+	      { $$ = createNode(AT_WRITE, VAL_NOTYPE, 0, NULL, NULL, $2);}
+	      | RETURN ExprD
+	      { $$ = createNode(AT_RETURN, VAL_NOTYPE, 0, NULL, NULL, $2);}
+		
 ;
 
-Instruction: ExprD
-	{ $$ = createNodeTree(AT_EXPRD, -1, NULL, VAL_NOTYPE, 0, $1, NULL, NULL);}
-	|IF LP ExprD RP THEN InstructList FI
-	{ $$ = createNodeTree(AT_IF, -1, NULL, VAL_NOTYPE, 0, $3, $6, NULL);}
-	| IF LP ExprD RP THEN InstructList ELSE InstructList FI
-	{ $$ = createNodeTree(AT_IFELSE, -1, NULL, VAL_NOTYPE, 0, $3, $6, $8);}
-	| WHILE LP ExprD RP DO InstructList OD
-	{ $$ = createNodeTree(AT_WHILE, -1, NULL, VAL_NOTYPE, 0, $3, $6, NULL);}
-	| Var AFFECTG ExprD
-	{ $$ = createNodeTree(AT_AFFECTG, -1, NULL, VAL_NOTYPE, 0, $1, $3, NULL);}
-	| ExprD AFFECTD Var
-	{ $$ = createNodeTree(AT_AFFECTD, -1, NULL, VAL_NOTYPE, 0, $3, $1, NULL);}
-	| ExprD AFFECTD PRINT
-	{ $$ = createNodeTree(AT_PRINT, -1, NULL, VAL_NOTYPE, 0, $1, NULL, NULL);}
-	
-;
-
-InstructList: { $$ = NULL;}
-	| FIN
-	{ $$ = createNodeTree(AT_INSTRUCTION, -1, NULL, VAL_NOTYPE, 0, NULL, NULL, NULL);}
-	| Instruction FIN InstructList
-	{ $$ = createNodeTree(AT_INSTRUCTION, -1, NULL, VAL_NOTYPE, 0, $1, NULL, $3);}
-;
-
-ExprD: Var
-	{$$ = $1;}
-	| VAR LP appelArg RP
-	{$$ = createNodeTree(AT_APPELF, -1, $1, VAL_NOTYPE,0, $3, NULL, NULL);}
+// Expressions Droites 
+ExprD : Var  { $$ = $1;}
 	| NB
-	{$$ = createNodeTree(AT_NB, $1, NULL, VAL_INT,0, NULL, NULL, NULL);}
-	| ExprD PLUS ExprD
-	{$$ = createNodeTree(AT_PLUS,-1, NULL, VAL_INT,0, $1, NULL, $3);}
-	| ExprD MINUS ExprD
-	{$$ = createNodeTree(AT_MOINS, -1, NULL, VAL_INT,0, $1, NULL, $3);}
-	| MINUS ExprD
-	{$$ = createNodeTree(AT_NEG,-1,NULL,VAL_INT,0, NULL, NULL, $2);}
-	| ExprD TIMES ExprD
-	{$$ = createNodeTree(AT_FOIS, -1, NULL, VAL_INT,0, $1, NULL, $3);}
-	| ExprD DIVISE ExprD
-	{$$ = createNodeTree(AT_DIVISE, -1, NULL, VAL_INT,0, $1, NULL, $3);}
-	| ExprD MODULO ExprD
-	{$$ = createNodeTree(AT_MODULO, -1, NULL, VAL_INT,0, $1, NULL, $3);}
-	| BOOLEAN
-	{$$ = createNodeTree(AT_BOOL, $1, NULL, VAL_BOOL,0, NULL, NULL, NULL);}
-	| ExprD AND ExprD
-	{$$ = createNodeTree(AT_AND, -1, NULL, VAL_BOOL,0, $1, NULL, $3);}
-	| ExprD OR ExprD
-	{$$ = createNodeTree(AT_OR, -1, NULL, VAL_BOOL,0, $1, NULL, $3);}
-	| NOT ExprD
-	{$$ = createNodeTree(AT_NOT, -1, NULL, VAL_BOOL, 0, $2, NULL, NULL);}
-	| ExprD PPETIT ExprD
-	{$$ = createNodeTree(AT_PPETIT, -1, NULL, VAL_BOOL,0, $1, NULL, $3);}
-	| ExprD EGPETIT ExprD
-	{$$ = createNodeTree(AT_EGPETIT, -1, NULL, VAL_BOOL,0, $1, NULL, $3);}
-	| ExprD EGAL ExprD
-	{$$ = createNodeTree(AT_EGAL, -1, NULL, VAL_BOOL,0, $1, NULL, $3);}
-	| LP ExprD RP
-	{$$ = $2;}
-	| IN
-	{$$ = createNodeTree(AT_IN, -1, NULL, VAL_INT,0, NULL, NULL, NULL);}
-	| GET LP VAR COMMA ExprD COMMA ExprD RP
-	{$$ = createNodeTree(AT_GET, -1, $3, VAL_INT,0, $5, $7, NULL);}
+        { $$ = createNode(AT_NB, VAL_INT, yylval.ival, NULL, NULL, NULL);}
+   	| ExprD PLUS ExprD
+        { $$ = createNode(AT_PLUS, VAL_INT, 0, NULL, $1, $3);}
+   	| ExprD MINUS ExprD
+        { $$ = createNode(AT_MOINS, VAL_INT, 0, NULL, $1, $3);}
+   	| ExprD TIMES ExprD
+        { $$ = createNode(AT_FOIS, VAL_INT, 0, NULL, $1, $3);}
+   	| ExprD DIVISE ExprD
+        { $$ = createNode(AT_DIVISE, VAL_INT, 0, NULL, $1, $3);}
+   	| ExprD MODULO ExprD
+        { $$ = createNode(AT_MODULO, VAL_INT, 0, NULL, $1, $3);}
+   	| MINUS ExprD
+        { $$ = createNode(AT_NEG, VAL_INT, 0, NULL, NULL, $2);}
+        | BOOLEAN
+        { $$ = createNode(AT_BOOL, VAL_BOOL, yylval.ival, NULL, NULL, NULL);}
+   	| ExprD AND ExprD
+        { $$ = createNode(AT_AND, VAL_BOOL, 0, NULL, $1, $3);}
+   	| ExprD OR ExprD
+        { $$ = createNode(AT_OR, VAL_BOOL, 0, NULL, $1, $3);}
+   	| ExprD LT ExprD
+        { $$ = createNode(AT_LT, VAL_BOOL, 0, NULL, $1, $3);}
+   	| ExprD LE ExprD
+        { $$ = createNode(AT_LE, VAL_BOOL, 0, NULL, $1, $3);}
+   	| ExprD GT ExprD
+        { $$ = createNode(AT_GT, VAL_BOOL, 0, NULL, $1, $3);}
+   	| ExprD GE ExprD
+        { $$ = createNode(AT_GE, VAL_BOOL, 0, NULL, $1, $3);}
+   	| ExprD EQUAL ExprD
+        { $$ = createNode(AT_EQUAL, VAL_BOOL, 0, NULL, $1, $3);}
+   	| NOT ExprD
+        { $$ = createNode(AT_NOT, VAL_BOOL, 0, NULL, NULL, $2);}
+   	| LP ExprD RP
+        { $$ = $2;}
+
 ;
 
-appelArg: { $$ = NULL;}
-	|ExprD
-	{ $$ = createNodeTree(AT_APPELARG, -1, NULL, VAL_INT,0, $1, NULL, NULL);}
-	| ExprD COMMA appelArg
-	{ $$ = createNodeTree(AT_APPELARG, -1, NULL, VAL_INT,0, $1, NULL, $3);}
-;
 
-Var: VAR { $$ = createNodeTree(AT_VAR, -1, $1, VAL_NOTYPE, 1, NULL, NULL, NULL);}
+Var: VAR { $$ = createNode(AT_VAR, VAL_NOTYPE, 0, yylval.sval, NULL, NULL);}
+
 ;
 
 %%
@@ -158,5 +172,42 @@ int yyerror(char *str)
 }
 int main()
 { 
+SYMTABLE sym;
+
+printf("; *** Compiler ***\n");
+
+  printf(";\n");
+
+  printf(";*** BEGIN yyparse() ***\n");
+  yyparse();
+  printf(";*** END yyparse() ***\n");
+  
+  printf(";*** BEGIN printTree(..) ***\n");
+  printTree(root);
+  printf(";*** END printTree(..) ***\n");
+
+  printf(";*** BEGIN printTreeGraphViz(..) ***\n");
+  printTreeGraphViz(root);
+  printf(";*** END printTreeGraphViz(..) ***\n");
+
+  printf(";*** BEGIN SymbolTable ***\n");
+  sym = creaNode();
+  fillTable(root, sym, -1);
+  printSymbolTable(sym);
+  printf(";*** END SymbolTable ***\n");
+
+  printf(";*** BEGIN printSymbolTableGraphViz(..)  ***\n");
+  printSymbolTableGraphViz(sym);
+  printf(";*** END printSymbolTableGraphViz(..)  ***\n");
+
+
+ printf(";*** BEGIN Cleaning ***\n");
+  freeTree(root);
+  freeSymbolTable(sym);
+  printf(";*** END Cleaning ***\n");
+
+ fprintf(stderr,"OK\n");
+  
+  return 0;
  
 }
