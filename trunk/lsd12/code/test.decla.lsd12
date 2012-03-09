@@ -1,0 +1,16 @@
+program LSD;
+
+function main(): void;
+var
+	a bool;
+	b int;
+	c int;
+	ensA iset;
+	ensB iset;
+
+begin
+	c := 69;
+	        
+end;
+
+end;
