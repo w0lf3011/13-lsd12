@@ -1,2 +1,14 @@
 #To install Free Lex (Flex), Free Yacc (Bison) and Subversion (version control manager).
 apt-get install flex bison subversion
+
+#To compile a ".l" (.c file for Lex)
+lex lsd12.l
+
+#To excecute ".y" (.c file for Yacc) (d: produce a header file, t: debbug, y: emulate POSIX Yacc)
+bison -dty lsd12.y
+
+#To compile compilator
+gcc *.c
+
+#To excecute compilator (sample)
+./a.out
