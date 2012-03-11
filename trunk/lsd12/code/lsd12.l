@@ -2,7 +2,7 @@
  *
  * "{"{blank}* [A-Za-z]([A-Za-z]|[0-9])* {blank}*"}" {return COMMENT;} 
  *
- *  Lola haha
+ *  Lola haha ^^
  */
 
 %{
