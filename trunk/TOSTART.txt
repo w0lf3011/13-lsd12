@@ -10,5 +10,5 @@ bison -dty lsd12.y
 #To compile compilator
 gcc *.c
 
-#To excecute compilator (sample)
+#To excecute compilator (sample) :
 ./a.out
