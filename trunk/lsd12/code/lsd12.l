@@ -2,7 +2,7 @@
  *
  * "{"{blank}* [A-Za-z]([A-Za-z]|[0-9])* {blank}*"}" {return COMMENT;} 
  *
- *  Lola haha ^^
+ *  
  */
 
 %{
@@ -17,6 +17,7 @@ int num_lines=1;
 %}
 
 %option noyywrap
+%x comment
 
 var       [A-Za-z]([A-Za-z]|[0-9])*
 nbr       (0|[1-9][0-9]*)
@@ -25,6 +26,9 @@ blank     [ \t]+
 type	  ("int"|"bool"|"iset"|"void")
 
 %%
+
+"{" {BEGIN(comment);}
+<comment>"}" {BEGIN(INITIAL);}
 
 "program"	{return PROG;}
 
@@ -74,12 +78,9 @@ type	  ("int"|"bool"|"iset"|"void")
 "/"	{return DIVISE;}
 
 "#"	{return CARDINAL;}
-
-"{" 	{return COMMENTB;}	/* Commentaire start */
-"}" 	{return COMMENTE;}	/* Commentaire end */
-
 ";" 	{return FIN;}		/* End of instruction */
 
+"%".*\n {}
 
 {type} {
 	if(strcmp(yytext, "void")==0) 
