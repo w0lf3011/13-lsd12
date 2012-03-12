@@ -1,0 +1,12 @@
+program LSD;
+{ lol }
+function main(): void;
+var
+	c int;
+
+begin
+	c := 69;
+      
+end;
+
+end;
