@@ -129,8 +129,6 @@ ExprD : Var  { $$ = $1;}
         { $$ = createNode(AT_FOIS, VAL_INT, 0, NULL, $1, $3);}
    	| ExprD DIVISE ExprD
         { $$ = createNode(AT_DIVISE, VAL_INT, 0, NULL, $1, $3);}
-   	| ExprD MODULO ExprD
-        { $$ = createNode(AT_MODULO, VAL_INT, 0, NULL, $1, $3);}
    	| MINUS ExprD
         { $$ = createNode(AT_NEG, VAL_INT, 0, NULL, NULL, $2);}
         | BOOLEAN
@@ -181,25 +179,25 @@ printf("; *** Compiler ***\n");
   printf(";*** BEGIN yyparse() ***\n");
   yyparse();
   printf(";*** END yyparse() ***\n");
-  
+
   printf(";*** BEGIN printTree(..) ***\n");
   printTree(root);
   printf(";*** END printTree(..) ***\n");
-
+/*
   printf(";*** BEGIN printTreeGraphViz(..) ***\n");
   printTreeGraphViz(root);
   printf(";*** END printTreeGraphViz(..) ***\n");
-
+*/
   printf(";*** BEGIN SymbolTable ***\n");
   sym = creaNode();
   fillTable(root, sym, -1);
   printSymbolTable(sym);
   printf(";*** END SymbolTable ***\n");
-
+/*
   printf(";*** BEGIN printSymbolTableGraphViz(..)  ***\n");
   printSymbolTableGraphViz(sym);
   printf(";*** END printSymbolTableGraphViz(..)  ***\n");
-
+*/
 
  printf(";*** BEGIN Cleaning ***\n");
   freeTree(root);
