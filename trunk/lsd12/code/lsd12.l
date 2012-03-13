@@ -27,8 +27,17 @@ type	  ("int"|"bool"|"iset"|"void")
 
 %%
 
-"{" {BEGIN(comment);}
-<comment>"}" {BEGIN(INITIAL);}
+
+"{"	{BEGIN(comment);}
+<comment>"}"   {BEGIN(INITIAL);}
+<comment>"{"   {
+                  fprintf(stderr,"KO\n");
+                  printf("ERROR : invalid '%s' in line %d\n",yytext, num_lines);
+                  exit(0);
+                  }
+<comment>"\n"	{++num_lines;}
+<comment>.	{/*On passe*/}
+
 
 "program"	{return PROG;}
 
@@ -65,7 +74,6 @@ type	  ("int"|"bool"|"iset"|"void")
 "("     {return LP;}
 ")"     {return RP;}
 ","     {return COMMA;}
-"mod"   {return MODULO;}
 "!"	{return NOT;}
 "="	{return EQUAL;}
 ":"	{return TWOPOINT;}
@@ -80,7 +88,7 @@ type	  ("int"|"bool"|"iset"|"void")
 "#"	{return CARDINAL;}
 ";" 	{return FIN;}		/* End of instruction */
 
-"%".*\n {}
+
 
 {type} {
 	if(strcmp(yytext, "void")==0) 

@@ -1,11 +1,20 @@
 program LSD;
-{ test commentaire }
+{ lol }
 function main(): void;
 var
+	a int;
+	b int;
 	c int;
 
 begin
-	c := 69;
+{
+
+lol
+
+}
+	toto;
+	read x;
+	c := a=b;
       
 end;
 
