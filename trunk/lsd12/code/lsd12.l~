@@ -27,7 +27,7 @@ type	  ("int"|"bool"|"iset"|"void")
 
 %%
 
-/* Gestion des commentaires -> a revoir */
+
 "{"	{BEGIN(comment);}
 <comment>"}"   {BEGIN(INITIAL);}
 <comment>"{"   {
@@ -37,7 +37,7 @@ type	  ("int"|"bool"|"iset"|"void")
                   }
 <comment>"\n"	{++num_lines;}
 <comment>.	{/*On passe*/}
-/* FIN Gestion des commentaires */
+
 
 "program"	{return PROG;}
 

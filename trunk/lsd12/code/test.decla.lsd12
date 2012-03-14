@@ -5,6 +5,7 @@ var
 	a int;
 	b int;
 	c int;
+	equal bool;
 
 begin
 {
@@ -12,9 +13,33 @@ begin
 lol
 
 }
+	a := -1;
 	toto;
 	read x;
 	c := a=b;
+	a||b;
+	c&&d;
+	!c;
+	write x;
+	return y;
+	1||1;
+        a<b;
+	a<=b;
+	a;
+	true;
+	false;
+	1/1;
+	1+1;
+	1-1;
+	1*1;
+	1;
+	read 1;
+	read a;
+	write a;
+	write 1;
+	return 1;
+	return a;
+
       
 end;
 
