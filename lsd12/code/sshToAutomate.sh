@@ -6,7 +6,7 @@ fi
 
 if [ "$1" == "xpereman" ]; then
 
-ssh -L 12345:concours.info.fundp.ac.be:80 xpereman@sunset.info.fundp.ac.be
+ssh -L 12345:concours.info.fundp.ac.be:80 xpereman@backus.info.fundp.ac.be
 
 else
 
