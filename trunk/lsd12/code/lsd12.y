@@ -8,6 +8,7 @@
 
 #include "ast.h"
 #include "sym.h"
+#include "check.h"
 // #include "pcode.h"
 
 extern int num_lines;
