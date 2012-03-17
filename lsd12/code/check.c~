@@ -151,7 +151,7 @@ int checkType(ASTTREE tree, int type, SYMTABLE tds)
 			case AT_VAR : 
 						printf(";---GPS = tree_id : %d AT_VAR ;---\n", tree->id);
 						node = alreadyIsSymbol(tds, tree->sval, 3); 
-						printf("-- %s -- ", node->id);
+						//printf("-- %s -- ", node->id);
 						if(node != NULL) // si variable existe
 						{
 							if(node->varType == type)
