@@ -159,6 +159,7 @@ int checkType(ASTTREE tree, int type, SYMTABLE tds)
 							{
 								printf("OK %d \n", type);
 								return type;
+								printf("OK %d \n", type);
 							}else{
 								printf(";ATTENTION ERREUR TYPE ! %d - %d \n", node->varType, type);
 								return KO;
