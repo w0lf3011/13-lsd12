@@ -5,7 +5,8 @@ var
 	a int;
 	b int;
 	c int;
-	equal bool;
+	d bool;
+	e bool;
 
 begin
 {
@@ -13,32 +14,15 @@ begin
 lol
 
 }
-	toto;
-	read x;
-	c := a=b;
-	a||b;
-	c&&d;
-	!c;
-	write x;
-	return y;
-	1||1;
-        a<b;
-	a<=b;
-	a;
-	true;
-	false;
-	1/1;
-	1+1;
-	1-1;
-	1*1;
-	1;
-	read 1;
-	read a;
-	write a;
 	write 1;
-	return 1;
-	return a;
-
+	a := 1;
+	b := 2;
+	c := 3;
+	d := false;
+	e := true;
+	
+	a := a + b; { 3 }
+	d := d || e; { true }
       
 end;
 

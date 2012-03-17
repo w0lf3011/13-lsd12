@@ -184,11 +184,27 @@ printf("; *** Compiler ***\n");
   printf(";*** BEGIN printTree(..) ***\n");
   printTree(root);
   printf(";*** END printTree(..) ***\n");
-/*
+
   printf(";*** BEGIN printTreeGraphViz(..) ***\n");
   printTreeGraphViz(root);
   printf(";*** END printTreeGraphViz(..) ***\n");
-*/
+
+printf(";*** BEGIN SymbolTable ***\n");
+  sym = creaNode();
+  fillTable(root, sym, -1);
+  printSymbolTable(sym);
+  printf(";*** END SymbolTable ***\n");
+
+printf("; * Verification de la specification LSD12 :\n");
+	if (check(root,sym) != 1)
+	{
+		freeTree(root);
+		freeSymbolTable(sym);
+		fprintf(stderr,"KO\n");
+		exit(1);
+	}
+  printf("; * Fin de la verification de la specification LSD12!\n");
+
 printf(";*** BEGIN SymbolTable ***\n");
   sym = creaNode();
   fillTable(root, sym, -1);
@@ -210,11 +226,11 @@ printf("; * Verification de la specification LSD12 :\n");
   fillTable(root, sym, -1);
   printSymbolTable(sym);
   printf(";*** END SymbolTable ***\n");
-/*
+
   printf(";*** BEGIN printSymbolTableGraphViz(..)  ***\n");
   printSymbolTableGraphViz(sym);
   printf(";*** END printSymbolTableGraphViz(..)  ***\n");
-*/
+
 
  printf(";*** BEGIN Cleaning ***\n");
   freeTree(root);
