@@ -14,7 +14,7 @@ struct SYMBOLETABLE {
 
 	char * id; // Nom variable
 	int address; // Position de la variable en mémoire
-	int varType; // Type de variable : entier, boolean, matrix
+	int varType; // Type de variable : entier, boolean
 	int levelNode; // Niveau d'imbrication
 	int state; // Etat : D = {variable,function,argument} : 0 variable, 1 function, 2 argument, 3 D\{function}
 	int ref; // arg par copie ou pas

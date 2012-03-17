@@ -23,8 +23,9 @@ lol
 	e := true;
 	
 	a := a + b; { 3 }
-	f := d || e; { true }
-      
+	f := d || e; 
+	a := a + a; { 3 }
+
 end;
 
 end;
