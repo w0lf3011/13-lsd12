@@ -205,21 +205,6 @@ printf("; * Verification de la specification LSD12 :\n");
 	}
   printf("; * Fin de la verification de la specification LSD12!\n");
 
-printf(";*** BEGIN SymbolTable ***\n");
-  sym = creaNode();
-  fillTable(root, sym, -1);
-  printSymbolTable(sym);
-  printf(";*** END SymbolTable ***\n");
-
-printf("; * Verification de la specification LSD12 :\n");
-	if (check(root,sym) != 1)
-	{
-		freeTree(root);
-		freeSymbolTable(sym);
-		fprintf(stderr,"KO\n");
-		exit(1);
-	}
-  printf("; * Fin de la verification de la specification LSD12!\n");
 
   printf(";*** BEGIN SymbolTable ***\n");
   sym = creaNode();
