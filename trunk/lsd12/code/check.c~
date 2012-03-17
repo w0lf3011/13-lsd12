@@ -9,10 +9,10 @@ int check(ASTTREE tree, SYMTABLE tds)
 	SYMTABLE node; 
 	int type;
     	if (tds == NULL) { 
-		printf("; Tds Empty");
+		printf("; Tds Empty \n");
 		return KO; }
 	if (tree == NULL) {
-		printf("; Tree Empty");
+		printf("; Tree Empty \n");
 		return KO; }
 	else{
 		switch (tree->id)
@@ -68,15 +68,17 @@ int check(ASTTREE tree, SYMTABLE tds)
 				break;
 			
 			case AT_DECLA : 
-				if(tree->right != NULL) {
-					printf(";---GPS = tree_id : %d AT_DECLA RIGHT ;---\n", tree->id);
+				if(tree->right != NULL && tree->left != NULL) {
+					printf(";---GPS = tree_id : %d AT_DECLA RIGHT->LEFT ;---\n", tree->id);
 					type = tree->type;
 					return checkType(tree->right, type, tds) && check(tree->left, tds);
 				}
-				if(tree->left != NULL) {
-					printf(";---GPS = tree_id : %d AT_DECLA LEFT ;---\n", tree->id);
-					return check(tree->left, tds);
+				if(tree->right != NULL && tree->left == NULL) {
+					printf(";---GPS = tree_id : %d AT_DECLA RIGHT ;---\n", tree->id);
+					type = tree->type;
+					return checkType(tree->right, type, tds);
 				}
+				
 				break;			
 
 			case AT_INSTRUCTION : 
@@ -149,6 +151,7 @@ int checkType(ASTTREE tree, int type, SYMTABLE tds)
 			case AT_VAR : 
 						printf(";---GPS = tree_id : %d AT_VAR ;---\n", tree->id);
 						node = alreadyIsSymbol(tds, tree->sval, 3); 
+						printf("-- %s -- ", node->id);
 						if(node != NULL) // si variable existe
 						{
 							if(node->varType == type)
