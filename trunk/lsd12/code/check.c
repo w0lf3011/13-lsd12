@@ -40,13 +40,9 @@ int check(ASTTREE tree, SYMTABLE tds)
 				}
 				break; 
 			case AT_CORPS : 
-				if(tree->left != NULL) {
+				if(tree->left != NULL && tree->right != NULL) {
 					printf(";---GPS = tree_id : %d AT_CORPS LEFT ;---\n", tree->id);
-					return (check(tree->left, tds));
-				}
-				if(tree->right != NULL) {
-					printf(";---GPS = tree_id : %d AT_CORPS RIGHT ;---\n", tree->id);
-					return (check(tree->right, tds));
+					return check(tree->left, tds) && check(tree->right, tds);
 				}
 				break;
 			case AT_IMPLEMENT : 
