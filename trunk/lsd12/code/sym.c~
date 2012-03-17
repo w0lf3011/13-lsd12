@@ -63,8 +63,8 @@ SYMTABLE checkSymbolLevel(SYMTABLE s, char* name, int state)
 {
  	SYMTABLE retour = NULL;
  	if(s != NULL)
-	{
- 		if(strcmp(s->id,name) != 0)
+	{	
+		if(strcmp(s->id,name) != 0)
 		{
  			return checkSymbolLevel(s->previous, name,state);
  		}
@@ -144,7 +144,7 @@ SYMTABLE addToSymbolTable(SYMTABLE s, char* name, int state, int type)
 		 	s->id = name;
 		 	s->varType = type;
 			s->state = state;
-			printf("YO -- %s - %d - %d -- YO", s->id, s->varType, s->state);
+			
 
 			// Specifie son level
 		 	if(s->up == NULL)

@@ -63,8 +63,8 @@ SYMTABLE checkSymbolLevel(SYMTABLE s, char* name, int state)
 {
  	SYMTABLE retour = NULL;
  	if(s != NULL)
-	{
- 		if(strcmp(s->id,name) != 0)
+	{	
+		if(strcmp(s->id,name) != 0)
 		{
  			return checkSymbolLevel(s->previous, name,state);
  		}
@@ -265,9 +265,9 @@ int fillTable(ASTTREE tree, SYMTABLE s, int currentType)
 		
 			switch(tree->type) // sauve le type pour les prochaines variables déclarées avant le ";"
 			{ 
-				case VAL_INT: type = 1;  break;
-				case VAL_BOOL: type = 2; break;
-				case VAL_ENS: type = 3; break;
+				case VAL_INT: type = 2;  break;
+				case VAL_BOOL: type = 3; break;
+				case VAL_ENS: type = 4; break;
 			}
 		}
 
