@@ -58,8 +58,8 @@ ASTTREE root;
 
 %%
 
-Lsd12: PROG Var FIN Funct END FIN
-	{ root = createNode(AT_ROOT, VAL_NOTYPE, 0, NULL, $4, $2);}
+Lsd12: PROG VAR FIN Funct END FIN
+	{ root = createNode(AT_ROOT, VAL_NOTYPE, 0, $2, $4, NULL);}
 ;
 
 Funct: FUNCTION VAR HeadFunct TWOPOINT TYPE FIN Corps
@@ -189,6 +189,22 @@ printf("; *** Compiler ***\n");
   printTreeGraphViz(root);
   printf(";*** END printTreeGraphViz(..) ***\n");
 */
+printf(";*** BEGIN SymbolTable ***\n");
+  sym = creaNode();
+  fillTable(root, sym, -1);
+  printSymbolTable(sym);
+  printf(";*** END SymbolTable ***\n");
+
+printf("; * Verification de la specification LSD12 :\n");
+	if (check(root,sym) != 1)
+	{
+		freeTree(root);
+		freeSymbolTable(sym);
+		fprintf(stderr,"KO\n");
+		exit(1);
+	}
+  printf("; * Fin de la verification de la specification LSD12!\n");
+
   printf(";*** BEGIN SymbolTable ***\n");
   sym = creaNode();
   fillTable(root, sym, -1);
