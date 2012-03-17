@@ -78,28 +78,23 @@ int check(ASTTREE tree, SYMTABLE tds)
 				break;			
 
 			case AT_INSTRUCTION : 
-				if(tree->right != NULL) {
+				if(tree->right != NULL && tree->left != NULL) {
 					printf(";---GPS = tree_id : %d AT_INSTRUCTION RIGHT ;---\n", tree->id);
-					return (check(tree->right, tds));
+					return check(tree->right, tds) && check(tree->left, tds);
 				}
-				if(tree->left != NULL) {
+				if(tree->right == NULL && tree->left != NULL) {
 					printf(";---GPS = tree_id : %d AT_INSTRUCTION LEFT ;---\n", tree->id);
-					return (check(tree->left, tds));
+					return check(tree->left, tds);
 				}
 				break;
 			case AT_AFFECT : 
-				if(tree->right != NULL) {
+				if(tree->right != NULL && tree->left != NULL) {
 					printf(";---GPS = tree_id : %d AT_AFFECT RIGHT ;---\n", tree->id);
 					type = tree->right->type;
-					return checkType(tree->right, type, tds);
+					return checkType(tree->right, type, tds) && checkType(tree->left, type, tds);
 					
 				}
-				if(tree->left != NULL) {
-					printf(";---GPS = tree_id : %d AT_AFFECT LEFT ;---\n", tree->id);
-					//return (check(tree->left, tds));
-					type = tds->varType;
-					return checkType(tree->left, type, tds);
-				}
+				
 				break;
 			case AT_EXPRD :  
 				if(tree->right != NULL) {
@@ -114,13 +109,16 @@ int check(ASTTREE tree, SYMTABLE tds)
 
 			case AT_WRITE : 
 				if(tree->right != NULL) {
-					return (check(tree->right, tds));
+					printf(";---GPS = tree_id : %d AT_WRITE RIGHT ;---\n", tree->id);
+					type = tree->right->type;
+					return checkType(tree->right, type, tds);
+					
 				}
 				break;
 	
 			case AT_RETURN : 
 				if(tree->right != NULL) {
-					return (check(tree->right, tds));
+					return check(tree->right, tds);
 				}						
 				break;	
 
