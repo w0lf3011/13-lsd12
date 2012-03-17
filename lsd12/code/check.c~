@@ -9,7 +9,7 @@ int check(ASTTREE tree, SYMTABLE tds)
 	SYMTABLE node; 
 	int type;
     	if (tds == NULL) { 
-		printf("; Tree Empty");
+		printf("; Tds Empty");
 		return KO; }
 	if (tree == NULL) {
 		printf("; Tree Empty");
@@ -30,13 +30,9 @@ int check(ASTTREE tree, SYMTABLE tds)
 				
 				if(node != NULL)
 				{
-					if(tree->left != NULL) {
-						printf(";---GPS = tree_id : %d AT_FUNCT LEFT ;---\n", tree->id);
-						return (check(tree->left, node->down)); //tds
-					}
-					if(tree->right != NULL) {
-						printf(";---GPS = tree_id : %d AT_FUNCT RIGHT ;---\n", tree->id);
-						return (check(tree->right, node->down)); //tds
+					if(tree->left != NULL && tree->right != NULL) {
+						printf(";---GPS = tree_id : %d AT_FUNCT LEFT & RIGHT ;---\n", tree->id);
+						return check(tree->left, node->down) && check(tree->right, node->down); //tds
 					}
 				}else {
 					printf(";ERROR : la fonction main est inexistante \n");
@@ -75,11 +71,11 @@ int check(ASTTREE tree, SYMTABLE tds)
 				if(tree->right != NULL) {
 					printf(";---GPS = tree_id : %d AT_DECLA RIGHT ;---\n", tree->id);
 					type = tree->type;
-					return checkType(tree->right, type, tds);
+					return checkType(tree->right, type, tds) && check(tree->left, tds);
 				}
 				if(tree->left != NULL) {
 					printf(";---GPS = tree_id : %d AT_DECLA LEFT ;---\n", tree->id);
-					return (check(tree->left, tds));
+					return check(tree->left, tds);
 				}
 				break;			
 
@@ -157,8 +153,8 @@ int checkType(ASTTREE tree, int type, SYMTABLE tds)
 						{
 							if(node->varType == type)
 							{
-								printf("OK %d \n", type);
 								return type;
+								
 							}else{
 								printf(";ATTENTION ERREUR TYPE ! %d - %d \n", node->varType, type);
 								return KO;
