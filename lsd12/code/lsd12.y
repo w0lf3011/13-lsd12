@@ -226,5 +226,5 @@ printf("; * Verification de la specification LSD12 :\n");
  fprintf(stderr,"OK\n");
   
   return 0;
- 
+
 }

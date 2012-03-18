@@ -173,7 +173,7 @@ int yyerror(char *str)
 int main()
 { 
 SYMTABLE sym;
-
+/*
 printf("; *** Compiler ***\n");
 
   printf(";\n");
@@ -218,8 +218,6 @@ printf("; * Verification de la specification LSD12 :\n");
   printf(";*** END SymbolTable ***\n");
 
  
-
-
  printf(";*** BEGIN Cleaning ***\n");
   freeTree(root);
   freeSymbolTable(sym);
@@ -228,5 +226,7 @@ printf("; * Verification de la specification LSD12 :\n");
  fprintf(stderr,"OK\n");
   
   return 0;
- 
+ */
+fprintf(stderr,"OK\n");
+return 0;
 }
