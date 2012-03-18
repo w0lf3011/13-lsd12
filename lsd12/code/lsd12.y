@@ -104,6 +104,8 @@ Decla:  Var TYPE FIN
 InstructionList : { $$ = NULL;}
 		| FIN 
    	        { $$ = createNode(AT_INSTRUCTION, VAL_NOTYPE, 0, NULL, NULL, NULL);}
+		| FIN Instruction FIN InstructionList
+   	        { $$ = createNode(AT_INSTRUCTION, VAL_NOTYPE, 0, NULL, $2, $4);}
                 | Instruction FIN InstructionList
                 { $$ = createNode(AT_INSTRUCTION, VAL_NOTYPE, 0, NULL, $1, $3);}
 ;
@@ -216,8 +218,6 @@ printf("; * Verification de la specification LSD12 :\n");
   printf(";*** END SymbolTable ***\n");
 
  
-
-
  printf(";*** BEGIN Cleaning ***\n");
   freeTree(root);
   freeSymbolTable(sym);

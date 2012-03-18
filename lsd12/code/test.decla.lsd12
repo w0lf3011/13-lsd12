@@ -15,10 +15,10 @@ var
 begin
 {
 
-lol
-
+test vc begin vide
+ test avec --1;
 }
-	
+	;
 	a := -1;
 	b := 2;
 	c := 3;
@@ -27,34 +27,48 @@ lol
 	a := 1 + b; 
 	a := a + b;
 	a := (a + b); 
+	b := a * - 1;
 	b := a * b; 
 	a := a - b; 
 	b := a / b; 
 	f := d || e; 
 	f := (d || e);
 	f := d && e;
-	f := d < e;
-	f := d <= e;
-	f := d = e;
+	f := a < 1;
+	f := b = c;
+	f := a <= b;
 	f := !e;
 	-2;
+	--2;
 	1;
+	(1);
 	!e;
 	1/1;
 	a+a;
-	(a+a);
+	-(a+a);
 	true;
+	false;
 	(true);
 	true||false;
 	(true||false);
+	!(true||false);
 	a := b;
 	a := a;
 	write 1;
+	write (1+1);
 	write a;
-{	write e;}
 	read a;
-{	read e;}
-	
+	read 2;
+	return x; { hum...}
+	!(a = 1); 
+
+{	f := d < e;
+	!(f = 1);
+	write e;
+	read e;
+	!1;
+}
+
 end;
 
 end;
