@@ -25,8 +25,8 @@ int check(ASTTREE tree, SYMTABLE tds)
 				break;
 
 			
-			case AT_FUNCT : 
-				if (strcmp(tree->sval, "main") == 0) {
+			case AT_FUNCT : // Attention gérer le type retour de main -> TJ void
+				//if (strcmp(tree->sval, "main") == 0) {
 					node = alreadyIsSymbol(tds, tree->sval, 1);
 					if(node != NULL)
 					{
@@ -38,9 +38,9 @@ int check(ASTTREE tree, SYMTABLE tds)
 						printf(";ERROR : la fonction main est inexistante \n");
 						return KO;
 					}
-				} else {
+				/*} else {
 					return KO; // pas de gestion des fonctions pr le moment
-				}
+				}*/
 				break; 
 			case AT_HEADFUNCT : 
 				if(tree->left != NULL) {
@@ -128,7 +128,7 @@ int check(ASTTREE tree, SYMTABLE tds)
 							break;
 						
 						case VAL_BOOL : 
-						//	printf(";--type : %d --\n", checkType(tree->right,VAL_BOOL,tds));	
+							//printf(";--type : %d --\n", checkType(tree->right,VAL_BOOL,tds));	
 							if(checkType(tree->right,VAL_BOOL,tds)==3)
 							{
 								
@@ -425,7 +425,7 @@ int checkType(ASTTREE tree, int type, SYMTABLE tds)
 							printf(";Erreur de typage pour opération '='\n");
 							return KO;
 						}else{
-								if(checkType(tree->left, VAL_INT, tds)==2 && checkType(tree->right,VAL_INT, tds)==2)
+								if(checkType(tree->left, VAL_BOOL, tds)==3 && checkType(tree->right,VAL_BOOL, tds)==3)
 								{ 
 									return VAL_BOOL;
 								}else{
