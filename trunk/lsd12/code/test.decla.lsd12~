@@ -10,6 +10,7 @@ var
 	d bool;
 	e bool;
 	f bool;
+	g int;
 	
 
 begin
@@ -19,11 +20,13 @@ test vc begin vide
  test avec --1;
 }
 	;
-	a := -1;
+	a := -1; b := 2;
 	b := 2;
 	c := 3;
 	d := false;
 	e := true;
+	f := ((!(a=(3*5))))&&true)||(b<=a);
+	g := b + 3 * 5 -1 /2;
 	a := 1 + b; 
 	a := a + b;
 	a := (a + b); 
@@ -36,6 +39,7 @@ test vc begin vide
 	f := d && e;
 	f := a < 1;
 	f := b = c;
+	f := (b = c);
 	f := a <= b;
 	f := !e;
 	-2;
@@ -55,14 +59,15 @@ test vc begin vide
 	a := b;
 	a := a;
 	write 1;
-	write 1+1;
+	write (1+1);
 	write a;
 	read a;
 	read 2;
 	return x; { hum...}
 	!(a = 1); 
 
-{	f := d < e;
+{	BAD TEST !!!	
+	f := d < e;
 	!(f = 1);
 	write e;
 	read e;
