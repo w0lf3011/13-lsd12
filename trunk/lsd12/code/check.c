@@ -192,12 +192,12 @@ int check(ASTTREE tree, SYMTABLE tds)
 				
 				break;
 			case AT_RETURN : 
-				if(tree->right != NULL) {
+				/*if(tree->right != NULL) {
 					printf(";---GPS = tree_id : %d AT_RETURN RIGHT ;---\n", tree->id);
 					type = tree->right->type;
 					return checkType(tree->right, type, tds);
 					
-				}						
+				}*/ return OK;						
 				break;	
 
 			default :
@@ -389,7 +389,7 @@ int checkType(ASTTREE tree, int type, SYMTABLE tds)
 							printf(";Erreur de typage pour opération '<'\n");
 							return KO;
 						}else{
-								if(checkType(tree->left, VAL_BOOL, tds)==3 && checkType(tree->right,VAL_BOOL, tds)==3)
+								if(checkType(tree->left, VAL_INT, tds)==2 && checkType(tree->right,VAL_INT, tds)==2)
 								{ 
 									return VAL_BOOL;
 								}else{
@@ -407,7 +407,7 @@ int checkType(ASTTREE tree, int type, SYMTABLE tds)
 							printf(";Erreur de typage pour opération '<='\n");
 							return KO;
 						}else{
-								if(checkType(tree->left, VAL_BOOL, tds)==3 && checkType(tree->right,VAL_BOOL, tds)==3)
+								if(checkType(tree->left, VAL_INT, tds)==2 && checkType(tree->right,VAL_INT, tds)==2)
 								{ 
 									return VAL_BOOL;
 								}else{
@@ -425,7 +425,7 @@ int checkType(ASTTREE tree, int type, SYMTABLE tds)
 							printf(";Erreur de typage pour opération '='\n");
 							return KO;
 						}else{
-								if(checkType(tree->left, VAL_BOOL, tds)==3 && checkType(tree->right,VAL_BOOL, tds)==3)
+								if(checkType(tree->left, VAL_INT, tds)==2 && checkType(tree->right,VAL_INT, tds)==2)
 								{ 
 									return VAL_BOOL;
 								}else{

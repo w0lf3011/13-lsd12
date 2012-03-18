@@ -104,6 +104,8 @@ Decla:  Var TYPE FIN
 InstructionList : { $$ = NULL;}
 		| FIN 
    	        { $$ = createNode(AT_INSTRUCTION, VAL_NOTYPE, 0, NULL, NULL, NULL);}
+		| FIN Instruction FIN InstructionList
+   	        { $$ = createNode(AT_INSTRUCTION, VAL_NOTYPE, 0, NULL, $2, $4);}
                 | Instruction FIN InstructionList
                 { $$ = createNode(AT_INSTRUCTION, VAL_NOTYPE, 0, NULL, $1, $3);}
 ;
@@ -145,11 +147,7 @@ ExprD : Var  { $$ = $1;}
         { $$ = createNode(AT_LT, VAL_BOOL, 0, NULL, $1, $3);}
    	| ExprD LE ExprD
         { $$ = createNode(AT_LE, VAL_BOOL, 0, NULL, $1, $3);}
-   	| ExprD GT ExprD
-        { $$ = createNode(AT_GT, VAL_BOOL, 0, NULL, $1, $3);}
-   	| ExprD GE ExprD
-        { $$ = createNode(AT_GE, VAL_BOOL, 0, NULL, $1, $3);}
-   	| ExprD EQUAL ExprD
+    	| ExprD EQUAL ExprD
         { $$ = createNode(AT_EQUAL, VAL_BOOL, 0, NULL, $1, $3);}
    	| NOT ExprD
         { $$ = createNode(AT_NOT, VAL_BOOL, 0, NULL, NULL, $2);}
