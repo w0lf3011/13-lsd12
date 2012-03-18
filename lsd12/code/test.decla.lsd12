@@ -15,17 +15,33 @@ begin
 lol
 
 }
-	write 1;
-	a := 1;
+	
+	a := -1;
 	b := 2;
 	c := 3;
 	d := false;
 	e := true;
-	
 	a := a + b; { 3 }
+	a := (a + b); { 3 }
+	b := a * b; { 3 }
+	a := a - b; { 3 }
+	b := a / b; { 3 }
 	f := d || e; 
-	a := a + a; { 3 }
-
+	f := (d || e);
+	f := d && e;
+	f := d < e;
+	f := d <= e;
+	f := !e;
+	!e;
+	1/1;
+	a+a;
+	true||false;
+	a := b;
+	a := a;
+	write 1;
+	write a;
+	read a;
+	
 end;
 
 end;

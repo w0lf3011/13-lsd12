@@ -1,7 +1,3 @@
-- Passer ival dans noeud arbre
-- Gérer commentaire
-
-----
 - voir fonction "main()"
 - verifier nom fonction identique
-- jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+- 
