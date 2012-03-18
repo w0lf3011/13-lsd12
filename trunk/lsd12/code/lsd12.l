@@ -77,9 +77,7 @@ type	  ("int"|"bool"|"iset"|"void")
 "="	{return EQUAL;}
 ":"	{return TWOPOINT;}
 "<"	{return LT;}
-">"	{return GT;}
 "<="	{return LE;}
-">="	{return GE;}
 "&&"	{return AND;}
 "||"	{return OR;}
 "/"	{return DIVISE;}

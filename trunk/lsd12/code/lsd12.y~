@@ -32,7 +32,7 @@ ASTTREE root;
 
 %token PRINT READ WRITE 
 
-%token MODULO PLUS MINUS TIMES ADD AND NOT LT GT EQUAL OR LE GE
+%token MODULO PLUS MINUS TIMES ADD AND NOT LT EQUAL OR LE 
 
 %token TO FUNCTION REF REMOVE FROM PROG FORWARD 
 
@@ -63,7 +63,7 @@ Lsd12: PROG VAR FIN Funct END FIN
 ;
 
 Funct: FUNCTION VAR HeadFunct TWOPOINT TYPE FIN Corps
-	{ $$ = createNode(AT_FUNCT, VAL_NOTYPE, 0, $2, $7, $3);}
+	{ $$ = createNode(AT_FUNCT, $5, 0, $2, $7, $3);}
 
 ;
 
@@ -73,8 +73,7 @@ Corps: BlocDecla BEG Implement END FIN
 	{ $$ = createNode(AT_FORWARD, VAL_NOTYPE, 0, NULL, NULL, NULL);}
 ;
 
-Implement: { $$ = NULL;}
-	| InstructionList 
+Implement: InstructionList 
 	{ $$ = createNode(AT_IMPLEMENT, VAL_NOTYPE, 0, NULL, $1, NULL);}
 
 ;

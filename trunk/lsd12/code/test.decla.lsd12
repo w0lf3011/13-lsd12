@@ -1,8 +1,8 @@
-program LSD;
-{ lol }
-function main(): void;
-var 
+program LSD12;
 
+function main(): void; { TJ VOID }
+var 
+{ test vc VAR vide; }
 
 	a int;
 	b int;
@@ -32,16 +32,21 @@ lol
 	b := a / b; 
 	f := d || e; 
 	f := (d || e);
-	f := (d || e);
 	f := d && e;
 	f := d < e;
 	f := d <= e;
+	f := d = e;
 	f := !e;
+	-2;
+	1;
 	!e;
 	1/1;
 	a+a;
+	(a+a);
 	true;
+	(true);
 	true||false;
+	(true||false);
 	a := b;
 	a := a;
 	write 1;

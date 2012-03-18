@@ -32,7 +32,7 @@ ASTTREE root;
 
 %token PRINT READ WRITE 
 
-%token MODULO PLUS MINUS TIMES ADD AND NOT LT GT EQUAL OR LE GE
+%token MODULO PLUS MINUS TIMES ADD AND NOT LT EQUAL OR LE 
 
 %token TO FUNCTION REF REMOVE FROM PROG FORWARD 
 
@@ -63,7 +63,7 @@ Lsd12: PROG VAR FIN Funct END FIN
 ;
 
 Funct: FUNCTION VAR HeadFunct TWOPOINT TYPE FIN Corps
-	{ $$ = createNode(AT_FUNCT, VAL_NOTYPE, 0, $2, $7, $3);}
+	{ $$ = createNode(AT_FUNCT, $5, 0, $2, $7, $3);}
 
 ;
 
@@ -145,11 +145,7 @@ ExprD : Var  { $$ = $1;}
         { $$ = createNode(AT_LT, VAL_BOOL, 0, NULL, $1, $3);}
    	| ExprD LE ExprD
         { $$ = createNode(AT_LE, VAL_BOOL, 0, NULL, $1, $3);}
-   	| ExprD GT ExprD
-        { $$ = createNode(AT_GT, VAL_BOOL, 0, NULL, $1, $3);}
-   	| ExprD GE ExprD
-        { $$ = createNode(AT_GE, VAL_BOOL, 0, NULL, $1, $3);}
-   	| ExprD EQUAL ExprD
+    	| ExprD EQUAL ExprD
         { $$ = createNode(AT_EQUAL, VAL_BOOL, 0, NULL, $1, $3);}
    	| NOT ExprD
         { $$ = createNode(AT_NOT, VAL_BOOL, 0, NULL, NULL, $2);}
