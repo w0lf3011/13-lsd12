@@ -1,13 +1,16 @@
 program LSD;
 { lol }
 function main(): void;
-var
+var 
+
+
 	a int;
 	b int;
 	c int;
 	d bool;
 	e bool;
 	f bool;
+	
 
 begin
 {
@@ -21,12 +24,14 @@ lol
 	c := 3;
 	d := false;
 	e := true;
-	a := a + b; { 3 }
-	a := (a + b); { 3 }
-	b := a * b; { 3 }
-	a := a - b; { 3 }
-	b := a / b; { 3 }
+	a := 1 + b; 
+	a := a + b;
+	a := (a + b); 
+	b := a * b; 
+	a := a - b; 
+	b := a / b; 
 	f := d || e; 
+	f := (d || e);
 	f := (d || e);
 	f := d && e;
 	f := d < e;
@@ -35,12 +40,15 @@ lol
 	!e;
 	1/1;
 	a+a;
+	true;
 	true||false;
 	a := b;
 	a := a;
 	write 1;
 	write a;
+{	write e;}
 	read a;
+{	read e;}
 	
 end;
 
