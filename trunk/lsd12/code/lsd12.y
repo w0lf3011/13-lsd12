@@ -86,6 +86,9 @@ HeadFunct: LP RP
 
 BlocDecla: REF Decla 
 	{ $$ = createNode(AT_BLOCDECLA, VAL_NOTYPE, 0, NULL, $2, NULL);}
+	| REF  
+	{ $$ = createNode(AT_BLOCDECLA, VAL_NOTYPE, 0, NULL, NULL, NULL);}
+
 ;
 
 Decla:  Var TYPE FIN 
@@ -134,7 +137,7 @@ ExprD : Var  { $$ = $1;}
         { $$ = createNode(AT_NEG, VAL_INT, 0, NULL, NULL, $2);}
         | BOOLEAN
         { $$ = createNode(AT_BOOL, VAL_BOOL, yylval.ival, NULL, NULL, NULL);}
-   	| ExprD AND ExprD
+	| ExprD AND ExprD
         { $$ = createNode(AT_AND, VAL_BOOL, 0, NULL, $1, $3);}
    	| ExprD OR ExprD
         { $$ = createNode(AT_OR, VAL_BOOL, 0, NULL, $1, $3);}
