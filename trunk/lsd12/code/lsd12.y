@@ -193,7 +193,11 @@ printf(";*** BEGIN SymbolTable ***\n");
   sym = creaNode();
   fillTable(root, sym, -1);
   printSymbolTable(sym);
-  printf(";*** END SymbolTable ***\n");
+printf(";*** END SymbolTable ***\n");
+
+ printf(";*** BEGIN printSymbolTableGraphViz(..)  ***\n");
+  printSymbolTableGraphViz(sym);
+  printf(";*** END printSymbolTableGraphViz(..)  ***\n");
 
 printf("; * Verification de la specification LSD12 :\n");
 	if (check(root,sym) != 1)
@@ -212,9 +216,7 @@ printf("; * Verification de la specification LSD12 :\n");
   printSymbolTable(sym);
   printf(";*** END SymbolTable ***\n");
 
-  printf(";*** BEGIN printSymbolTableGraphViz(..)  ***\n");
-  printSymbolTableGraphViz(sym);
-  printf(";*** END printSymbolTableGraphViz(..)  ***\n");
+ 
 
 
  printf(";*** BEGIN Cleaning ***\n");
