@@ -152,10 +152,14 @@ int check(ASTTREE tree, SYMTABLE tds)
 			case AT_EXPRD :  
 				if(tree->left != NULL) {
 					printf(";---GPS = AT_EXPRD LEFT ;---\n");
-					//type = tds->varType;
+					if (tree->left->id == 0) { // Si tree->left->id est AT_VAR (type 5 dans l'arbre et autre type dans la table des symboles;
+						return OK;
+					}
+					else {
 					type = tree->left->type;
 					//printf(";°°° %d °°°", type);
 					return checkType(tree->left, type, tds);
+					}
 				}
 				break;
 

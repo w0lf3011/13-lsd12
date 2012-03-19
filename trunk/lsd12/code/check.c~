@@ -152,10 +152,14 @@ int check(ASTTREE tree, SYMTABLE tds)
 			case AT_EXPRD :  
 				if(tree->left != NULL) {
 					printf(";---GPS = AT_EXPRD LEFT ;---\n");
-					//type = tds->varType;
+					if (strcmp(tree->left->id, "AT_VAR")==0) {
+						return OK;
+					}
+					else {
 					type = tree->left->type;
 					//printf(";°°° %d °°°", type);
 					return checkType(tree->left, type, tds);
+					}
 				}
 				break;
 
@@ -389,7 +393,7 @@ int checkType(ASTTREE tree, int type, SYMTABLE tds)
 							printf(";Erreur de typage pour opération '<'\n");
 							return KO;
 						}else{
-								if(checkType(tree->left, VAL_BOOL, tds)==3 && checkType(tree->right,VAL_BOOL, tds)==3)
+								if(checkType(tree->left, VAL_INT, tds)==2 && checkType(tree->right,VAL_INT, tds)==2)
 								{ 
 									return VAL_BOOL;
 								}else{
@@ -407,7 +411,7 @@ int checkType(ASTTREE tree, int type, SYMTABLE tds)
 							printf(";Erreur de typage pour opération '<='\n");
 							return KO;
 						}else{
-								if(checkType(tree->left, VAL_BOOL, tds)==3 && checkType(tree->right,VAL_BOOL, tds)==3)
+								if(checkType(tree->left, VAL_INT, tds)==2 && checkType(tree->right,VAL_INT, tds)==2)
 								{ 
 									return VAL_BOOL;
 								}else{

@@ -1,4 +1,4 @@
-program LSD12;
+program LSD12; 
 
 function main(): void; { TJ VOID }
 var 
@@ -14,23 +14,34 @@ var
 	
 
 begin
+
 {
 
 test vc begin vide
  test avec --1;
 }
+{
 	;
+	a := b;
 	a := -1; b := 2;
 	b := 2;
 	c := 3;
 	d := false;
 	e := true;
-	f := ((!(a=(3*5))))&&true)||(b<=a);
+	f := ((!(a=(3*5)))&&true)||(b<=a);
+	f := true||false&&true;
+}
+	{f := true||false&&true;}
+	{f := !a=3*5&&true||b<=a;}
+	{a := a + b + c;}
+	f := a = 3 * 5 && true;
+{
 	g := b + 3 * 5 -1 /2;
 	a := 1 + b; 
+	f := a <= 0 ;
 	a := a + b;
 	a := (a + b); 
-	b := a * - 1;
+	b := a * -1;
 	b := a * b; 
 	a := a - b; 
 	b := a / b; 
@@ -46,6 +57,7 @@ test vc begin vide
 	--2;
 	1;
 	(1);
+	b;
 	!e;
 	1/1;
 	a+a;
@@ -63,9 +75,9 @@ test vc begin vide
 	write a;
 	read a;
 	read 2;
-	return x; { hum...}
+	return x; 
 	!(a = 1); 
-
+}
 {	BAD TEST !!!	
 	f := d < e;
 	!(f = 1);

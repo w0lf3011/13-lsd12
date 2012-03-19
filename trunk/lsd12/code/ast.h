@@ -49,11 +49,6 @@
 #define VAL_NOTYPE 5
 
 
-
-
-
-
-
 struct astnode {
   int id;
   int type;
