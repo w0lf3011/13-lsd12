@@ -73,13 +73,15 @@ type	  ("int"|"bool"|"iset"|"void")
 "("     {return LP;}
 ")"     {return RP;}
 ","     {return COMMA;}
-"!"	{return NOT;}
+"||"	{return OR;}
 "="	{return EQUAL;}
+"!"	{return NOT;}
+
 ":"	{return TWOPOINT;}
 "<"	{return LT;}
 "<="	{return LE;}
 "&&"	{return AND;}
-"||"	{return OR;}
+
 "/"	{return DIVISE;}
 
 "#"	{return CARDINAL;}

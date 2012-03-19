@@ -32,7 +32,7 @@ ASTTREE root;
 
 %token PRINT READ WRITE 
 
-%token MODULO PLUS MINUS TIMES ADD AND NOT LT EQUAL OR LE 
+%token PLUS MINUS TIMES ADD AND NOT LT EQUAL OR LE 
 
 %token TO FUNCTION REF REMOVE FROM PROG FORWARD 
 
@@ -46,10 +46,12 @@ ASTTREE root;
 // token des types
 %token <ival> TYPE
 
-%left MODULO 
-%left PLUS MINUS TIMES ADD DIVISE
-%left AND NOT OR
-%left LT GT EQUAL LE GE
+%left AND
+%left OR 
+%left NOT
+%left LT EQUAL LE 
+%left PLUS MINUS
+%left TIMES DIVISE
 
 %type <tval> Lsd12 BlocDecla Decla Var Funct HeadFunct Corps Implement ExprD Instruction InstructionList
 
@@ -127,30 +129,30 @@ Instruction : ExprD
 ExprD : Var  { $$ = $1;}
 	| NB
         { $$ = createNode(AT_NB, VAL_INT, yylval.ival, NULL, NULL, NULL);}
+	| ExprD TIMES ExprD
+        { $$ = createNode(AT_FOIS, VAL_INT, 0, NULL, $1, $3);}
+   	| ExprD DIVISE ExprD
+        { $$ = createNode(AT_DIVISE, VAL_INT, 0, NULL, $1, $3);}
    	| ExprD PLUS ExprD
         { $$ = createNode(AT_PLUS, VAL_INT, 0, NULL, $1, $3);}
    	| ExprD MINUS ExprD
         { $$ = createNode(AT_MOINS, VAL_INT, 0, NULL, $1, $3);}
-   	| ExprD TIMES ExprD
-        { $$ = createNode(AT_FOIS, VAL_INT, 0, NULL, $1, $3);}
-   	| ExprD DIVISE ExprD
-        { $$ = createNode(AT_DIVISE, VAL_INT, 0, NULL, $1, $3);}
    	| MINUS ExprD
         { $$ = createNode(AT_NEG, VAL_INT, 0, NULL, NULL, $2);}
-        | BOOLEAN
+	| ExprD EQUAL ExprD
+        { $$ = createNode(AT_EQUAL, VAL_BOOL, 0, NULL, $1, $3);}
+	| ExprD LT ExprD
+        { $$ = createNode(AT_LT, VAL_BOOL, 0, NULL, $1, $3);}
+   	| ExprD LE ExprD
+        { $$ = createNode(AT_LE, VAL_BOOL, 0, NULL, $1, $3);}        
+	| BOOLEAN
         { $$ = createNode(AT_BOOL, VAL_BOOL, yylval.ival, NULL, NULL, NULL);}
+	| NOT ExprD
+        { $$ = createNode(AT_NOT, VAL_BOOL, 0, NULL, NULL, $2);}
 	| ExprD AND ExprD
         { $$ = createNode(AT_AND, VAL_BOOL, 0, NULL, $1, $3);}
    	| ExprD OR ExprD
         { $$ = createNode(AT_OR, VAL_BOOL, 0, NULL, $1, $3);}
-   	| ExprD LT ExprD
-        { $$ = createNode(AT_LT, VAL_BOOL, 0, NULL, $1, $3);}
-   	| ExprD LE ExprD
-        { $$ = createNode(AT_LE, VAL_BOOL, 0, NULL, $1, $3);}
-    	| ExprD EQUAL ExprD
-        { $$ = createNode(AT_EQUAL, VAL_BOOL, 0, NULL, $1, $3);}
-   	| NOT ExprD
-        { $$ = createNode(AT_NOT, VAL_BOOL, 0, NULL, NULL, $2);}
    	| LP ExprD RP
         { $$ = $2;}
 
@@ -208,7 +210,7 @@ printf("; * Verification de la specification LSD12 :\n");
 		fprintf(stderr,"KO\n");
 		exit(1);
 	}
-  printf("; * Fin de la verification de la specification LSD12!\n");
+printf("; * Fin de la verification de la specification LSD12!\n");
 
 
   printf(";*** BEGIN SymbolTable ***\n");

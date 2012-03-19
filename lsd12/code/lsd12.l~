@@ -20,7 +20,7 @@ int num_lines=1;
 
 var       [A-Za-z]([A-Za-z]|[0-9])*
 nbr       (0|[1-9][0-9]*)
-boolean   ("true"|"false"|"1"|"0")
+boolean   ("true"|"false")
 blank     [ \t]+
 type	  ("int"|"bool"|"iset"|"void")
 
@@ -73,8 +73,9 @@ type	  ("int"|"bool"|"iset"|"void")
 "("     {return LP;}
 ")"     {return RP;}
 ","     {return COMMA;}
-"!"	{return NOT;}
 "="	{return EQUAL;}
+"!"	{return NOT;}
+
 ":"	{return TWOPOINT;}
 "<"	{return LT;}
 "<="	{return LE;}
