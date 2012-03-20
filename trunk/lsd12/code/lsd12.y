@@ -53,7 +53,7 @@ ASTTREE root;
 %left PLUS MINUS
 %left TIMES DIVISE
 
-%type <tval> Lsd12 BlocDecla Decla Var Funct HeadFunct Corps Implement ExprD Instruction InstructionList
+%type <tval> Lsd12 BlocDecla Decla Var Funct HeadFunct Corps Implement ExprD Instruction InstructionList InstructionIF
 
 // indiquer le non-terminal de commencement
 %start Lsd12
@@ -122,6 +122,17 @@ Instruction : ExprD
 	      { $$ = createNode(AT_WRITE, VAL_NOTYPE, 0, NULL, NULL, $2);}
 	      | RETURN ExprD
 	      { $$ = createNode(AT_RETURN, VAL_NOTYPE, 0, NULL, NULL, $2);}
+	      | IF LP ExprD RP THEN InstructionIF FI 
+	      { $$ = createNode(AT_IF, VAL_NOTYPE, 0, NULL, $3, $6);}
+	      | WHILE LP ExprD RP DO InstructionList OD 
+	      { $$ = createNode(AT_WHILE, VAL_NOTYPE, 0, NULL, $3, $6);}
+	      	      
+;
+InstructionIF : InstructionList
+	        { $$ = createNode(AT_InstructionIF, VAL_NOTYPE, 0, NULL, $1, NULL);}
+		| InstructionList ELSE InstructionList
+		{ $$ = createNode(AT_InstructionIFELSE, VAL_NOTYPE, 0, NULL, $1, $3);}
+		
 		
 ;
 

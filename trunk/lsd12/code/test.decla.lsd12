@@ -2,7 +2,7 @@ program LSD12;
 
 function main(): void; { TJ VOID }
 var 
-{ test vc VAR vide; }
+
 
 	a int;
 	b int;
@@ -10,81 +10,33 @@ var
 	d bool;
 	e bool;
 	f bool;
-	g int;
+	
 	
 
 begin
 
-{
-
-test vc begin vide
- test avec --1;
-}
-{
-	;
-	a := b;
-	a := -1; b := 2;
+	a := 1;
 	b := 2;
-	c := 3;
-	d := false;
-	e := true;
-	f := ((!(a=(3*5)))&&true)||(b<=a);
-	f := true||false&&true;
-}
-	{f := true||false&&true;}
-	f := !a=3*5&&true||b<=a;
-	{a := a + b + c;}
-	{f := a = 3 * 5 && true;}
-{
-	g := b + 3 * 5 -1 /2;
-	a := 1 + b; 
-	f := a <= 0 ;
-	a := a + b;
-	a := (a + b); 
-	b := a * -1;
-	b := a * b; 
-	a := a - b; 
-	b := a / b; 
-	f := d || e; 
-	f := (d || e);
-	f := d && e;
-	f := a < 1;
-	f := b = c;
-	f := (b = c);
-	f := a <= b;
-	f := !e;
-	-2;
-	--2;
-	1;
-	(1);
-	b;
-	!e;
-	1/1;
-	a+a;
-	-(a+a);
-	true;
-	false;
-	(true);
-	true||false;
-	(true||false);
-	!(true||false);
-	a := b;
-	a := a;
-	write 1;
-	write (1+1);
-	write a;
-	read a;
-	read 2;
-	return x; 
-	!(a = 1); 
-}
-{	BAD TEST !!!	
-	f := d < e;
-	!(f = 1);
-	write e;
-	read e;
-	!1;
-}
+	
+	d := true;
+	e := false;
+
+	if (d) then
+		c := a + b;
+	fi;
+
+	if (a = 1) then
+		c := a + b;
+
+	else
+		c := a * b;
+		
+	fi;
+
+	while (d)
+	do
+		c := a * b;
+	od;
 
 end;
 
