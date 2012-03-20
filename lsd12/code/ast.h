@@ -40,6 +40,10 @@
 #define AT_READ 28
 #define AT_WRITE 29
 #define AT_RETURN 30
+#define AT_InstructionIF 31
+#define AT_InstructionIFELSE 32
+#define AT_IF 33
+#define AT_WHILE 34
 
 //
 #define VAL_VOID 1

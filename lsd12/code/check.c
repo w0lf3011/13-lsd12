@@ -203,6 +203,59 @@ int check(ASTTREE tree, SYMTABLE tds)
 					
 				}*/ return OK;						
 				break;	
+			case AT_IF : 
+				// Si "ExprD" est de type VAL_BOOL
+				if(checkType(tree->left,VAL_BOOL,tds) == 3)
+				{
+					// Si instruction vide dans le bloc
+					if(tree->right == NULL)
+						return OK;
+					else
+						return check(tree->right,tds);
+					}else{	
+						printf(";Error IF\n");
+					return KO;
+				}
+				break;
+	
+
+			case AT_InstructionIF : 
+				if(tree->left != NULL) {
+					printf(";---GPS = tree_id : %d AT_INSTRUCTIONIF LEFT ;---\n", tree->id);
+					return check(tree->left, tds);
+				}
+				else
+				{
+					return OK;
+				}
+				break;	
+			case AT_InstructionIFELSE : 
+				if(tree->left != NULL)
+				{
+					return check(tree->left,tds);
+				}
+				if(tree->right != NULL)
+				{
+					return check(tree->right,tds);
+				}
+				if(tree->left == NULL && tree->right == NULL)
+				{
+					return OK;
+				}
+				break;	
+			case AT_WHILE : 
+				// Si "ExprD" est de type VAL_BOOL
+				if(checkType(tree->left,VAL_BOOL,tds) == 3)
+				{
+					if(tree->right == NULL)
+						return OK;
+					else
+						return check(tree->right,tds);
+				}else{	
+					printf(";Error WHILE\n");
+					return KO;
+				}
+				break;			
 
 			default :
 				printf("; Erreur de typage check\n");
