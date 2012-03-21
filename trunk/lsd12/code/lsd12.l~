@@ -22,7 +22,7 @@ var       [A-Za-z]([A-Za-z]|[0-9])*
 nbr       (0|[1-9][0-9]*)
 boolean   ("true"|"false")
 blank     [ \t]+
-type	  ("int"|"bool"|"iset"|"void")
+type	  ("int"|"bool"|"void")
 
 %%
 
@@ -55,15 +55,9 @@ type	  ("int"|"bool"|"iset"|"void")
 "else" 		{return ELSE;}
 "fi" 		{return FI;}
 
-"while" 	{return WHILE;}		/* WHILE (e) DO i OD */
+x"while" 	{return WHILE;}		/* WHILE (e) DO i OD */
 "do" 		{return DO;}
 "od" 		{return OD;}
-
-"add"     	{return ADD;}		/* Ex: ADD a TO ensA */
-"to"     	{return TO;}
-
-"remove" 	{return REMOVE;}	/* Ex: REMOVE a FROM ensA */
-"from"  	{return FROM;}
 
 ":="	{return AFFECT;}	/* Ex int b := 1 */
 
@@ -84,7 +78,6 @@ type	  ("int"|"bool"|"iset"|"void")
 
 "/"	{return DIVISE;}
 
-"#"	{return CARDINAL;}
 ";" 	{return FIN;}		/* End of instruction */
 
 
