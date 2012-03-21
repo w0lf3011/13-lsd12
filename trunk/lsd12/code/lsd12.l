@@ -89,12 +89,10 @@ x"while" 	{return WHILE;}		/* WHILE (e) DO i OD */
 	{
 		if(strcmp(yytext, "int")==0) {yylval.ival=2;}
 		else
-		{
-			if(strcmp(yytext, "bool")==0)
+//		{
+//			if(strcmp(yytext, "bool")==0)
 				{yylval.ival=3;}
-			else
-				{yylval.ival=4;}				
-		}
+//		}
 	}
 	return TYPE;
 }
