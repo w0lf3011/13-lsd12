@@ -1,0 +1,333 @@
+/* pcode.c
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "pcode.h"
+
+
+void pcodeGenAddress(ASTREE tree, SYMTABLE s, SYMTABLE function) // function = fonction courante
+{
+	SYMTABLE node;
+  	int location, niveau;
+
+  	if (tree == NULL)
+    		return;
+
+  	switch (tree->id) 
+	{
+  		case AT_ARG: 
+  		case AT_VAR: 
+  			node = alreadyIsSymbol(s, tree->sval,3);
+    			
+			niveau = s->levelNode - 1;
+
+			// calcul l'écart d'imbrication entre la fonction et la variable
+			if(niveau <= function->levelNode) 	
+				niveau = function->levelNode - niveau;
+			else{
+				niveau = niveau - function->levelNode;
+			}
+
+			if(s->varType == VAL_INT)
+      				printf("lda i %d %d\n",niveau,node->address);
+			if(s->varType == VAL_BOOL)
+				printf("lda b %d %d\n",niveau,node->address);
+			if(s->ref == 1)
+			{
+				printf("ind a\n");
+			}
+    			break;
+
+  		default:
+    			fprintf(stderr,";KO\n");
+    			printf(";ERROR : unrecognized type=%d in pcodeGenAddress(..)\n", tree->type);
+    			exit(1);
+  	}
+}
+
+
+void pcodeGenValue(TREE tree, SYMTABLE s)
+{
+	SYMTABLE node,nodeR;
+  	int location, argument, lvl, lvlR;
+  	static int staticlabel = 0;
+  	int i = staticlabel; // numero du label
+	TREE treeTmp = NULL;
+
+  	staticlabel++;
+
+  	if (tree != NULL)
+    	{
+
+  	switch (tree->id) 
+	{
+  		case AT_ROOT: 
+				node = s;
+				printf("mst 0\n");
+				printf("cup 0 @%s\n",tree->sval); 
+				printf("ujp @end_program\n");
+				pcodeGenValue(tree->middle,s);
+				printf("define @end_program\n");
+				printf("stp\n");
+				break;
+
+		case AT_CORPS: 
+				pcodeGenValue(tree->left,s);
+				printf("define @%s\n",s->up->id);
+				printf("ssp %d\n",getMaxMemoryUsage(s->up)+8);
+				pcodeGenValue(tree->middle,s);
+				break;
+
+		case AT_BLOCDECL: 
+				if(tree->left != NULL)
+					pcodeGenValue(tree->left,s);
+				break;
+
+		case AT_CODE: 
+				if(tree->left != NULL)
+					pcodeGenValue(tree->left,s);
+				break;
+
+		case AT_DECLA: 
+				if(tree->left->id != AT_DECLARATION)
+					pcodeGenValue(tree->left,s);
+				if(tree->right != NULL)
+					pcodeGenValue(tree->right,s);
+				break;
+
+		case AT_LISTFUNCT: 
+				pcodeGenValue(tree->left,s);
+				if(tree->right != NULL)
+					pcodeGenValue(tree->right,s);
+				break;
+
+		case AT_FUNCT: 
+				// trouver la fonction
+				node = alreadyIsSymbol(s, tree->sval, 1);
+				if(node != NULL)
+				{
+					pcodeGenValue(tree->middle,node->down);
+					if(node->varType == VAL_NOTYPE) // sortir de la fonction nill
+						printf("retf\n");
+				}
+				break;
+
+		case AT_INSTRUCTION:
+				if(!(tree->left == NULL && tree->right == NULL))
+				{
+					if(tree->left == NULL)
+						pcodeGenValue(tree->right,s);
+					else{
+						pcodeGenValue(tree->left,s);
+						if(tree->right != NULL)
+							pcodeGenValue(tree->right,s);
+					}
+				}
+   	 			break;
+
+		case AT_EXPRD:
+    				pcodeGenValue(tree->left,s);
+   	 			break;
+
+		case AT_IF:
+				i = staticlabel; 
+				staticlabel++; // augmenter le label ==> entre dans { bloc }
+
+				pcodeGenValue(tree->left,s);
+
+				// ujp = sauter au bloc then    fjp = sauter au bloc else  
+				printf("fjp @else_%d\n",i); // saute vers le bloc @else si false 
+				pcodeGenValue(tree->middle,s);
+				printf("define @else_%d\n",i);
+				break;
+
+		case AT_IFELSE: 
+				i = staticlabel; 
+				staticlabel++; // augmenter le label ==> entre dans { bloc }
+
+				pcodeGenValue(tree->left,s);
+
+				// ujp = sauter au bloc then    fjp = sauter au bloc else  
+				printf("fjp @else_%d\n",i); // saute vers le bloc @else si false 
+				pcodeGenValue(tree->middle,s);
+				printf("ujp @then_%d\n",i);
+				printf("define @else_%d\n",i);
+				if(tree->right != NULL)
+				{	
+					pcodeGenValue(tree->right,s);
+				}
+				printf("define @then_%d\n",i);
+				break;
+
+		case AT_WHILE: 
+				i = staticlabel;
+				staticlabel++;
+				printf("define @while_do_%d\n",i);
+				pcodeGenValue(tree->left,s);
+				printf("fjp @od_%d\n",i);
+				pcodeGenValue(tree->middle,s);
+				printf("ujp @while_do_%d\n",i);
+				printf("define @od_%d\n",i);
+				break;
+
+		case AT_RETURN:
+				// générer l'adresse de la fonction
+				node = s->up;
+				if(node->varType == VAL_INT)
+				{
+					printf("lda i 0 0\n");
+					pcodeGenValue(tree->left,s);
+					printf("sto i\n");
+				}
+				if(node->varType == VAL_BOOL)
+				{
+					printf("lda b 0 0\n");
+					pcodeGenValue(tree->left,s);
+					printf("sto b\n");
+				}
+				printf("retf\n");
+				break;
+	
+		case AT_PRINT: // prin command
+				pcodeGenValue(tree->left, s);
+				printf("prin\n");
+				break;
+
+  		case AT_IN: 	// read command
+    				printf("read\n");
+    				break;
+
+		case AT_AFFECTD:
+  		case AT_AFFECTG:
+				node = alreadyIsSymbol(s, tree->left->sval, 3);
+				if(node != NULL)
+				{
+    					pcodeGenAddress(tree->left, node ,s->up);
+    					pcodeGenValue(tree->middle, s);
+					if(node->varType == VAL_INT) // affectation d'entier
+    						printf("sto i\n");
+					if(node->varType == VAL_BOOL)
+						printf("sto b\n");
+				}
+    				break;
+
+		
+
+		case AT_AND:
+				pcodeGenValue(tree->left, s);
+				pcodeGenValue(tree->right, s);
+				printf("and b\n");
+				break;
+
+		case AT_OR:
+				pcodeGenValue(tree->left, s);
+				pcodeGenValue(tree->right, s);
+				printf("or b\n");
+				break;
+
+		case AT_NOT:
+				pcodeGenValue(tree->left, s);
+				printf("not b\n");
+				break;
+
+		case AT_PPETIT:
+				pcodeGenValue(tree->left, s);
+				pcodeGenValue(tree->right, s);
+				printf("les b\n");
+				break;
+
+		case AT_EGPETIT:
+				pcodeGenValue(tree->left, s);
+				pcodeGenValue(tree->right, s);
+				printf("leq b\n");
+				break;
+
+		case AT_EGAL:
+				pcodeGenValue(tree->left, s);
+				pcodeGenValue(tree->right, s);
+				printf("equ b\n");
+				break;
+
+		case AT_VAR:
+				node = alreadyIsSymbol(s, tree->sval, 3);
+      					
+				pcodeGenAddress(tree, node ,s->up);
+				if(node->varType == VAL_INT)
+					printf("ind i\n");
+				if(node->varType == VAL_BOOL)
+					printf("ind b\n");							
+    				break;
+
+  		case AT_NB: 	// constante entière
+   				printf("ldc i %d\n", tree->ival);
+    				break;
+
+		case AT_BOOL:	// constante binaire
+				printf("ldc b %d\n",tree->ival);
+				break;
+
+  		case AT_PLUS: 	// somme
+    				pcodeGenValue(tree->left, s);
+    				pcodeGenValue(tree->right, s);
+    				printf("add i\n");
+    				break;
+
+  		case AT_MOINS: 	// soustraction
+				pcodeGenValue(tree->left, s);
+				pcodeGenValue(tree->right, s);
+				printf("sub i\n");
+				break;
+
+  		case AT_FOIS: 	// multiplication
+				pcodeGenValue(tree->left, s);
+				pcodeGenValue(tree->right, s);
+				printf("mul i\n");
+				break;
+
+		case AT_DIVISE: // diviser
+				pcodeGenValue(tree->left, s);
+				pcodeGenValue(tree->right, s);
+				printf("div i\n");
+				break;
+
+		case AT_NEG: 	// inverser signe
+				pcodeGenValue(tree->right, s);
+				printf("neg i\n");
+				break;
+
+
+		
+  		default:
+    				//fprintf(stderr,";KO\n");
+    				printf(";ERROR : unrecognized type=%d in pcodeGenValue(..)\n", tree->type);
+  	}
+	}
+}
+
+
+void checkOverflow(TREE tree,SYMTABLE node, SYMTABLE s, int lvl)
+{
+	// verifier si overflow sur les colonnes
+	pcodeGenValue(tree->left, s);
+	printf("lda a %d %d\n",lvl,node->address);
+	printf("ind a\n");
+	if(node->ref == 1)
+		printf("ind a\n");
+	printf("ind i\n");
+	printf("leq b\n");
+	
+	// verifier si overflow sur les lignes
+	pcodeGenValue(tree->middle, s);
+	printf("lda a %d %d\n",lvl,node->address);
+	printf("ind a\n");
+	if(node->ref == 1)
+		printf("ind a\n");
+	printf("ldc i 1\n");
+	printf("ixa 1\n");
+	printf("ind i\n");
+	printf("leq b\n");
+				
+	printf("and b\n");
+}
