@@ -185,8 +185,6 @@ void freeSymbolTable(SYMTABLE s)
  	}
 }
 
-
-
 void computeLocations(SYMTABLE s)
 {
 	SYMTABLE local = s;
