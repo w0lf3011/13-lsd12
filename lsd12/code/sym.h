@@ -33,32 +33,24 @@ typedef NOEUD * SYMTABLE;
 // Declaration des fonctions
 SYMTABLE creaNode();
 
-
 void printSymbolTableGraphViz(SYMTABLE s);
 
 SYMTABLE checkSymbolLevel(SYMTABLE s, char* name, int state);
 
-
 SYMTABLE alreadyIsSymbolLevel(SYMTABLE s, char* name,int state);
 
-
 SYMTABLE alreadyIsSymbol(SYMTABLE s, char* name, int state);
-
 
 SYMTABLE addToSymbolTable(SYMTABLE s, char* name, int state, int type);
 
 void freeSymbolTable(SYMTABLE s);
 
-
 void computeLocations(SYMTABLE s);
 
-
 int getMaxMemoryUsage(SYMTABLE s);
-
 
 void printSymbolTable(SYMTABLE s);
 
 int fillTable (ASTTREE tree, SYMTABLE s, int currentType);
-
 
 #endif
