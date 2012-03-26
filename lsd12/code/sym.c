@@ -72,7 +72,7 @@ SYMTABLE checkSymbolLevel(SYMTABLE s, char* name, int state)
 			if(state == 3) // recherche d'une variable ou d'un argument
 			{
 				if(s->state == 0 || s->state == 2)
-					retour = s;
+					return = s;
 				else
 					return checkSymbolLevel(s->previous,name,state);
 			}else{
