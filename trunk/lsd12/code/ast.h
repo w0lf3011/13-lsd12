@@ -1,8 +1,4 @@
 /* ast.h
- *
- * part of the DEMO compiler
- *
- * H. Toussaint (hto@info.fundp.ac.be), 14/06/05
  */
 
 #ifndef AST_H

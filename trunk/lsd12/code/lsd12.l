@@ -61,7 +61,7 @@ x"while" 	{return WHILE;}		/* WHILE (e) DO i OD */
 
 ":="	{return AFFECT;}	/* Ex int b := 1 */
 
-"+"     {return PLUS;}		/* Logical oparators */
+"+"     {return PLUS;}		/* Logical operators */
 "-"     {return MINUS;}
 "*"     {return TIMES;}
 "("     {return LP;}
@@ -89,10 +89,7 @@ x"while" 	{return WHILE;}		/* WHILE (e) DO i OD */
 	{
 		if(strcmp(yytext, "int")==0) {yylval.ival=2;}
 		else
-//		{
-//			if(strcmp(yytext, "bool")==0)
-				{yylval.ival=3;}
-//		}
+			 {yylval.ival=3;}
 	}
 	return TYPE;
 }
