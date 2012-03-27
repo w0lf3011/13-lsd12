@@ -186,7 +186,7 @@ void freeSymbolTable(SYMTABLE s)
 void computeLocations(SYMTABLE s)
 {
 	SYMTABLE local = s;
-	int available = 5; // 5 pour le block réservé par la fonction dans la stack
+	int available = 0; // 5 pour le block réservé par la fonction dans la stack
 	while(local != NULL)
 	{
 		if(local->down != NULL)

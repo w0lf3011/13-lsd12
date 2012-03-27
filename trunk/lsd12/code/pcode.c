@@ -75,8 +75,8 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  printf("stp\n");
 	*/
 	//printf("; ssp 2 (0 & 1) + memory used for variables (2 temporary locations for modulo algorithm)\n");
-    	//printf("ssp %d\n", (getMaxMemoryUsage(s) <= 0) ? 2 : getMaxMemoryUsage(s) );
-	printf("ssp 10\n");
+    	printf("ssp %d\n", (getMaxMemoryUsage(s) <= 0) ? 2 : getMaxMemoryUsage(s) );
+	//printf("ssp 10\n");
 	if (tree->left != NULL) {   
 		pcodeGenValue(tree->left,s);
 	}
@@ -93,12 +93,13 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	      // attention, verifier que noeuds pas nuls
 	      //pcodeGenValue(tree->left,node->down);
 	      //pcodeGenValue(tree->right,node->down);
-		if(tree->right != NULL) {
-			pcodeGenValue(tree->right,node->down); //tds
-		}
 		if (tree->left != NULL) {
 			pcodeGenValue(tree->left,node->down);
 		}
+		if(tree->right != NULL) {
+			pcodeGenValue(tree->right,node->down); //tds
+		}
+		
 	      if(node->varType == VAL_NOTYPE) // sortir de la fonction nill
 		printf("retf\n");
 	    }
@@ -112,17 +113,17 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	    }
 	  break;
 	case AT_CORPS : 
-	if (tree->left != NULL ){	  
-		pcodeGenValue(tree->left,s);
-	}
-	 
-	  printf("define @%s\n",s->up->id);
-	  printf("ssp %d\n",getMaxMemoryUsage(s->up)+8);
+		if (tree->left != NULL ){	  
+			pcodeGenValue(tree->left,s);
+		}
+		 
+		  printf("define @%s\n",s->up->id);
+		  printf("ssp %d\n",getMaxMemoryUsage(s->up)+8);
 	
-	if (tree->left != NULL ){
-	  pcodeGenValue(tree->right,s);
-	}
-	  break;
+		if (tree->right != NULL ){
+		  pcodeGenValue(tree->right,s);
+		}
+		  break;
 	case AT_IMPLEMENT :
 	  if(tree->left != NULL)
 	    {
@@ -132,33 +133,33 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	case AT_BLOCDECLA :
 	  if(tree->left != NULL)
 	    pcodeGenValue(tree->left,s);
-	  if(tree->right != NULL)
-	    pcodeGenValue(tree->right,s);
+	  
 	  break;
 		
 	case AT_DECLA : 
-	  if(tree->left != NULL)
+
+	  if(tree->left != NULL )
 	    {
 	      pcodeGenValue(tree->left,s);
 	    }
-	  if(tree->right != NULL)
+	    if(tree->right != NULL )
 	    {
 	      pcodeGenValue(tree->right,s);			
 	    }
-
+	   
 	  break;			
+	
 	case AT_INSTRUCTION : 	
 	  if(tree->right != NULL && tree->left != NULL) {
+		pcodeGenValue(tree->left,s);		
 		pcodeGenValue(tree->right,s);
-		pcodeGenValue(tree->left,s);
-	}
-	   if(tree->right == NULL && tree->left != NULL) {
-		pcodeGenValue(tree->right,s);
-		}
 		
-	      
-	   
+	  }
+	  if(tree->right == NULL && tree->left != NULL) {
+		pcodeGenValue(tree->left,s);
+	  }
 	  break;
+
 	case AT_AFFECT : 
 	  node = alreadyIsSymbol(s, tree->left->sval, 0);
 	  if(node != NULL)
@@ -175,26 +176,34 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 		}
 	    }
 	  break;	
+
 	case AT_EXPRD :  
 	  pcodeGenValue(tree->left,s);
 	  break;
 	case AT_WRITE : 
-	  pcodeGenValue(tree->left, s);
+	  pcodeGenValue(tree->right, s);
+	  printf("ind i\n");		
 	  printf("prin\n");		
 	  break;
+
 	case AT_READ : 
 	  printf("read\n");			
 	  break;
+
 	case AT_PLUS :
 	  pcodeGenValue(tree->left, s);
+          printf("ind i\n");
 	  pcodeGenValue(tree->right, s);
+          printf("ind i\n");
 	  printf("add i\n");	
-	  break;			
+	  break;
+			
 	case AT_MOINS :
 	  pcodeGenValue(tree->left, s);
 	  pcodeGenValue(tree->right, s);
 	  printf("sub i\n");
-	  break;		
+	  break;
+		
 	case AT_FOIS : 
 	  pcodeGenValue(tree->left, s);
 	  pcodeGenValue(tree->right, s);
@@ -247,7 +256,6 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  pcodeGenValue(tree->right, s);
 	  printf("equ b\n");
 	  break;
-
 			
 	case AT_NB :
 	  printf("ldc i %d\n", tree->ival);
@@ -262,10 +270,12 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  node = alreadyIsSymbol(s, tree->sval, 0);  // dernier argument = 0 pour variable, 1 pour fonction
 	  
 	  pcodeGenAddress(tree, node ,s->up);
-	  if(node->varType == VAL_INT)
+	  
+/*	if(node->varType == VAL_INT)
 	    printf("ind i\n");
 	  if(node->varType == VAL_BOOL)
 	    printf("ind b\n");							
+*/
 	  break;
 	  
 
