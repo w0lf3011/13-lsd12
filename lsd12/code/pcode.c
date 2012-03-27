@@ -75,8 +75,8 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  printf("stp\n");
 	*/
 	//printf("; ssp 2 (0 & 1) + memory used for variables (2 temporary locations for modulo algorithm)\n");
-    	printf("ssp %d\n", (getMaxMemoryUsage(s) <= 0) ? 2 : getMaxMemoryUsage(s) );
-	//printf("ssp 0\n");
+    	//printf("ssp %d\n", (getMaxMemoryUsage(s) <= 0) ? 2 : getMaxMemoryUsage(s) );
+	printf("ssp 10\n");
 	if (tree->left != NULL) {   
 		pcodeGenValue(tree->left,s);
 	}

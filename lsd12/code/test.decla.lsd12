@@ -15,7 +15,13 @@ var
 
 begin
 
+a := 1;
+b := 2;
+c := a + b;
+write a;
 
+
+{
 	;
 	a := b;
 	a := -1; b := 2;
@@ -65,7 +71,7 @@ begin
 	read a;
 	read 2;
 	!(a = 1); 
-
+}
 {	BAD TEST !!!	
 	f := d < e;
 	!(f = 1);
