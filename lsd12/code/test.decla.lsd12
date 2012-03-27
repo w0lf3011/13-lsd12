@@ -7,9 +7,9 @@ var
 	a int;
 	b int;
 	c int;
-	d bool;
+	{d bool;
 	e bool;
-	f bool;
+	f bool;}
 	g int;
 	
 

@@ -3,7 +3,7 @@ program LSD12;
 function main(): void; { TJ VOID }
 var 
 { test vc VAR vide; }
-{
+
 	a int;
 	b int;
 	c int;
@@ -12,8 +12,14 @@ var
 	f bool;
 	g int;
 	
-}
+
 begin
+
+a := 1;
+b := 2;
+c := a + b;
+write a;
+
 
 {
 	;
