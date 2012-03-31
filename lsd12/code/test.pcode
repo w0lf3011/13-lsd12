@@ -1,0 +1,191 @@
+; *** Compiler ***
+;
+;*** BEGIN yyparse() ***
+;*** END yyparse() ***
+;*** BEGIN printTree(..) ***
+; [0x83bd4d8] id=AT_ROOT, type=5, ival=0, sval='LSD12', left=0x83bd4b8, right=(nil)
+; [0x83bd4b8] id=AT_FUNCT, type=1, ival=0, sval='main', left=0x83bd498, right=0x83bd078
+; [0x83bd498] id=AT_CORPS, type=5, ival=0, sval=NULL, left=0x83bd1d8, right=0x83bd478
+; [0x83bd1d8] id=AT_BLOCDECLA, type=5, ival=0, sval=NULL, left=0x83bd1b8, right=(nil)
+; [0x83bd1b8] id=AT_DECLA, type=2, ival=0, sval=NULL, left=0x83bd198, right=0x83bd0a8
+; [0x83bd198] id=AT_DECLA, type=2, ival=0, sval=NULL, left=0x83bd178, right=0x83bd0d8
+; [0x83bd178] id=AT_DECLA, type=2, ival=0, sval=NULL, left=0x83bd158, right=0x83bd108
+; [0x83bd158] id=AT_DECLA, type=2, ival=0, sval=NULL, left=(nil), right=0x83bd138
+; [0x83bd138] id=AT_VAR, type=5, ival=0, sval='g', left=(nil), right=(nil)
+; [0x83bd108] id=AT_VAR, type=5, ival=0, sval='c', left=(nil), right=(nil)
+; [0x83bd0d8] id=AT_VAR, type=5, ival=0, sval='b', left=(nil), right=(nil)
+; [0x83bd0a8] id=AT_VAR, type=5, ival=0, sval='a', left=(nil), right=(nil)
+; [0x83bd478] id=AT_IMPLEMENT, type=5, ival=0, sval=NULL, left=0x83bd458, right=(nil)
+; [0x83bd458] id=AT_INSTRUCTION, type=5, ival=0, sval=NULL, left=0x83bd248, right=0x83bd438
+; [0x83bd248] id=AT_AFFECT, type=5, ival=0, sval=NULL, left=0x83bd208, right=0x83bd228
+; [0x83bd208] id=AT_VAR, type=5, ival=0, sval='a', left=(nil), right=(nil)
+; [0x83bd228] id=AT_NB, type=2, ival=1, sval=NULL, left=(nil), right=(nil)
+; [0x83bd438] id=AT_INSTRUCTION, type=5, ival=0, sval=NULL, left=0x83bd2b8, right=0x83bd418
+; [0x83bd2b8] id=AT_AFFECT, type=5, ival=0, sval=NULL, left=0x83bd278, right=0x83bd298
+; [0x83bd278] id=AT_VAR, type=5, ival=0, sval='b', left=(nil), right=(nil)
+; [0x83bd298] id=AT_NB, type=2, ival=2, sval=NULL, left=(nil), right=(nil)
+; [0x83bd418] id=AT_INSTRUCTION, type=5, ival=0, sval=NULL, left=0x83bd388, right=0x83bd3f8
+; [0x83bd388] id=AT_AFFECT, type=5, ival=0, sval=NULL, left=0x83bd2e8, right=0x83bd368
+; [0x83bd2e8] id=AT_VAR, type=5, ival=0, sval='c', left=(nil), right=(nil)
+; [0x83bd368] id=AT_PLUS, type=2, ival=0, sval=NULL, left=0x83bd318, right=0x83bd348
+; [0x83bd318] id=AT_VAR, type=5, ival=0, sval='a', left=(nil), right=(nil)
+; [0x83bd348] id=AT_VAR, type=5, ival=0, sval='b', left=(nil), right=(nil)
+; [0x83bd3f8] id=AT_INSTRUCTION, type=5, ival=0, sval=NULL, left=0x83bd3d8, right=(nil)
+; [0x83bd3d8] id=AT_WRITE, type=5, ival=0, sval=NULL, left=(nil), right=0x83bd3b8
+; [0x83bd3b8] id=AT_VAR, type=5, ival=0, sval='a', left=(nil), right=(nil)
+; [0x83bd078] id=AT_HEADFUNCT, type=5, ival=0, sval=NULL, left=(nil), right=(nil)
+;*** END printTree(..) ***
+;*** BEGIN printTreeGraphViz(..) ***
+"0x83bd4d8";
+"0x83bd4d8"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_ROOT \n Ival = 0\n Sval = LSD12"];
+"0x83bd4d8" -> "0x83bd4b8";
+"0x83bd4b8"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_FUNCT \n Ival = 0\n Sval = main"];
+"0x83bd4b8" -> "0x83bd498";
+"0x83bd4b8" -> "0x83bd078";
+"0x83bd498"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_CORPS \n Ival = 0"];
+"0x83bd498" -> "0x83bd1d8";
+"0x83bd498" -> "0x83bd478";
+"0x83bd1d8"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_BLOCDECLA \n Ival = 0"];
+"0x83bd1d8" -> "0x83bd1b8";
+"0x83bd1b8"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_DECLA \n Ival = 0"];
+"0x83bd1b8" -> "0x83bd198";
+"0x83bd1b8" -> "0x83bd0a8";
+"0x83bd198"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_DECLA \n Ival = 0"];
+"0x83bd198" -> "0x83bd178";
+"0x83bd198" -> "0x83bd0d8";
+"0x83bd178"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_DECLA \n Ival = 0"];
+"0x83bd178" -> "0x83bd158";
+"0x83bd178" -> "0x83bd108";
+"0x83bd158"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_DECLA \n Ival = 0"];
+"0x83bd158" -> "0x83bd138";
+"0x83bd138"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_VAR \n Ival = 0\n Sval = g"];
+"0x83bd108"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_VAR \n Ival = 0\n Sval = c"];
+"0x83bd0d8"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_VAR \n Ival = 0\n Sval = b"];
+"0x83bd0a8"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_VAR \n Ival = 0\n Sval = a"];
+"0x83bd478"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_IMPLEMENT \n Ival = 0"];
+"0x83bd478" -> "0x83bd458";
+"0x83bd458"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_INSTRUCTION \n Ival = 0"];
+"0x83bd458" -> "0x83bd248";
+"0x83bd458" -> "0x83bd438";
+"0x83bd248"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_AFFECT \n Ival = 0"];
+"0x83bd248" -> "0x83bd208";
+"0x83bd248" -> "0x83bd228";
+"0x83bd208"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_VAR \n Ival = 0\n Sval = a"];
+"0x83bd228"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_NB \n Ival = 1"];
+"0x83bd438"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_INSTRUCTION \n Ival = 0"];
+"0x83bd438" -> "0x83bd2b8";
+"0x83bd438" -> "0x83bd418";
+"0x83bd2b8"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_AFFECT \n Ival = 0"];
+"0x83bd2b8" -> "0x83bd278";
+"0x83bd2b8" -> "0x83bd298";
+"0x83bd278"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_VAR \n Ival = 0\n Sval = b"];
+"0x83bd298"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_NB \n Ival = 2"];
+"0x83bd418"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_INSTRUCTION \n Ival = 0"];
+"0x83bd418" -> "0x83bd388";
+"0x83bd418" -> "0x83bd3f8";
+"0x83bd388"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_AFFECT \n Ival = 0"];
+"0x83bd388" -> "0x83bd2e8";
+"0x83bd388" -> "0x83bd368";
+"0x83bd2e8"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_VAR \n Ival = 0\n Sval = c"];
+"0x83bd368"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_PLUS \n Ival = 0"];
+"0x83bd368" -> "0x83bd318";
+"0x83bd368" -> "0x83bd348";
+"0x83bd318"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_VAR \n Ival = 0\n Sval = a"];
+"0x83bd348"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_VAR \n Ival = 0\n Sval = b"];
+"0x83bd3f8"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_INSTRUCTION \n Ival = 0"];
+"0x83bd3f8" -> "0x83bd3d8";
+"0x83bd3d8"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_WRITE \n Ival = 0"];
+"0x83bd3d8" -> "0x83bd3b8";
+"0x83bd3b8"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_VAR \n Ival = 0\n Sval = a"];
+"0x83bd078"[shape=box, color="#e6e8f2", fontcolor="#000000",label="AT_HEADFUNCT \n Ival = 0"];
+;*** END printTreeGraphViz(..) ***
+;*** BEGIN SymbolTable ***
+;*** END SymbolTable ***
+;*** BEGIN printSymbolTableGraphViz(..)  ***
+"0x83bd4f8"[shape=box, color="#e6e8f2", fontcolor="#000000",label="addr: 0x83bd4f8 id: main address: -1 type: 1 niv: 0 state: 1;"];
+"0x83bd4f8" -> "0x83bd528" [color="#1DED16", label="Next"];
+"0x83bd4f8" -> "0x83bd558"[color="#ED165E", label="Down"];
+"0x83bd558"[shape=box, color="#e6e8f2", fontcolor="#000000",label="addr: 0x83bd558 id: g address: -1 type: 2 niv: 1 state: 0;"];
+"0x83bd558" -> "0x83bd588" [color="#1DED16", label="Next"];
+"0x83bd558" -> "0x83bd4f8"[color="#162BED", label="Up"];
+"0x83bd588"[shape=box, color="#e6e8f2", fontcolor="#000000",label="addr: 0x83bd588 id: c address: -1 type: 2 niv: 1 state: 0;"];
+"0x83bd588" -> "0x83bd5b8" [color="#1DED16", label="Next"];
+"0x83bd588" -> "0x83bd4f8"[color="#162BED", label="Up"];
+"0x83bd5b8"[shape=box, color="#e6e8f2", fontcolor="#000000",label="addr: 0x83bd5b8 id: b address: -1 type: 2 niv: 1 state: 0;"];
+"0x83bd5b8" -> "0x83bd5e8" [color="#1DED16", label="Next"];
+"0x83bd5b8" -> "0x83bd4f8"[color="#162BED", label="Up"];
+"0x83bd5e8"[shape=box, color="#e6e8f2", fontcolor="#000000",label="addr: 0x83bd5e8 id: a address: -1 type: 2 niv: 1 state: 0;"];
+"0x83bd5e8" -> "0x83bd618" [color="#1DED16", label="Next"];
+"0x83bd5e8" -> "0x83bd4f8"[color="#162BED", label="Up"];
+;*** END printSymbolTableGraphViz(..)  ***
+; * Verification de la specification LSD12 :
+;---GPS = tree_id : 12 AT_ROOT LEFT ;---
+;---GPS = tree_id : 3 AT_FUNCT LEFT & RIGHT ;---
+;---GPS = tree_id : 5 AT_CORPS LEFT ;---
+;---GPS = tree_id : 1 AT_BLOCDECLA LEFT ;---
+;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
+;---GPS = tree_id : 0 AT_VAR ;---
+;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
+;---GPS = tree_id : 0 AT_VAR ;---
+;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
+;---GPS = tree_id : 0 AT_VAR ;---
+;---GPS = tree_id : 2 AT_DECLA RIGHT ;---
+;---GPS = tree_id : 0 AT_VAR ;---
+;---GPS = tree_id : 6 AT_IMPLEMENT LEFT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION LEFT ;---
+;---GPS = tree_id : 29 AT_WRITE RIGHT ;---
+;---GPS = tree_id : 0 AT_VAR ;---
+;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
+;---GPS = tree_id : 11 AT_PLUS ;---
+;---GPS = tree_id : 0 AT_VAR ;---
+;---GPS = tree_id : 0 AT_VAR ;---
+;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
+;---GPS = tree_id : 9 AT_NB ;---
+;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
+;---GPS = tree_id : 9 AT_NB ;---
+; * Fin de la verification de la specification LSD12!
+;*** BEGIN computeLocations(..) ***
+;*** END computeLocations(..) ***
+;*** BEGIN SymbolTable ***
+;--
+; [0x83bd4f8] Id : id: main address: 0 type: 1 niv: 0 state: 1
+;	 Next : 0x83bd528, Previous : (nil), down : 0x83bd558, up : (nil)
+;--
+; [0x83bd558] Id : id: g address: 0 type: 2 niv: 1 state: 0
+;	 Next : 0x83bd588, Previous : (nil), down : (nil), up : 0x83bd4f8
+;--
+; [0x83bd588] Id : id: c address: 1 type: 2 niv: 1 state: 0
+;	 Next : 0x83bd5b8, Previous : 0x83bd558, down : (nil), up : 0x83bd4f8
+;--
+; [0x83bd5b8] Id : id: b address: 2 type: 2 niv: 1 state: 0
+;	 Next : 0x83bd5e8, Previous : 0x83bd588, down : (nil), up : 0x83bd4f8
+;--
+; [0x83bd5e8] Id : id: a address: 3 type: 2 niv: 1 state: 0
+;	 Next : 0x83bd618, Previous : 0x83bd5b8, down : (nil), up : 0x83bd4f8
+;*** END SymbolTable ***
+;*** BEGIN PCodeGeneration ***
+define @main
+ssp 4
+lda i 0 3
+ldc i 1
+sto i
+lda i 0 2
+ldc i 2
+sto i
+lda i 0 1
+lda i 0 3
+ind i
+lda i 0 2
+ind i
+add i
+sto i
+lda i 0 3
+ind i
+prin
+stp
+;*** END PCodeGeneration ***
+;*** BEGIN Cleaning ***
+;*** END Cleaning ***
