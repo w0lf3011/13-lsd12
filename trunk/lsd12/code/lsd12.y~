@@ -188,31 +188,30 @@ int main()
 SYMTABLE sym;
 
 printf("; *** Compiler ***\n");
+printf(";\n");
 
-  printf(";\n");
-
-  printf(";*** BEGIN yyparse() ***\n");
+printf(";*** BEGIN yyparse() ***\n");
   yyparse();
-  printf(";*** END yyparse() ***\n");
+printf(";*** END yyparse() ***\n");
 
-  printf(";*** BEGIN printTree(..) ***\n");
+printf(";*** BEGIN printTree(..) ***\n");
   printTree(root);
-  printf(";*** END printTree(..) ***\n");
+printf(";*** END printTree(..) ***\n");
 
-  printf(";*** BEGIN printTreeGraphViz(..) ***\n");
-  printTreeGraphViz(root);
-  printf(";*** END printTreeGraphViz(..) ***\n");
+printf(";*** BEGIN printTreeGraphViz(..) ***\n");
+//  printTreeGraphViz(root);
+printf(";*** END printTreeGraphViz(..) ***\n");
 
-  printf(";*** BEGIN SymbolTable ***\n");
+printf(";*** BEGIN SymbolTable ***\n");
   sym = creaNode();
   fillTable(root, sym, -1);
-  printf(";*** END SymbolTable ***\n");
+printf(";*** END SymbolTable ***\n");
 
-  printf(";*** BEGIN printSymbolTableGraphViz(..)  ***\n");
-  printSymbolTableGraphViz(sym);
-  printf(";*** END printSymbolTableGraphViz(..)  ***\n");
+printf(";*** BEGIN printSymbolTableGraphViz(..)  ***\n");
+ // printSymbolTableGraphViz(sym);
+printf(";*** END printSymbolTableGraphViz(..)  ***\n");
 
-  printf("; * Verification de la specification LSD12 :\n");
+printf("; * Verification de la specification LSD12 :\n");
   if (check(root,sym) != 1)
     {
       freeTree(root);
@@ -220,24 +219,24 @@ printf("; *** Compiler ***\n");
       fprintf(stderr,"KO\n");
       exit(1);
     }
-  printf("; * Fin de la verification de la specification LSD12!\n");
-  
-  printf(";*** BEGIN computeLocations(..) ***\n");
+printf("; * Fin de la verification de la specification LSD12!\n");
+ 
+printf(";*** BEGIN computeLocations(..) ***\n");
   computeLocations(sym);
-  printf(";*** END computeLocations(..) ***\n");
+printf(";*** END computeLocations(..) ***\n");
 
   printf(";*** BEGIN SymbolTable ***\n");
   printSymbolTable(sym);
   printf(";*** END SymbolTable ***\n");
 /*
-  printf(";*** BEGIN PCodeGeneration ***\n");
-  pcodeGenValue(root, sym);
-  printf(";*** END PCodeGeneration ***\n");
+printf(";*** BEGIN PCodeGeneration ***\n");
+ pcodeGenValue(root, sym);
+printf(";*** END PCodeGeneration ***\n");
 */
-  printf(";*** BEGIN Cleaning ***\n");
+printf(";*** BEGIN Cleaning ***\n");
   freeTree(root);
   freeSymbolTable(sym);
-  printf(";*** END Cleaning ***\n");
+printf(";*** END Cleaning ***\n");
 
   fprintf(stderr,"OK\n");
   
