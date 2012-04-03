@@ -40,8 +40,8 @@ void pcodeGenAddress(ASTTREE tree, SYMTABLE s, SYMTABLE function) // function = 
       break;
       
     default:
-      fprintf(stderr,";KO\n");
       printf(";ERROR : unrecognized type=%d in pcodeGenAddress(..)\n", tree->type);
+      fprintf(stderr,";KO\n");
       exit(1);
     }
 
@@ -84,7 +84,7 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 			pcodeGenValue(tree->right,node->down); //tds
 		}
 		
-	      if(node->varType == VAL_NOTYPE) // sortir de la fonction nill
+	      if(node->varType == VAL_NOTYPE) // 
 		printf("retf\n");
 	    }
 	  
@@ -264,11 +264,11 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  
 
 	default:
-	  fprintf(stderr,";KO\n");
 	  printf(";ERROR : unrecognized type=%d in pcodeGenValue(..)\n", tree->type);
+	  fprintf(stderr,";KO\n");
+	  
   	}
     }
-
 
 
 }

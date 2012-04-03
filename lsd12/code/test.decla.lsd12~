@@ -3,25 +3,25 @@ program LSD12;
 function main(): void; { TJ VOID }
 var 
 { test vc VAR vide; }
-
+{
 	a int;
 	b int;
 	c int;
 	d bool;
 	e bool;
 	f bool;
-	g int;
+	g int;}
+a int;
 	
 
 begin
 
-a := 1;
-b := 2;
-c := a + b;
+read a;
 write a;
 
-
 {
+read a;
+write -(a+a);
 	;
 	a := b;
 	a := -1; b := 2;

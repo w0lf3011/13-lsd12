@@ -19,7 +19,7 @@ int check(ASTTREE tree, SYMTABLE tds)
 		{
 			case AT_ROOT : 
 				if(tree->left != NULL) {
-					printf(";---GPS = tree_id : %d AT_ROOT LEFT ;---\n", tree->id);
+					//printf(";---GPS = tree_id : %d AT_ROOT LEFT ;---\n", tree->id);
 					return (check(tree->left, tds));
 				}		
 				break;
@@ -31,7 +31,7 @@ int check(ASTTREE tree, SYMTABLE tds)
 					if(node != NULL)
 					{
 						if(tree->left != NULL && tree->right != NULL) {
-							printf(";---GPS = tree_id : %d AT_FUNCT LEFT & RIGHT ;---\n", tree->id);
+							//printf(";---GPS = tree_id : %d AT_FUNCT LEFT & RIGHT ;---\n", tree->id);
 							return check(tree->left, node->down) && check(tree->right, node->down); //tds
 						}
 					}else {
@@ -44,7 +44,7 @@ int check(ASTTREE tree, SYMTABLE tds)
 				break; 
 			case AT_HEADFUNCT : 
 				if(tree->left != NULL) {
-					printf(";---GPS = tree_id : %d AT_HEADFUNCT LEFT;---\n", tree->id);
+					//printf(";---GPS = tree_id : %d AT_HEADFUNCT LEFT;---\n", tree->id);
 					return check(tree->left,tds);
 				}
 				else {
@@ -53,43 +53,43 @@ int check(ASTTREE tree, SYMTABLE tds)
 				break;
 			case AT_CORPS : 
 				if(tree->left != NULL && tree->right != NULL) {
-					printf(";---GPS = tree_id : %d AT_CORPS LEFT ;---\n", tree->id);
+					//printf(";---GPS = tree_id : %d AT_CORPS LEFT ;---\n", tree->id);
 					return check(tree->left, tds) && check(tree->right, tds);
 				}
 				break;
 			case AT_IMPLEMENT : 
 				if(tree->left != NULL) {
-					printf(";---GPS = tree_id : %d AT_IMPLEMENT LEFT ;---\n", tree->id);
+					//printf(";---GPS = tree_id : %d AT_IMPLEMENT LEFT ;---\n", tree->id);
 					return check(tree->left, tds);
 				}
 				if(tree->right == NULL && tree->left == NULL) {
-					printf(";---GPS = tree_id : %d AT_IMPLEMENT NULL NULL ;---\n", tree->id);
+					//printf(";---GPS = tree_id : %d AT_IMPLEMENT NULL NULL ;---\n", tree->id);
 					return OK;
 				}
 				break;
 			case AT_BLOCDECLA :
 				if(tree->right != NULL) {
-					printf(";---GPS = tree_id : %d AT_BLOCDECLA RIGHT ;---\n", tree->id);
+					//printf(";---GPS = tree_id : %d AT_BLOCDECLA RIGHT ;---\n", tree->id);
 					return KO;
 				}
 				if(tree->left != NULL)	{
-					printf(";---GPS = tree_id : %d AT_BLOCDECLA LEFT ;---\n", tree->id);
+					//printf(";---GPS = tree_id : %d AT_BLOCDECLA LEFT ;---\n", tree->id);
 					return (check(tree->left, tds));
 				}
 				if(tree->right == NULL && tree->left == NULL) {
-					printf(";---GPS = tree_id : %d AT_BLOCDECLA NULL NULL ;---\n", tree->id);
+					//printf(";---GPS = tree_id : %d AT_BLOCDECLA NULL NULL ;---\n", tree->id);
 					return OK;
 				}
 				break;
 			
 			case AT_DECLA : 
 				if(tree->right != NULL && tree->left != NULL) {
-					printf(";---GPS = tree_id : %d AT_DECLA RIGHT->LEFT ;---\n", tree->id);
+					//printf(";---GPS = tree_id : %d AT_DECLA RIGHT->LEFT ;---\n", tree->id);
 					type = tree->type;
 					return checkType(tree->right, type, tds) && check(tree->left, tds);
 				}
 				if(tree->right != NULL && tree->left == NULL) {
-					printf(";---GPS = tree_id : %d AT_DECLA RIGHT ;---\n", tree->id);
+					//printf(";---GPS = tree_id : %d AT_DECLA RIGHT ;---\n", tree->id);
 					type = tree->type;
 					return checkType(tree->right, type, tds);
 				}
@@ -98,11 +98,11 @@ int check(ASTTREE tree, SYMTABLE tds)
 
 			case AT_INSTRUCTION : 
 				if(tree->right != NULL && tree->left != NULL) {
-					printf(";---GPS = tree_id : %d AT_INSTRUCTION RIGHT ;---\n", tree->id);
+					//printf(";---GPS = tree_id : %d AT_INSTRUCTION RIGHT ;---\n", tree->id);
 					return check(tree->right, tds) && check(tree->left, tds);
 				}
 				if(tree->right == NULL && tree->left != NULL) {
-					printf(";---GPS = tree_id : %d AT_INSTRUCTION LEFT ;---\n", tree->id);
+					//printf(";---GPS = tree_id : %d AT_INSTRUCTION LEFT ;---\n", tree->id);
 					return check(tree->left, tds);
 				}
 				else
@@ -111,7 +111,7 @@ int check(ASTTREE tree, SYMTABLE tds)
 				}
 				break;
 			case AT_AFFECT : 
-				printf(";---GPS = tree_id : %d AT_AFFECT RIGHT ;---\n", tree->id);
+				//printf(";---GPS = tree_id : %d AT_AFFECT RIGHT ;---\n", tree->id);
 				node = alreadyIsSymbol(tds,tree->left->sval,3); 
 				if (node != NULL)
 				{	//printf(";--varType : %d --\n", node->varType);
@@ -144,14 +144,14 @@ int check(ASTTREE tree, SYMTABLE tds)
 					return KO;
 				}else{
 					// Sinon retourne KO
-					printf(";Erreur impossible de faire une affectation sur %s car non declaree\n",tree->left->sval);
+					//printf(";Erreur impossible de faire une affectation sur %s car non declaree\n",tree->left->sval);
 					return KO;
 				}
 				
 				break;
 			case AT_EXPRD :  
 				if(tree->left != NULL) {
-					printf(";---GPS = AT_EXPRD LEFT ;---\n");
+					//printf(";---GPS = AT_EXPRD LEFT ;---\n");
 					if (tree->left->id == 0) { // Si tree->left->id est AT_VAR (type 5 dans l'arbre et autre type dans la table des symboles;
 						return OK;
 					}
@@ -165,7 +165,7 @@ int check(ASTTREE tree, SYMTABLE tds)
 
 			case AT_WRITE : //printf(";---GPS = AT_WRITE RIGHT ;---\n");
 				if(tree->right != NULL) {
-					printf(";---GPS = tree_id : %d AT_WRITE RIGHT ;---\n", tree->id);	
+					//printf(";---GPS = tree_id : %d AT_WRITE RIGHT ;---\n", tree->id);	
 					// Verifie si le type du noeud left est VAL_INT
 					if(checkType(tree->right, VAL_INT, tds)==2)
 					{
@@ -180,7 +180,7 @@ int check(ASTTREE tree, SYMTABLE tds)
 				break;
 			case AT_READ : //printf(";---GPS = AT_READ RIGHT ;---\n");
 				if(tree->right != NULL) {
-					printf(";---GPS = tree_id : %d AT_READ RIGHT ;---\n", tree->id);
+					//printf(";---GPS = tree_id : %d AT_READ RIGHT ;---\n", tree->id);
 					//type = tree->right->type;
 					//return checkType(tree->right, type, tds);
 					if(checkType(tree->right, VAL_INT, tds)==2)
@@ -221,7 +221,7 @@ int check(ASTTREE tree, SYMTABLE tds)
 
 			case AT_InstructionIF : 
 				if(tree->left != NULL) {
-					printf(";---GPS = tree_id : %d AT_INSTRUCTIONIF LEFT ;---\n", tree->id);
+					//printf(";---GPS = tree_id : %d AT_INSTRUCTIONIF LEFT ;---\n", tree->id);
 					return check(tree->left, tds);
 				}
 				else
@@ -278,7 +278,7 @@ int checkType(ASTTREE tree, int type, SYMTABLE tds)
 
 			
 			case AT_VAR : 
-						printf(";---GPS = tree_id : %d AT_VAR ;---\n", tree->id);
+						//printf(";---GPS = tree_id : %d AT_VAR ;---\n", tree->id);
 						node = alreadyIsSymbol(tds, tree->sval, 3); 
 						//printf("-- %s -- ", node->id);
 						if(node != NULL) // si variable existe
@@ -301,7 +301,7 @@ int checkType(ASTTREE tree, int type, SYMTABLE tds)
 					
 			
 			case AT_PLUS :
-						printf(";---GPS = tree_id : %d AT_PLUS ;---\n", tree->id);
+						//printf(";---GPS = tree_id : %d AT_PLUS ;---\n", tree->id);
 						if(type != VAL_INT)
 						{
 							printf(";Error de typage avec PLUS\n");
@@ -320,7 +320,7 @@ int checkType(ASTTREE tree, int type, SYMTABLE tds)
 
 			
 			case AT_MOINS :
-						printf(";---GPS = tree_id : %d AT_MOINS ;---\n", tree->id);
+						//printf(";---GPS = tree_id : %d AT_MOINS ;---\n", tree->id);
 						if(type != VAL_INT)
 						{
 							printf(";Error de type avec MOINS\n");
@@ -339,7 +339,7 @@ int checkType(ASTTREE tree, int type, SYMTABLE tds)
 
 			
 			case AT_FOIS : 
-						printf(";---GPS = tree_id : %d AT_FOIS ;---\n", tree->id);
+						//printf(";---GPS = tree_id : %d AT_FOIS ;---\n", tree->id);
 						if(type != VAL_INT)
 						{
 							printf(";Error de typage avec FOIS\n");
@@ -358,7 +358,7 @@ int checkType(ASTTREE tree, int type, SYMTABLE tds)
 
 			
 			case AT_NEG : 
-						printf(";---GPS = tree_id : %d AT_NEG ;---\n", tree->id);
+						//printf(";---GPS = tree_id : %d AT_NEG ;---\n", tree->id);
 						if(type != VAL_INT)
 						{
 							printf(";Erreur de typage avec NEG\n");
@@ -370,7 +370,7 @@ int checkType(ASTTREE tree, int type, SYMTABLE tds)
 
 		    
 			case AT_DIVISE : 
-						printf(";---GPS = tree_id : %d AT_DIVISE ;---\n", tree->id);
+						//printf(";---GPS = tree_id : %d AT_DIVISE ;---\n", tree->id);
 						if(type != VAL_INT)
 						{
 							printf(";Error de typage avec DIVISE\n");
@@ -388,7 +388,7 @@ int checkType(ASTTREE tree, int type, SYMTABLE tds)
 
 			
 			case AT_NOT : 
-						printf(";---GPS = tree_id : %d AT_NOT ;---\n", tree->id);
+						//printf(";---GPS = tree_id : %d AT_NOT ;---\n", tree->id);
 						if(type != VAL_BOOL)
 						{
 							printf(";Error de typage avec NOT\n");
@@ -406,7 +406,7 @@ int checkType(ASTTREE tree, int type, SYMTABLE tds)
 
 		
 			case AT_AND : 
-						printf(";---GPS = tree_id : %d AT_AND ;---\n", tree->id);
+						//printf(";---GPS = tree_id : %d AT_AND ;---\n", tree->id);
 						if(type != VAL_BOOL)
 						{
 							printf(";Error de typage avec AND\n");
@@ -423,7 +423,7 @@ int checkType(ASTTREE tree, int type, SYMTABLE tds)
 
 		
 			case AT_OR : 
-						printf(";---GPS = tree_id : %d AT_OR ;---\n", tree->id);
+						//printf(";---GPS = tree_id : %d AT_OR ;---\n", tree->id);
 						if(type != VAL_BOOL)
 						{
 							printf(";Error de typage avec OR\n");
@@ -440,7 +440,7 @@ int checkType(ASTTREE tree, int type, SYMTABLE tds)
 
 		
 			case AT_LT : 
-						printf(";---GPS = tree_id : %d AT_LT ;---\n", tree->id);
+						//printf(";---GPS = tree_id : %d AT_LT ;---\n", tree->id);
 						if(type != VAL_BOOL)
 						{
 							printf(";Erreur de typage pour opération '<'\n");
@@ -458,7 +458,7 @@ int checkType(ASTTREE tree, int type, SYMTABLE tds)
 
 			
 			case AT_LE :
-						printf(";---GPS = tree_id : %d AT_LE ;---\n", tree->id);
+						//printf(";---GPS = tree_id : %d AT_LE ;---\n", tree->id);
 						if(type != VAL_BOOL)
 						{
 							printf(";Erreur de typage pour opération '<='\n");
@@ -476,7 +476,7 @@ int checkType(ASTTREE tree, int type, SYMTABLE tds)
 
 		
 			case AT_EQUAL : 
-						printf(";---GPS = tree_id : %d AT_EQUAL ;---\n", tree->id);
+						//printf(";---GPS = tree_id : %d AT_EQUAL ;---\n", tree->id);
 						if(type != VAL_BOOL)
 						{
 							printf(";Erreur de typage pour opération '='\n");
@@ -494,7 +494,7 @@ int checkType(ASTTREE tree, int type, SYMTABLE tds)
 
 			
 			case AT_NB : 
-						printf(";---GPS = tree_id : %d AT_NB ;---\n", tree->id);
+						//printf(";---GPS = tree_id : %d AT_NB ;---\n", tree->id);
 						if (type == VAL_INT)
 							return VAL_INT;
 						else{
@@ -505,7 +505,7 @@ int checkType(ASTTREE tree, int type, SYMTABLE tds)
 
 		
 			case AT_BOOL : 
-						printf(";---GPS = tree_id : %d AT_BOOL ;---\n", tree->id);
+						//printf(";---GPS = tree_id : %d AT_BOOL ;---\n", tree->id);
 						if (type == VAL_BOOL)
 							return VAL_BOOL;
 						else{
