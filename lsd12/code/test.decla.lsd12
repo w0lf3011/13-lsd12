@@ -18,25 +18,8 @@ begin
 	a := 1;
 	b := 2;
 	
-	d := true;
-	e := false;
-
-	if (d) then
-		c := a + b;
-	fi;
-
-	if (a = 1) then
-		c := a + b;
-
-	else
-		c := a * b;
-		
-	fi;
-
-	while (d)
-	do
-		c := a * b;
-	od;
+	c := a + b;
+	write c;
 
 end;
 
