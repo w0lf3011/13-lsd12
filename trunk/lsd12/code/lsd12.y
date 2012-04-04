@@ -8,8 +8,8 @@
 
 #include "ast.h"
 #include "sym.h"
-//#include "check.h"
-//#include "pcode.h"
+#include "check.h"
+#include "pcode.h"
 
 extern int num_lines;
 extern char* yytext;
@@ -230,7 +230,7 @@ printf(";*** END SymbolTable ***\n");
 printf(";*** BEGIN printSymbolTableGraphViz(..)  ***\n");
  // printSymbolTableGraphViz(sym);
 printf(";*** END printSymbolTableGraphViz(..)  ***\n");
-/*
+
 printf("; * Verification de la specification LSD12 :\n");
   if (check(root,sym) != 1)
     {
@@ -240,7 +240,7 @@ printf("; * Verification de la specification LSD12 :\n");
       exit(1);
     }
 printf("; * Fin de la verification de la specification LSD12!\n");
-*/
+
 printf(";*** BEGIN computeLocations(..) ***\n");
   computeLocations(sym);
 printf(";*** END computeLocations(..) ***\n");
@@ -250,7 +250,7 @@ printf(";*** END computeLocations(..) ***\n");
   printf(";*** END SymbolTable ***\n");
 
 printf(";*** BEGIN PCodeGeneration ***\n");
-// pcodeGenValue(root, sym);
+ pcodeGenValue(root, sym);
 printf(";*** END PCodeGeneration ***\n");
 
 printf(";*** BEGIN Cleaning ***\n");
