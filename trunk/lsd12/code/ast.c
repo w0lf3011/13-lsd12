@@ -60,6 +60,10 @@ char* humanReadableNodeType(int id)
 {
   switch(id) {
 
+  case AT_FUNCTPARAM:      return "AT_FUNCTPARAM"; break;
+  case AT_FUNCTUSE:      return "AT_FUNCTUSE"; break;
+  case AT_DECLAPARAM:      return "AT_DECLAPARAM"; break;
+  case AT_LISTPARAM:      return "AT_LISTPARAM"; break;
   case AT_WHILE:      return "AT_WHILE"; break;
   case AT_InstructionIFELSE:      return "AT_InstructionIFELSE"; break;
   case AT_InstructionIF:      return "AT_InstructionIF"; break;

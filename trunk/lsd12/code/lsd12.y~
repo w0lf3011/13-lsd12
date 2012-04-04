@@ -8,8 +8,8 @@
 
 #include "ast.h"
 #include "sym.h"
-#include "check.h"
-#include "pcode.h"
+//#include "check.h"
+//#include "pcode.h"
 
 extern int num_lines;
 extern char* yytext;
@@ -53,7 +53,7 @@ ASTTREE root;
 %left PLUS MINUS
 %left TIMES DIVISE
 
-%type <tval> Lsd12 BlocDecla Decla Var Funct HeadFunct Corps Implement ExprD Instruction InstructionList InstructionIF
+%type <tval> Lsd12 BlocDecla Decla Var Funct HeadFunct Corps Implement ExprD Instruction InstructionList InstructionIF ListParam DeclaParam
 
 // indiquer le non-terminal de commencement
 %start Lsd12
@@ -80,10 +80,20 @@ Implement: InstructionList
 
 ;
 
-HeadFunct: LP RP
-	{ $$ = createNode(AT_HEADFUNCT, VAL_NOTYPE, 0, NULL, NULL, NULL);}
-	| LP Decla RP
+HeadFunct: LP ListParam RP
 	{ $$ = createNode(AT_HEADFUNCT, VAL_NOTYPE, 0, NULL, $2, NULL);}
+;
+
+ListParam: { $$ = NULL;}
+	| DeclaParam 
+	{ $$ = createNode(AT_LISTPARAM, VAL_NOTYPE, 0, NULL, $1, NULL);}
+	| DeclaParam COMMA ListParam
+	{ $$ = createNode(AT_LISTPARAM, VAL_NOTYPE, 0, NULL, $1, $3);}
+;
+
+DeclaParam : REF Var TWOPOINT TYPE
+	{ $$ = createNode(AT_DECLAPARAM, $4, 0, NULL, $2, NULL);}
+
 ;
 
 BlocDecla: REF Decla 
@@ -126,8 +136,18 @@ Instruction : ExprD
 	      { $$ = createNode(AT_IF, VAL_NOTYPE, 0, NULL, $3, $6);}
 	      | WHILE LP ExprD RP DO InstructionList OD 
 	      { $$ = createNode(AT_WHILE, VAL_NOTYPE, 0, NULL, $3, $6);}
+	      | Var LP FunctParam RP
+              { $$ = createNode(AT_FUNCTUSE, VAL_NOTYPE, 0, NULL, $1, $3);}
 	      	      
 ;
+
+FunctParam: Var
+           { $$ = createNode(AT_FUNCTPARAM, VAL_NOTYPE, 0, NULL, $1, NULL);}
+	   | Var COMMA FunctParam
+           { $$ = createNode(AT_FUNCTPARAM, VAL_NOTYPE, 0, NULL, $1, $3);}
+
+;
+
 InstructionIF : InstructionList
 	        { $$ = createNode(AT_InstructionIF, VAL_NOTYPE, 0, NULL, $1, NULL);}
 		| InstructionList ELSE InstructionList
@@ -210,7 +230,7 @@ printf(";*** END SymbolTable ***\n");
 printf(";*** BEGIN printSymbolTableGraphViz(..)  ***\n");
  // printSymbolTableGraphViz(sym);
 printf(";*** END printSymbolTableGraphViz(..)  ***\n");
-
+/*
 printf("; * Verification de la specification LSD12 :\n");
   if (check(root,sym) != 1)
     {
@@ -220,7 +240,7 @@ printf("; * Verification de la specification LSD12 :\n");
       exit(1);
     }
 printf("; * Fin de la verification de la specification LSD12!\n");
- 
+*/
 printf(";*** BEGIN computeLocations(..) ***\n");
   computeLocations(sym);
 printf(";*** END computeLocations(..) ***\n");
@@ -228,11 +248,11 @@ printf(";*** END computeLocations(..) ***\n");
   printf(";*** BEGIN SymbolTable ***\n");
   printSymbolTable(sym);
   printf(";*** END SymbolTable ***\n");
-/*
+
 printf(";*** BEGIN PCodeGeneration ***\n");
- pcodeGenValue(root, sym);
+// pcodeGenValue(root, sym);
 printf(";*** END PCodeGeneration ***\n");
-*/
+
 printf(";*** BEGIN Cleaning ***\n");
   freeTree(root);
   freeSymbolTable(sym);
