@@ -240,18 +240,22 @@ int fillTable(ASTTREE tree, SYMTABLE s, int currentType)
 	{
  		return 0;
  	}else{
+		
 		if(tree->id == AT_FUNCT) // change de fonction courante
 		{
 			type = tree->type; 
 			s = addToSymbolTable(s, tree->sval,1, type);
 			type = -1; // on n'est plus dans les déclarations, on nettoye le type sauvé
+						
 			if(s == NULL) // ajouter la fonction sur le niveau courant imbrication "s->level"
 			{
  				printf("; ATTENTION FONCTION %s !, Il existe deja une fonction de même nom sur ce niveau\n.",tree->sval);
  				fprintf(stderr,";KO\n");
 				exit(1);
 			}
+			
 		} 
+		
 		/*
 		if(tree->id == AT_CODE)
 			type = -1; // on n'est plus dans les déclarations, on nettoye le type sauvé
