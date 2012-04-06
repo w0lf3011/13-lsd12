@@ -5,19 +5,32 @@ var
 
 	a int;
 	b int;
-	c int;
-	
+
+	c bool;
 
 begin
 
 	a := 1;
-	b := 2;
+	b := 1;
 	
-	read c;
-	write c;
+	c := true;
 
-	c := a + b;
-	write c;
+{
+	while ( a = b ) do
+           a := 2;
+	   write b;
+	od;
+
+	if ( c ) then
+	   write a;
+	fi;
+}
+	c := false;
+	if ( c ) then
+	   
+	else
+	   
+        fi;
 
 end;
 
