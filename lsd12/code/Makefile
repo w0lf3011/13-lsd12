@@ -17,3 +17,6 @@ clean:
 
 distclean: clean
 	-rm demo
+
+zip:
+	zip -r test.zip lsd12.* ast.* check.* pcode.* sym.*
