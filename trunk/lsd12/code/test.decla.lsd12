@@ -7,9 +7,9 @@ var
 	a int;
 	b int;
 	c int;
-	d bool;
-	e bool;
-	f bool;
+	d int;
+	e int;
+	f1 int;
 	
 	
 
@@ -20,6 +20,19 @@ begin
 	
 	c := a + b;
 	write c;
+
+	d := 10;
+	e := 5;
+	f1 := d * 2 * e;
+	write f1;
+
+	c := a - b;
+	write c;
+
+	f1 := d / e;
+	write f1;
+
+	
 
 end;
 

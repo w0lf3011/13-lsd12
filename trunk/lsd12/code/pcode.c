@@ -96,24 +96,26 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	      pcodeGenValue(tree->left,s);
 	    }
 	  break;
+
 	case AT_CORPS : 
 		if (tree->left != NULL ){	  
 			pcodeGenValue(tree->left,s);
 		}
-		 
-		  printf("define @%s\n",s->up->id);
-		  printf("ssp %d\n",getMaxMemoryUsage(s->up));
-	
+		printf("define @%s\n",s->up->id);
+		printf("ssp %d\n",getMaxMemoryUsage(s->up));
+		
 		if (tree->right != NULL ){
 		  pcodeGenValue(tree->right,s);
 		}
-		  break;
+		break;
+		
 	case AT_IMPLEMENT :
 	  if(tree->left != NULL)
 	    {
 	      pcodeGenValue(tree->left,s);
 	    }
 	  break;
+
 	case AT_BLOCDECLA :
 	  if(tree->left != NULL)
 	    pcodeGenValue(tree->left,s);
@@ -249,7 +251,6 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  printf("ldc b %d\n",tree->ival);
 	  break;
 		
-
 	case AT_VAR:
 	  node = alreadyIsSymbol(s, tree->sval, 0);  // dernier argument = 0 pour variable, 1 pour fonction
 	  
@@ -258,16 +259,18 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	if(node->varType == VAL_INT)
 	    printf("ind i\n");
 	  if(node->varType == VAL_BOOL)
-	    printf("ind b\n");							
+	    {
+	      printf("ind b\n");
+	    }
 
 	  break;
 	  
-
 	default:
 	  printf(";ERROR : unrecognized type=%d in pcodeGenValue(..)\n", tree->type);
 	  fprintf(stderr,";KO\n");
 	  
   	}
+
     }
 
 
