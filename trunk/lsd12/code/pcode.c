@@ -164,18 +164,24 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  break;	
 
 	case AT_EXPRD :  
-	 if (tree->left != NULL){
-	  pcodeGenValue(tree->left,s);
-	}
+	  if (tree->left != NULL){
+	    pcodeGenValue(tree->left,s);
+	  }
 	  break;
+
 	case AT_WRITE : 
 	  pcodeGenValue(tree->right, s);
 	  printf("prin\n");		
 	  break;
 
 	case AT_READ : 
-	  pcodeGenValue(tree->right, s);
-	  printf("read\n");			
+	  //pcodeGenValue(tree->right, s);
+	  
+	  node = alreadyIsSymbol(s, tree->right->sval, 0);  // dernier argument = 0 pour variable, 1 pour fonction  
+	  pcodeGenAddress(tree->right, node ,s->up);
+
+	  printf("read\n");
+	  printf("sto i\n");
 	  break;
 
 	case AT_PLUS :
@@ -252,18 +258,20 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  break;
 		
 	case AT_VAR:
-	  node = alreadyIsSymbol(s, tree->sval, 0);  // dernier argument = 0 pour variable, 1 pour fonction
 	  
+	  node = alreadyIsSymbol(s, tree->sval, 0);  // dernier argument = 0 pour variable, 1 pour fonction  
 	  pcodeGenAddress(tree, node ,s->up);
 	  
-	if(node->varType == VAL_INT)
+	  if(node->varType == VAL_INT) {
 	    printf("ind i\n");
-	  if(node->varType == VAL_BOOL)
-	    {
-	      printf("ind b\n");
-	    }
-
+	  }
+	  if(node->varType == VAL_BOOL) {
+	    printf("ind b\n");
+	  }
+	  
 	  break;
+
+	
 	  
 	default:
 	  printf(";ERROR : unrecognized type=%d in pcodeGenValue(..)\n", tree->type);

@@ -3,78 +3,41 @@
 ;*** BEGIN yyparse() ***
 ;*** END yyparse() ***
 ;*** BEGIN printTree(..) ***
-; [0x946160] id=AT_ROOT, type=5, ival=0, sval='LSD12', left=0x946130, right=(nil)
-; [0x946130] id=AT_FUNCT, type=1, ival=0, sval='main', left=0x946100, right=0x9450d0
-; [0x946100] id=AT_CORPS, type=5, ival=0, sval=NULL, left=0x945400, right=0x9460d0
-; [0x945400] id=AT_BLOCDECLA, type=5, ival=0, sval=NULL, left=0x9453d0, right=(nil)
-; [0x9453d0] id=AT_DECLA, type=2, ival=0, sval=NULL, left=0x9453a0, right=0x945120
-; [0x9453a0] id=AT_DECLA, type=2, ival=0, sval=NULL, left=0x945370, right=0x945170
-; [0x945370] id=AT_DECLA, type=2, ival=0, sval=NULL, left=0x945340, right=0x9451c0
-; [0x945340] id=AT_DECLA, type=2, ival=0, sval=NULL, left=0x945310, right=0x945210
-; [0x945310] id=AT_DECLA, type=2, ival=0, sval=NULL, left=0x9452e0, right=0x945260
-; [0x9452e0] id=AT_DECLA, type=2, ival=0, sval=NULL, left=(nil), right=0x9452b0
-; [0x9452b0] id=AT_VAR, type=5, ival=0, sval='f1', left=(nil), right=(nil)
-; [0x945260] id=AT_VAR, type=5, ival=0, sval='e', left=(nil), right=(nil)
-; [0x945210] id=AT_VAR, type=5, ival=0, sval='d', left=(nil), right=(nil)
-; [0x9451c0] id=AT_VAR, type=5, ival=0, sval='c', left=(nil), right=(nil)
-; [0x945170] id=AT_VAR, type=5, ival=0, sval='b', left=(nil), right=(nil)
-; [0x945120] id=AT_VAR, type=5, ival=0, sval='a', left=(nil), right=(nil)
-; [0x9460d0] id=AT_IMPLEMENT, type=5, ival=0, sval=NULL, left=0x9460a0, right=(nil)
-; [0x9460a0] id=AT_INSTRUCTION, type=5, ival=0, sval=NULL, left=0x9454b0, right=0x946070
-; [0x9454b0] id=AT_AFFECT, type=5, ival=0, sval=NULL, left=0x945450, right=0x945480
-; [0x945450] id=AT_VAR, type=5, ival=0, sval='a', left=(nil), right=(nil)
-; [0x945480] id=AT_NB, type=2, ival=1, sval=NULL, left=(nil), right=(nil)
-; [0x946070] id=AT_INSTRUCTION, type=5, ival=0, sval=NULL, left=0x945560, right=0x946040
-; [0x945560] id=AT_AFFECT, type=5, ival=0, sval=NULL, left=0x945500, right=0x945530
-; [0x945500] id=AT_VAR, type=5, ival=0, sval='b', left=(nil), right=(nil)
-; [0x945530] id=AT_NB, type=2, ival=2, sval=NULL, left=(nil), right=(nil)
-; [0x946040] id=AT_INSTRUCTION, type=5, ival=0, sval=NULL, left=0x9456b0, right=0x946010
-; [0x9456b0] id=AT_AFFECT, type=5, ival=0, sval=NULL, left=0x9455b0, right=0x945680
-; [0x9455b0] id=AT_VAR, type=5, ival=0, sval='c', left=(nil), right=(nil)
-; [0x945680] id=AT_PLUS, type=2, ival=0, sval=NULL, left=0x945600, right=0x945650
-; [0x945600] id=AT_VAR, type=5, ival=0, sval='a', left=(nil), right=(nil)
-; [0x945650] id=AT_VAR, type=5, ival=0, sval='b', left=(nil), right=(nil)
-; [0x946010] id=AT_INSTRUCTION, type=5, ival=0, sval=NULL, left=0x945730, right=0x945fe0
-; [0x945730] id=AT_WRITE, type=5, ival=0, sval=NULL, left=(nil), right=0x945700
-; [0x945700] id=AT_VAR, type=5, ival=0, sval='c', left=(nil), right=(nil)
-; [0x945fe0] id=AT_INSTRUCTION, type=5, ival=0, sval=NULL, left=0x9457e0, right=0x945fb0
-; [0x9457e0] id=AT_AFFECT, type=5, ival=0, sval=NULL, left=0x945780, right=0x9457b0
-; [0x945780] id=AT_VAR, type=5, ival=0, sval='d', left=(nil), right=(nil)
-; [0x9457b0] id=AT_NB, type=2, ival=10, sval=NULL, left=(nil), right=(nil)
-; [0x945fb0] id=AT_INSTRUCTION, type=5, ival=0, sval=NULL, left=0x945890, right=0x945f80
-; [0x945890] id=AT_AFFECT, type=5, ival=0, sval=NULL, left=0x945830, right=0x945860
-; [0x945830] id=AT_VAR, type=5, ival=0, sval='e', left=(nil), right=(nil)
-; [0x945860] id=AT_NB, type=2, ival=5, sval=NULL, left=(nil), right=(nil)
-; [0x945f80] id=AT_INSTRUCTION, type=5, ival=0, sval=NULL, left=0x945a40, right=0x945f50
-; [0x945a40] id=AT_AFFECT, type=5, ival=0, sval=NULL, left=0x9458e0, right=0x945a10
-; [0x9458e0] id=AT_VAR, type=5, ival=0, sval='f1', left=(nil), right=(nil)
-; [0x945a10] id=AT_FOIS, type=2, ival=0, sval=NULL, left=0x945990, right=0x9459e0
-; [0x945990] id=AT_FOIS, type=2, ival=0, sval=NULL, left=0x945930, right=0x945960
-; [0x945930] id=AT_VAR, type=5, ival=0, sval='d', left=(nil), right=(nil)
-; [0x945960] id=AT_NB, type=2, ival=2, sval=NULL, left=(nil), right=(nil)
-; [0x9459e0] id=AT_VAR, type=5, ival=0, sval='e', left=(nil), right=(nil)
-; [0x945f50] id=AT_INSTRUCTION, type=5, ival=0, sval=NULL, left=0x945ac0, right=0x945f20
-; [0x945ac0] id=AT_WRITE, type=5, ival=0, sval=NULL, left=(nil), right=0x945a90
-; [0x945a90] id=AT_VAR, type=5, ival=0, sval='f1', left=(nil), right=(nil)
-; [0x945f20] id=AT_INSTRUCTION, type=5, ival=0, sval=NULL, left=0x945c10, right=0x945ef0
-; [0x945c10] id=AT_AFFECT, type=5, ival=0, sval=NULL, left=0x945b10, right=0x945be0
-; [0x945b10] id=AT_VAR, type=5, ival=0, sval='c', left=(nil), right=(nil)
-; [0x945be0] id=AT_MOINS, type=2, ival=0, sval=NULL, left=0x945b60, right=0x945bb0
-; [0x945b60] id=AT_VAR, type=5, ival=0, sval='a', left=(nil), right=(nil)
-; [0x945bb0] id=AT_VAR, type=5, ival=0, sval='b', left=(nil), right=(nil)
-; [0x945ef0] id=AT_INSTRUCTION, type=5, ival=0, sval=NULL, left=0x945c90, right=0x945ec0
-; [0x945c90] id=AT_WRITE, type=5, ival=0, sval=NULL, left=(nil), right=0x945c60
-; [0x945c60] id=AT_VAR, type=5, ival=0, sval='c', left=(nil), right=(nil)
-; [0x945ec0] id=AT_INSTRUCTION, type=5, ival=0, sval=NULL, left=0x945de0, right=0x945e90
-; [0x945de0] id=AT_AFFECT, type=5, ival=0, sval=NULL, left=0x945ce0, right=0x945db0
-; [0x945ce0] id=AT_VAR, type=5, ival=0, sval='f1', left=(nil), right=(nil)
-; [0x945db0] id=AT_DIVISE, type=2, ival=0, sval=NULL, left=0x945d30, right=0x945d80
-; [0x945d30] id=AT_VAR, type=5, ival=0, sval='d', left=(nil), right=(nil)
-; [0x945d80] id=AT_VAR, type=5, ival=0, sval='e', left=(nil), right=(nil)
-; [0x945e90] id=AT_INSTRUCTION, type=5, ival=0, sval=NULL, left=0x945e60, right=(nil)
-; [0x945e60] id=AT_WRITE, type=5, ival=0, sval=NULL, left=(nil), right=0x945e30
-; [0x945e30] id=AT_VAR, type=5, ival=0, sval='f1', left=(nil), right=(nil)
-; [0x9450d0] id=AT_HEADFUNCT, type=5, ival=0, sval=NULL, left=(nil), right=(nil)
+; [0x1096890] id=AT_ROOT, type=5, ival=0, sval='LSD12', left=0x1096860, right=(nil)
+; [0x1096860] id=AT_FUNCT, type=1, ival=0, sval='main', left=0x1096830, right=0x10960d0
+; [0x1096830] id=AT_CORPS, type=5, ival=0, sval=NULL, left=0x1096280, right=0x1096800
+; [0x1096280] id=AT_BLOCDECLA, type=5, ival=0, sval=NULL, left=0x1096250, right=(nil)
+; [0x1096250] id=AT_DECLA, type=2, ival=0, sval=NULL, left=0x1096220, right=0x1096120
+; [0x1096220] id=AT_DECLA, type=2, ival=0, sval=NULL, left=0x10961f0, right=0x1096170
+; [0x10961f0] id=AT_DECLA, type=2, ival=0, sval=NULL, left=(nil), right=0x10961c0
+; [0x10961c0] id=AT_VAR, type=5, ival=0, sval='c', left=(nil), right=(nil)
+; [0x1096170] id=AT_VAR, type=5, ival=0, sval='b', left=(nil), right=(nil)
+; [0x1096120] id=AT_VAR, type=5, ival=0, sval='a', left=(nil), right=(nil)
+; [0x1096800] id=AT_IMPLEMENT, type=5, ival=0, sval=NULL, left=0x10967d0, right=(nil)
+; [0x10967d0] id=AT_INSTRUCTION, type=5, ival=0, sval=NULL, left=0x1096330, right=0x10967a0
+; [0x1096330] id=AT_AFFECT, type=5, ival=0, sval=NULL, left=0x10962d0, right=0x1096300
+; [0x10962d0] id=AT_VAR, type=5, ival=0, sval='a', left=(nil), right=(nil)
+; [0x1096300] id=AT_NB, type=2, ival=1, sval=NULL, left=(nil), right=(nil)
+; [0x10967a0] id=AT_INSTRUCTION, type=5, ival=0, sval=NULL, left=0x10963e0, right=0x1096770
+; [0x10963e0] id=AT_AFFECT, type=5, ival=0, sval=NULL, left=0x1096380, right=0x10963b0
+; [0x1096380] id=AT_VAR, type=5, ival=0, sval='b', left=(nil), right=(nil)
+; [0x10963b0] id=AT_NB, type=2, ival=2, sval=NULL, left=(nil), right=(nil)
+; [0x1096770] id=AT_INSTRUCTION, type=5, ival=0, sval=NULL, left=0x1096460, right=0x1096740
+; [0x1096460] id=AT_READ, type=5, ival=0, sval=NULL, left=(nil), right=0x1096430
+; [0x1096430] id=AT_VAR, type=5, ival=0, sval='c', left=(nil), right=(nil)
+; [0x1096740] id=AT_INSTRUCTION, type=5, ival=0, sval=NULL, left=0x10964e0, right=0x1096710
+; [0x10964e0] id=AT_WRITE, type=5, ival=0, sval=NULL, left=(nil), right=0x10964b0
+; [0x10964b0] id=AT_VAR, type=5, ival=0, sval='c', left=(nil), right=(nil)
+; [0x1096710] id=AT_INSTRUCTION, type=5, ival=0, sval=NULL, left=0x1096630, right=0x10966e0
+; [0x1096630] id=AT_AFFECT, type=5, ival=0, sval=NULL, left=0x1096530, right=0x1096600
+; [0x1096530] id=AT_VAR, type=5, ival=0, sval='c', left=(nil), right=(nil)
+; [0x1096600] id=AT_PLUS, type=2, ival=0, sval=NULL, left=0x1096580, right=0x10965d0
+; [0x1096580] id=AT_VAR, type=5, ival=0, sval='a', left=(nil), right=(nil)
+; [0x10965d0] id=AT_VAR, type=5, ival=0, sval='b', left=(nil), right=(nil)
+; [0x10966e0] id=AT_INSTRUCTION, type=5, ival=0, sval=NULL, left=0x10966b0, right=(nil)
+; [0x10966b0] id=AT_WRITE, type=5, ival=0, sval=NULL, left=(nil), right=0x1096680
+; [0x1096680] id=AT_VAR, type=5, ival=0, sval='c', left=(nil), right=(nil)
+; [0x10960d0] id=AT_HEADFUNCT, type=5, ival=0, sval=NULL, left=(nil), right=(nil)
 ;*** END printTree(..) ***
 ;*** BEGIN printTreeGraphViz(..) ***
 ;*** END printTreeGraphViz(..) ***
@@ -88,80 +51,39 @@
 ;*** END computeLocations(..) ***
 ;*** BEGIN SymbolTable ***
 ;--
-; [0x946190] Id : id: main address: 0 type: 1 niv: 0 state: 1
-;	 Next : 0x9461e0, Previous : (nil), down : 0x946230, up : (nil)
+; [0x10968c0] Id : id: main address: 0 type: 1 niv: 0 state: 1
+;	 Next : 0x1096910, Previous : (nil), down : 0x1096960, up : (nil)
 ;--
-; [0x946230] Id : id: f1 address: 0 type: 2 niv: 1 state: 0
-;	 Next : 0x946280, Previous : (nil), down : (nil), up : 0x946190
+; [0x1096960] Id : id: c address: 0 type: 2 niv: 1 state: 0
+;	 Next : 0x10969b0, Previous : (nil), down : (nil), up : 0x10968c0
 ;--
-; [0x946280] Id : id: e address: 1 type: 2 niv: 1 state: 0
-;	 Next : 0x9462d0, Previous : 0x946230, down : (nil), up : 0x946190
+; [0x10969b0] Id : id: b address: 1 type: 2 niv: 1 state: 0
+;	 Next : 0x1096a00, Previous : 0x1096960, down : (nil), up : 0x10968c0
 ;--
-; [0x9462d0] Id : id: d address: 2 type: 2 niv: 1 state: 0
-;	 Next : 0x946320, Previous : 0x946280, down : (nil), up : 0x946190
-;--
-; [0x946320] Id : id: c address: 3 type: 2 niv: 1 state: 0
-;	 Next : 0x946370, Previous : 0x9462d0, down : (nil), up : 0x946190
-;--
-; [0x946370] Id : id: b address: 4 type: 2 niv: 1 state: 0
-;	 Next : 0x9463c0, Previous : 0x946320, down : (nil), up : 0x946190
-;--
-; [0x9463c0] Id : id: a address: 5 type: 2 niv: 1 state: 0
-;	 Next : 0x946410, Previous : 0x946370, down : (nil), up : 0x946190
+; [0x1096a00] Id : id: a address: 2 type: 2 niv: 1 state: 0
+;	 Next : 0x1096a50, Previous : 0x10969b0, down : (nil), up : 0x10968c0
 ;*** END SymbolTable ***
 ;*** BEGIN PCodeGeneration ***
 define @main
-ssp 6
-lda i 0 5
+ssp 3
+lda i 0 2
 ldc i 1
 sto i
-lda i 0 4
+lda i 0 1
 ldc i 2
 sto i
-lda i 0 3
-lda i 0 5
+lda i 0 0
+read
+sto i
+lda i 0 0
 ind i
-lda i 0 4
+prin
+lda i 0 0
+lda i 0 2
+ind i
+lda i 0 1
 ind i
 add i
-sto i
-lda i 0 3
-ind i
-prin
-lda i 0 2
-ldc i 10
-sto i
-lda i 0 1
-ldc i 5
-sto i
-lda i 0 0
-lda i 0 2
-ind i
-ldc i 2
-mul i
-lda i 0 1
-ind i
-mul i
-sto i
-lda i 0 0
-ind i
-prin
-lda i 0 3
-lda i 0 5
-ind i
-lda i 0 4
-ind i
-sub i
-sto i
-lda i 0 3
-ind i
-prin
-lda i 0 0
-lda i 0 2
-ind i
-lda i 0 1
-ind i
-div i
 sto i
 lda i 0 0
 ind i
