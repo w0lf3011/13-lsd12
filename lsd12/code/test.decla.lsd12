@@ -3,14 +3,9 @@ program LSD12;
 function main(): void; { TJ VOID }
 var 
 
-
 	a int;
 	b int;
 	c int;
-	d int;
-	e int;
-	f1 int;
-	
 	
 
 begin
@@ -18,21 +13,11 @@ begin
 	a := 1;
 	b := 2;
 	
+	read c;
+	write c;
+
 	c := a + b;
 	write c;
-
-	d := 10;
-	e := 5;
-	f1 := d * 2 * e;
-	write f1;
-
-	c := a - b;
-	write c;
-
-	f1 := d / e;
-	write f1;
-
-	
 
 end;
 
