@@ -136,18 +136,22 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  break;			
 	
 	case AT_INSTRUCTION : 	
+
 	  if(tree->right != NULL && tree->left != NULL) {
 		pcodeGenValue(tree->left,s);		
-		pcodeGenValue(tree->right,s);
-		
+		pcodeGenValue(tree->right,s);		
 	  }
+
 	  if(tree->right == NULL && tree->left != NULL) {
 		pcodeGenValue(tree->left,s);
 	  }
+
 	  break;
 
 	case AT_AFFECT : 
+
 	  node = alreadyIsSymbol(s, tree->left->sval, 0);
+
 	  if(node != NULL)
 	    {
 	      pcodeGenAddress(tree->left, node ,s->up);
@@ -175,8 +179,6 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  break;
 
 	case AT_READ : 
-	  //pcodeGenValue(tree->right, s);
-	  
 	  node = alreadyIsSymbol(s, tree->right->sval, 0);  // dernier argument = 0 pour variable, 1 pour fonction  
 	  pcodeGenAddress(tree->right, node ,s->up);
 
@@ -270,8 +272,59 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  }
 	  
 	  break;
+	  
+	// condition bool du if
+	case AT_IF :
 
-	
+	  if ( tree->right != NULL ) {
+	    pcodeGenValue(tree->left, s);
+	    pcodeGenValue(tree->right, s);
+	  }
+	  
+	  break;
+
+	// instruction du then
+	case AT_InstructionIF :
+
+	  printf("fjp @fi\n");
+	  pcodeGenValue(tree->left, s);
+	  printf("ujp @fi\n");
+	  printf("define @fi\n");
+
+	  break;
+
+	// instruction du if then else
+	case AT_InstructionIFELSE :
+	  
+	  printf("fjp @else\n");
+	  if( tree->left != NULL ) {
+	    pcodeGenValue(tree->left, s);	    
+	  }
+	  printf("ujp @fi\n");
+	  printf("define @else\n");
+	  if( tree->right != NULL ) {
+	    pcodeGenValue(tree->right, s);
+	  }
+	  printf("define @fi\n");
+
+	  break;
+
+	// boucle while
+	case AT_WHILE :
+	  
+	  printf("define @while\n");
+	  pcodeGenValue(tree->left, s);
+	  
+	  printf("fjp @od\n");
+	  
+	  if( tree->right != NULL ) {
+	    pcodeGenValue(tree->right, s);
+	  }
+	  
+	  printf("ujp @while\n");
+	  printf("define @od\n");
+	  
+	  break;
 	  
 	default:
 	  printf(";ERROR : unrecognized type=%d in pcodeGenValue(..)\n", tree->type);
