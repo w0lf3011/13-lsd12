@@ -14,8 +14,8 @@ var
 	multiplication int;
 	division int;
 	
-	testWrite int;
 	testRead int;
+	testWrite int;
 	
 	bool1 bool;
 	bool2 bool;
