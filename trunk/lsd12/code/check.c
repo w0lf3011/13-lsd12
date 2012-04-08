@@ -196,12 +196,12 @@ int check(ASTTREE tree, SYMTABLE tds)
 				
 				break;
 			case AT_RETURN : 
-				/*if(tree->right != NULL) {
+				if(tree->right != NULL) {
 					printf(";---GPS = tree_id : %d AT_RETURN RIGHT ;---\n", tree->id);
 					type = tree->right->type;
 					return checkType(tree->right, type, tds);
 					
-				}*/ return OK;						
+				} return OK;						
 				break;	
 			case AT_IF : 
 				// Si "ExprD" est de type VAL_BOOL

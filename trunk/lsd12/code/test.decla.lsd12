@@ -1,0 +1,43 @@
+program LSD12; 
+
+function main(): void; { TJ VOID }
+var 
+
+	a int;
+	b int;
+
+	c bool;
+
+begin
+
+	a := 1;
+	b := 1;
+	
+	c := true;
+
+	while ( c ) do
+           a := 2;
+	   write b;
+	   c := false;
+	od;
+
+	while ( a < 5 ) do
+	   a := a+1;
+	   write a;
+        od;
+
+{	if ( c ) then
+	   write a;
+	fi;
+
+	if ( 5 + 3 < 10 ) then
+	   if ( 5 < 10 ) then
+	      write 22;
+	   fi;
+	else
+	   write 111;
+        fi;
+}
+end;
+
+end;
