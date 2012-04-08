@@ -1,5 +1,6 @@
 program LSD12; 
-
+{ Case 5 : où sont géré :
+	- surcharge de fonctions et déclaration forward }
 function main(): void; { TJ VOID }
 var 
 

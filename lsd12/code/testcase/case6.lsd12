@@ -1,5 +1,12 @@
 program LSD12; 
-
+{ Case 6 : où sont géré :
+	- ensembles avec les instructions et opérations simples
+	- ajout d'un élément,
+	- retrait d'un élément,
+	- min,
+	- max,
+	- nombre d'éléments,
+	- test de la présence d'un élément dans un ensemble }
 function main(): void; { TJ VOID }
 var 
 

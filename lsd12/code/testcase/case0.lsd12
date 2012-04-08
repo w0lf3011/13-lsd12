@@ -39,6 +39,18 @@ begin
 	bool1 := true;
 	bool2 := false;
 
+	bool2 := !bool2;
+	
+	{ Test pour afficher tous les résultats }
+	write resultWhile;
+	
+	write addition;
+	write soustration;
+	write multiplication;
+	write division;
+	
+	write bool1;
+	write bool2;
 
 end;
 
