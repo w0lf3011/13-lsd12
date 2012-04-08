@@ -56,6 +56,9 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
   int i = staticlabel; // numero du label
   ASTTREE treeTmp = NULL;
 
+  int id_while;
+  int id_if;
+
   staticlabel++;
 
   if (tree != NULL && s != NULL)
@@ -273,6 +276,8 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  
 	  break;
 	  
+	  // printf("define @%s\n",s->up->id);
+
 	// condition bool du if
 	case AT_IF :
 
@@ -286,43 +291,47 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	// instruction du then
 	case AT_InstructionIF :
 
-	  printf("fjp @fi\n");
+	  id_if = staticlabel;
+
+	  printf("fjp @fi_%d\n", id_if);
 	  pcodeGenValue(tree->left, s);
-	  printf("ujp @fi\n");
-	  printf("define @fi\n");
+	  printf("ujp @fi_%d\n", id_if);
+	  printf("define @fi_%d\n", id_if);
 
 	  break;
 
 	// instruction du if then else
 	case AT_InstructionIFELSE :
 	  
-	  printf("fjp @else\n");
+	  id_if = staticlabel;
+
+	  printf("fjp @else_%d\n", id_if);
 	  if( tree->left != NULL ) {
 	    pcodeGenValue(tree->left, s);	    
 	  }
-	  printf("ujp @fi\n");
-	  printf("define @else\n");
+	  printf("ujp @fi_%d\n", id_if);
+	  printf("define @else_%d\n", id_if);
 	  if( tree->right != NULL ) {
 	    pcodeGenValue(tree->right, s);
 	  }
-	  printf("define @fi\n");
+	  printf("define @fi_%d\n", id_if);
 
 	  break;
 
 	// boucle while
 	case AT_WHILE :
-	  
-	  printf("define @while\n");
+	  id_while = staticlabel;
+	  printf("define @while_%d\n", id_while);
 	  pcodeGenValue(tree->left, s);
 	  
-	  printf("fjp @od\n");
+	  printf("fjp @od_%d\n", id_while);
 	  
 	  if( tree->right != NULL ) {
 	    pcodeGenValue(tree->right, s);
 	  }
 	  
-	  printf("ujp @while\n");
-	  printf("define @od\n");
+	  printf("ujp @while_%d\n", id_while);
+	  printf("define @od_%d\n", id_while);
 	  
 	  break;
 	  
