@@ -1,5 +1,7 @@
 program LSD12; 
-
+{ Case 2 : où sont géré :
+	- fonctions sans paramètres,
+	- pas de fonctions récursives ni imbriquées }
 function main(): void; { TJ VOID }
 var 
 

@@ -1,7 +1,7 @@
 program LSD12; 
 { Case 1 : où sont géré :
 	- if
-	- while}
+	- while }
 var 
 	num1 int;
 	num2 int;
