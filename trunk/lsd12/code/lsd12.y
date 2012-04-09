@@ -80,12 +80,13 @@ Implement: InstructionList
 
 ;
 
-HeadFunct: LP ListParam RP
+HeadFunct: LP RP
+	{ $$ = createNode(AT_HEADFUNCT, VAL_NOTYPE, 0, NULL, NULL, NULL);}
+	| LP ListParam RP
 	{ $$ = createNode(AT_HEADFUNCT, VAL_NOTYPE, 0, NULL, $2, NULL);}
 ;
 
-ListParam: { $$ = NULL;}
-	| DeclaParam 
+ListParam: DeclaParam 
 	{ $$ = createNode(AT_LISTPARAM, VAL_NOTYPE, 0, NULL, $1, NULL);}
 	| DeclaParam COMMA ListParam
 	{ $$ = createNode(AT_LISTPARAM, VAL_NOTYPE, 0, NULL, $1, $3);}
@@ -136,12 +137,12 @@ Instruction : ExprD
 	      { $$ = createNode(AT_IF, VAL_NOTYPE, 0, NULL, $3, $6);}
 	      | WHILE LP ExprD RP DO InstructionList OD 
 	      { $$ = createNode(AT_WHILE, VAL_NOTYPE, 0, NULL, $3, $6);}
-	      | Var LP FunctParam RP
-              { $$ = createNode(AT_FUNCTUSE, VAL_NOTYPE, 0, NULL, $1, $3);}
+
 	      	      
 ;
 
-FunctParam: Var
+FunctParam: { $$ = NULL;}
+	   | Var
            { $$ = createNode(AT_FUNCTPARAM, VAL_NOTYPE, 0, NULL, $1, NULL);}
 	   | Var COMMA FunctParam
            { $$ = createNode(AT_FUNCTPARAM, VAL_NOTYPE, 0, NULL, $1, $3);}
@@ -186,7 +187,8 @@ ExprD : Var  { $$ = $1;}
         { $$ = createNode(AT_OR, VAL_BOOL, 0, NULL, $1, $3);}
    	| LP ExprD RP
         { $$ = $2;}
-
+	| VAR LP FunctParam RP
+        { $$ = createNode(AT_APPELF, VAL_NOTYPE, 0, $1, $3, NULL);}
 ;
 
 
@@ -219,7 +221,7 @@ printf(";*** BEGIN printTree(..) ***\n");
 printf(";*** END printTree(..) ***\n");
 
 printf(";*** BEGIN printTreeGraphViz(..) ***\n");
-//  printTreeGraphViz(root);
+  printTreeGraphViz(root);
 printf(";*** END printTreeGraphViz(..) ***\n");
 
 printf(";*** BEGIN SymbolTable ***\n");
@@ -228,7 +230,7 @@ printf(";*** BEGIN SymbolTable ***\n");
 printf(";*** END SymbolTable ***\n");
 
 printf(";*** BEGIN printSymbolTableGraphViz(..)  ***\n");
- // printSymbolTableGraphViz(sym);
+printSymbolTableGraphViz(sym);
 printf(";*** END printSymbolTableGraphViz(..)  ***\n");
 
 printf("; * Verification de la specification LSD12 :\n");
@@ -250,7 +252,7 @@ printf(";*** END computeLocations(..) ***\n");
   printf(";*** END SymbolTable ***\n");
 
 printf(";*** BEGIN PCodeGeneration ***\n");
- pcodeGenValue(root, sym);
+// pcodeGenValue(root, sym);
 printf(";*** END PCodeGeneration ***\n");
 
 printf(";*** BEGIN Cleaning ***\n");

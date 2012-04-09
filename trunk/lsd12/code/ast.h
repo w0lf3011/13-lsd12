@@ -42,7 +42,7 @@
 #define AT_WHILE 34
 #define AT_DECLAPARAM 35
 #define AT_LISTPARAM 36
-#define AT_FUNCTUSE 37
+#define AT_APPELF 37
 #define AT_FUNCTPARAM 38
 
 //
