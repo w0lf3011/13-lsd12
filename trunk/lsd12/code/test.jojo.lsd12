@@ -1,0 +1,23 @@
+program LSD12; 
+
+function main(): void;
+var 
+
+	x int;
+	
+	function addTo( ) : int;
+		var
+		begin
+			return 5;
+		end;
+
+begin
+
+	x := 2;
+	x := addTo();
+	write x;
+
+
+end;
+
+end;
