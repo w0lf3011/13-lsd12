@@ -84,17 +84,22 @@ int check(ASTTREE tree, SYMTABLE tds)
 			
 			case AT_DECLA : 
 				if(tree->right != NULL && tree->left != NULL) {
-					//printf(";---GPS = tree_id : %d AT_DECLA RIGHT->LEFT ;---\n", tree->id);
+					printf(";---GPS = tree_id : %d AT_DECLA RIGHT->LEFT ;---\n", tree->id);
+					
 					type = tree->type;
 					return checkType(tree->right, type, tds) && check(tree->left, tds);
+										
 				}
 				if(tree->right != NULL && tree->left == NULL) {
-					//printf(";---GPS = tree_id : %d AT_DECLA RIGHT ;---\n", tree->id);
+					printf(";---GPS = tree_id : %d AT_DECLA RIGHT ;---\n", tree->id);
 					type = tree->type;
 					return checkType(tree->right, type, tds);
 				}
-				
-				break;			
+				if(tree->right == NULL && tree->left != NULL) {
+					printf(";---GPS = tree_id : %d AT_DECLA LEFT ;---\n", tree->id);
+					return check(tree->left, tds);
+				}
+				break;				
 
 			case AT_INSTRUCTION : 
 				if(tree->right != NULL && tree->left != NULL) {
@@ -198,8 +203,8 @@ int check(ASTTREE tree, SYMTABLE tds)
 			case AT_RETURN : 
 				if(tree->right != NULL) {
 					printf(";---GPS = tree_id : %d AT_RETURN RIGHT ;---\n", tree->id);
-					type = tree->right->type;
-					return checkType(tree->right, type, tds);
+					type = tds->up->varType;
+					return checkType(tree->right,type,tds);
 					
 				} return OK;						
 				break;	
@@ -256,7 +261,36 @@ int check(ASTTREE tree, SYMTABLE tds)
 					return KO;
 				}
 				break;			
-
+			case AT_FUNCTPARAM :
+				printf("; Erreur check AT_FUNCTPARAM\n");
+				if(tree->left != NULL)
+				{
+					return check(tree->left,tds);
+				}
+				if(tree->right != NULL)
+				{
+					return check(tree->right,tds);
+				}	
+				break;	
+			
+			case AT_DECLAPARAM :
+				printf("; Erreur check AT_DECLAPARAM\n");	
+				if(tree->left != NULL)
+				{
+					return check(tree->left,tds);
+				}
+				break;	
+			case AT_LISTPARAM :
+				printf("; Erreur check AT_LISTPARAM\n");	
+				if(tree->left != NULL)
+				{
+					return check(tree->left,tds);
+				}
+				if(tree->right != NULL)
+				{
+					return check(tree->right,tds);
+				}
+				break;	
 			default :
 				printf("; Erreur de typage check\n");
 				fprintf(stderr,";KO\n");
@@ -513,6 +547,44 @@ int checkType(ASTTREE tree, int type, SYMTABLE tds)
 							return KO;
 						}
 						break;
+	
+			case AT_APPELF :
+					printf("; check AT_APPELF\n");
+					function = alreadyIsSymbol(tds, tree->sval,1);
+	
+					if(function != NULL) // si fonction existe
+					{
+						// si appel de fonction sans arg				
+						if(tree->right == NULL)
+						{
+							// si la fonction a bien aucun argument dans sa déclaration
+							if(function->down->state != 2)
+							{
+								if(type == function->varType) 
+									return type;
+								else{	
+									printf("; La fonction %s retourne un type incorrect -> %d - %d \n",function->id,function->varType, type);
+									return KO;
+								}
+							}else{
+								printf(";ERROR Appel de la fonction %s avec trop peu arguments\n",function->id);
+								return KO;
+							}	
+						}
+						
+						// si type de retour correspond
+						if(type == function->varType) 
+						{
+							return type;
+						}else{
+							printf("; La fonction retourne un type incorrect\n");
+							return KO;
+						}	
+					}else{
+						printf("; La fonction %s est inexistante\n",tree->sval);
+						return KO;
+					}
+					break;
 
 			
 			default : printf(";Erreur de typage check type\n");

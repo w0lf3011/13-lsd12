@@ -7,20 +7,18 @@ var
 {	b int;
 	c bool;}
 
-	function lulu(var lol1: int, var lol2: int): int;
-		forward;
 
-	function lulu(var lol1: int, var lol2: int): int;
+	function lulu(): int;
 		var
-			
+			c int; 
 		begin
-			write lol1+lol2;
+			c := 1;
+			return c;
 		end;
 
 begin
 	a := 1;
-	lulu(a,a);
-
+	write lulu();
 end;
 
 end;
