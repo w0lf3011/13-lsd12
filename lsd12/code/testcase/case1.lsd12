@@ -2,6 +2,7 @@ program LSD12;
 { Case 1 : où sont géré :
 	- if
 	- while }
+function main(): void; { TJ VOID }
 var 
 	num1 int;
 	num2 int;
