@@ -1,5 +1,4 @@
 /* pcode.c
-   p1 ok
  */
 
 #include <stdio.h>
