@@ -2,37 +2,96 @@ program LSD12;
 { Case 4 : où sont géré :
 	- fonctions récursives et imbriquées avec paramètres entiers et booléens }
 function main(): void; { TJ VOID }
-var 
+	var 
+		resultBoolTrue bool;
+		resultBoolFalse bool;
+		resultInt1 int;
+		resultInt2 int;
+		resultInt3 int;
+		
+		{ Test pour renvoyer un "bool" d'une simple fonction }
+		function returnTrue() : bool;
+			var
+				retour bool;
+			begin
+				retour := true;
+				return retour;
+			end;
+		
+		{ Test pour renvoyer un "bool" d'une simple fonction sans variable }
+		function returnFalse() : bool;
+			begin
+				return false;
+			end;
+			
+		{ Test pour renvoyer un "int" d'une fonction avec une condition 
+		post condition : return 2 }
+		function returnInt() : int;
+			var
+				a int;
+				b int;
+			begin
+				a := 1;
+				b := 1;
+				
+				if (a = 1) then
+					b := 2;
+				fi;
+				
+				return b;
+			end;
+			
+		{ Test pour renvoyer un "int" d'une fonction avec une boucle 
+		post condition : return 5 }
+		function returnInt2() : int;
+			var
+				a int;
+				b int;
+			begin
+				a := 1;
+				b := 4;
+				
+				while ( a <= b) do
+					a := a + b;
+				od;
+				
+				return a;
+			end;
+		
+		{ Test pour renvoyer un "int" d'une fonction avec une boucle et une condition
+		post condition : return 8 }
+		function returnInt3() : int;
+			var
+				a int;
+				b int;
+			begin
+				a := 1;
+				b := 4;
+				
+				while ( a <= b) do
+					a := a + 3;
+					if (a = 4) then
+						a := a + b;
+					fi;
+				od;
+				
+				return a;
+			end;
+	 
+	begin
 
-	a int;
-	b int;
+		resultBoolTrue := returnTrue();
+		resultBoolFalse := returnFalse();
+		resultInt1 := returnInt();
+		resultInt2 := returnInt2();
+		resultInt3 := returnInt3();
+		
+		write resultBoolTrue;
+		write resultBoolFalse;
+		write resultInt1;
+		write resultInt2;
+		write resultInt3;
 
-	c bool;
-
-begin
-
-	a := 1;
-	b := 1;
-	
-	c := true;
-
-{
-	while ( a = b ) do
-           a := 2;
-	   write b;
-	od;
-
-	if ( c ) then
-	   write a;
-	fi;
-}
-	c := false;
-	if ( c ) then
-	   
-	else
-	   
-        fi;
-
-end;
+	end;
 
 end;
