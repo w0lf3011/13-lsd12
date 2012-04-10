@@ -21,6 +21,7 @@ function main(): void; { TJ VOID }
 		
 		{ Test pour renvoyer un "bool" d'une simple fonction sans variable }
 		function returnFalse() : bool;
+			var
 			begin
 				return false;
 			end;

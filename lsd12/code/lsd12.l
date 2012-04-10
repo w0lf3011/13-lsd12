@@ -91,7 +91,7 @@ type	  ("int"|"bool"|"iset"|"void")
 
 {type} {
 	if(strcmp(yytext, "void")==0) 
-		{yylval.ival=1;}
+		{yylval.ival=5;} // avant -> 1
 	else
 	{
 		if(strcmp(yytext, "int")==0) {yylval.ival=2;}
