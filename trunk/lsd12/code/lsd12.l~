@@ -22,7 +22,7 @@ var       [A-Za-z]([A-Za-z]|[0-9])*
 nbr       (0|[1-9][0-9]*)
 boolean   ("true"|"false")
 blank     [ \t]+
-type	  ("int"|"bool"|"void")
+type	  ("int"|"bool"|"iset"|"void")
 
 %%
 
@@ -55,13 +55,19 @@ type	  ("int"|"bool"|"void")
 "else" 		{return ELSE;}
 "fi" 		{return FI;}
 
-x"while" 	{return WHILE;}		/* WHILE (e) DO i OD */
+"while" 	{return WHILE;}		/* WHILE (e) DO i OD */
 "do" 		{return DO;}
 "od" 		{return OD;}
 
+"add"     	{return ADD;}		/* Ex: ADD a TO ensA */
+"to"     	{return TO;}
+
+"remove" 	{return REMOVE;}	/* Ex: REMOVE a FROM ensA */
+"from"  	{return FROM;}
+
 ":="	{return AFFECT;}	/* Ex int b := 1 */
 
-"+"     {return PLUS;}		/* Logical operators */
+"+"     {return PLUS;}		/* Logical oparators */
 "-"     {return MINUS;}
 "*"     {return TIMES;}
 "("     {return LP;}
@@ -78,6 +84,7 @@ x"while" 	{return WHILE;}		/* WHILE (e) DO i OD */
 
 "/"	{return DIVISE;}
 
+"#"	{return CARDINAL;}
 ";" 	{return FIN;}		/* End of instruction */
 
 
@@ -89,7 +96,12 @@ x"while" 	{return WHILE;}		/* WHILE (e) DO i OD */
 	{
 		if(strcmp(yytext, "int")==0) {yylval.ival=2;}
 		else
-			 {yylval.ival=3;}
+		{
+			if(strcmp(yytext, "bool")==0)
+				{yylval.ival=3;}
+			else
+				{yylval.ival=4;}				
+		}
 	}
 	return TYPE;
 }

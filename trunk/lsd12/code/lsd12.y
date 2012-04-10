@@ -109,9 +109,9 @@ Decla:  Var TYPE FIN
 	| Var TYPE FIN Decla
 	{ $$ = createNode(AT_DECLA, $2, 0, NULL, $4, $1);}
 	| Funct 
-	{ $$ = createNode(AT_DECLA, VAL_NOTYPE, 0, NULL, $1, NULL);}
+	{ $$ = createNode(AT_DECLA, VAL_NOTYPE, 0, NULL, NULL, $1);}
 	| Funct Decla
-	{ $$ = createNode(AT_DECLA, VAL_NOTYPE, 0, NULL, $1, $2);}
+	{ $$ = createNode(AT_DECLA, VAL_NOTYPE, 0, NULL, $2, $1);}
 ;
 
 InstructionList : { $$ = NULL;}
@@ -244,7 +244,7 @@ printf("; * Verification de la specification LSD12 :\n");
 printf("; * Fin de la verification de la specification LSD12!\n");
 
 printf(";*** BEGIN computeLocations(..) ***\n");
-  computeLocations(sym);
+//  computeLocations(sym);
 printf(";*** END computeLocations(..) ***\n");
 
   printf(";*** BEGIN SymbolTable ***\n");

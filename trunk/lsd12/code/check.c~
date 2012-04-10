@@ -15,11 +15,12 @@ int check(ASTTREE tree, SYMTABLE tds)
 		printf("; Tree Empty \n");
 		return KO; }
 	else{
+		//printf("%d\n", tree->id);
 		switch (tree->id)
 		{
 			case AT_ROOT : 
 				if(tree->left != NULL) {
-					//printf(";---GPS = tree_id : %d AT_ROOT LEFT ;---\n", tree->id);
+					printf(";---GPS = tree_id : %d AT_ROOT LEFT ;---\n", tree->id);
 					return (check(tree->left, tds));
 				}		
 				break;
@@ -31,7 +32,7 @@ int check(ASTTREE tree, SYMTABLE tds)
 					if(node != NULL)
 					{
 						if(tree->left != NULL && tree->right != NULL) {
-							//printf(";---GPS = tree_id : %d AT_FUNCT LEFT & RIGHT ;---\n", tree->id);
+							printf(";---GPS = tree_id : %d AT_FUNCT LEFT & RIGHT ;---\n", tree->id);
 							return check(tree->left, node->down) && check(tree->right, node->down); //tds
 						}
 					}else {
@@ -44,7 +45,7 @@ int check(ASTTREE tree, SYMTABLE tds)
 				break; 
 			case AT_HEADFUNCT : 
 				if(tree->left != NULL) {
-					//printf(";---GPS = tree_id : %d AT_HEADFUNCT LEFT;---\n", tree->id);
+					printf(";---GPS = tree_id : %d AT_HEADFUNCT LEFT;---\n", tree->id);
 					return check(tree->left,tds);
 				}
 				else {
@@ -53,56 +54,63 @@ int check(ASTTREE tree, SYMTABLE tds)
 				break;
 			case AT_CORPS : 
 				if(tree->left != NULL && tree->right != NULL) {
-					//printf(";---GPS = tree_id : %d AT_CORPS LEFT ;---\n", tree->id);
+					printf(";---GPS = tree_id : %d AT_CORPS LEFT ;---\n", tree->id);
 					return check(tree->left, tds) && check(tree->right, tds);
 				}
 				break;
 			case AT_IMPLEMENT : 
 				if(tree->left != NULL) {
-					//printf(";---GPS = tree_id : %d AT_IMPLEMENT LEFT ;---\n", tree->id);
+					printf(";---GPS = tree_id : %d AT_IMPLEMENT LEFT ;---\n", tree->id);
 					return check(tree->left, tds);
 				}
 				if(tree->right == NULL && tree->left == NULL) {
-					//printf(";---GPS = tree_id : %d AT_IMPLEMENT NULL NULL ;---\n", tree->id);
+					printf(";---GPS = tree_id : %d AT_IMPLEMENT NULL NULL ;---\n", tree->id);
 					return OK;
 				}
 				break;
 			case AT_BLOCDECLA :
 				if(tree->right != NULL) {
-					//printf(";---GPS = tree_id : %d AT_BLOCDECLA RIGHT ;---\n", tree->id);
+					printf(";---GPS = tree_id : %d AT_BLOCDECLA RIGHT ;---\n", tree->id);
 					return KO;
 				}
 				if(tree->left != NULL)	{
-					//printf(";---GPS = tree_id : %d AT_BLOCDECLA LEFT ;---\n", tree->id);
+					printf(";---GPS = tree_id : %d AT_BLOCDECLA LEFT ;---\n", tree->id);
 					return (check(tree->left, tds));
 				}
 				if(tree->right == NULL && tree->left == NULL) {
-					//printf(";---GPS = tree_id : %d AT_BLOCDECLA NULL NULL ;---\n", tree->id);
+					printf(";---GPS = tree_id : %d AT_BLOCDECLA NULL NULL ;---\n", tree->id);
 					return OK;
 				}
 				break;
 			
 			case AT_DECLA : 
-				if(tree->right != NULL && tree->left != NULL) {
-					//printf(";---GPS = tree_id : %d AT_DECLA RIGHT->LEFT ;---\n", tree->id);
-					type = tree->type;
-					return checkType(tree->right, type, tds) && check(tree->left, tds);
+				printf(";---GPS = tree_id : %d AT_DECLA RIGHT->LEFT ;---\n", tree->id);
+				if (tree->right->id == AT_FUNCT)
+				{	
+					//printf(";Funct ;---\n");			
+					return check(tree->right, tds);
 				}
-				if(tree->right != NULL && tree->left == NULL) {
-					//printf(";---GPS = tree_id : %d AT_DECLA RIGHT ;---\n", tree->id);
+				else
+				{
+					//printf(";VAR ;---\n");
 					type = tree->type;
 					return checkType(tree->right, type, tds);
 				}
+														
 				
-				break;			
+				if (tree->left != NULL)
+				{
+					return check(tree->left, tds);
+				}
+				break;				
 
 			case AT_INSTRUCTION : 
 				if(tree->right != NULL && tree->left != NULL) {
-					//printf(";---GPS = tree_id : %d AT_INSTRUCTION RIGHT ;---\n", tree->id);
+					printf(";---GPS = tree_id : %d AT_INSTRUCTION RIGHT ;---\n", tree->id);
 					return check(tree->right, tds) && check(tree->left, tds);
 				}
 				if(tree->right == NULL && tree->left != NULL) {
-					//printf(";---GPS = tree_id : %d AT_INSTRUCTION LEFT ;---\n", tree->id);
+					printf(";---GPS = tree_id : %d AT_INSTRUCTION LEFT ;---\n", tree->id);
 					return check(tree->left, tds);
 				}
 				else
@@ -111,7 +119,7 @@ int check(ASTTREE tree, SYMTABLE tds)
 				}
 				break;
 			case AT_AFFECT : 
-				//printf(";---GPS = tree_id : %d AT_AFFECT RIGHT ;---\n", tree->id);
+				printf(";---GPS = tree_id : %d AT_AFFECT RIGHT ;---\n", tree->id);
 				node = alreadyIsSymbol(tds,tree->left->sval,3); 
 				if (node != NULL)
 				{	//printf(";--varType : %d --\n", node->varType);
@@ -151,7 +159,7 @@ int check(ASTTREE tree, SYMTABLE tds)
 				break;
 			case AT_EXPRD :  
 				if(tree->left != NULL) {
-					//printf(";---GPS = AT_EXPRD LEFT ;---\n");
+					printf(";---GPS = AT_EXPRD LEFT ;---\n");
 					if (tree->left->id == 0) { // Si tree->left->id est AT_VAR (type 5 dans l'arbre et autre type dans la table des symboles;
 						return OK;
 					}
@@ -163,7 +171,7 @@ int check(ASTTREE tree, SYMTABLE tds)
 				}
 				break;
 
-			case AT_WRITE : //printf(";---GPS = AT_WRITE RIGHT ;---\n");
+			case AT_WRITE : printf(";---GPS = AT_WRITE RIGHT ;---\n");
 				if(tree->right != NULL) {
 					//printf(";---GPS = tree_id : %d AT_WRITE RIGHT ;---\n", tree->id);	
 					// Verifie si le type du noeud left est VAL_INT
@@ -178,7 +186,7 @@ int check(ASTTREE tree, SYMTABLE tds)
 				else 
 					return KO;
 				break;
-			case AT_READ : //printf(";---GPS = AT_READ RIGHT ;---\n");
+			case AT_READ : printf(";---GPS = AT_READ RIGHT ;---\n");
 				if(tree->right != NULL) {
 					//printf(";---GPS = tree_id : %d AT_READ RIGHT ;---\n", tree->id);
 					//type = tree->right->type;
@@ -257,7 +265,7 @@ int check(ASTTREE tree, SYMTABLE tds)
 				}
 				break;			
 			case AT_FUNCTPARAM :
-				printf("; Erreur check AT_FUNCTPARAM\n");
+				//printf("; Erreur check AT_FUNCTPARAM\n");
 				if(tree->left != NULL)
 				{
 					return check(tree->left,tds);
@@ -269,14 +277,14 @@ int check(ASTTREE tree, SYMTABLE tds)
 				break;	
 			
 			case AT_DECLAPARAM :
-				printf("; Erreur check AT_DECLAPARAM\n");	
+				//printf("; Erreur check AT_DECLAPARAM\n");	
 				if(tree->left != NULL)
 				{
 					return check(tree->left,tds);
 				}
 				break;	
 			case AT_LISTPARAM :
-				printf("; Erreur check AT_LISTPARAM\n");	
+				//printf("; Erreur check AT_LISTPARAM\n");	
 				if(tree->left != NULL)
 				{
 					return check(tree->left,tds);

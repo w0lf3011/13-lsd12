@@ -49,8 +49,7 @@ function main(): void; { TJ VOID }
 		write multiplication;
 		write division;
 		
-		write bool1;
-		write bool2;
+		
 
 	end;
 
