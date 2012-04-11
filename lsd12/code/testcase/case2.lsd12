@@ -10,8 +10,8 @@ function main(): void; { TJ VOID }
 		resultInt2 int;
 		resultInt3 int;
 		
-		
-		function returnTrue() : bool;
+		{ return "true" }
+		function returnTest1() : bool;
 			var
 				retour bool;
 			begin
@@ -19,11 +19,20 @@ function main(): void; { TJ VOID }
 				return retour;
 			end;
 		
-		function returnFalse() : void;
+		{ return "void" }
+		function returnTest2() : void;
 			var
 			begin
 			end;
-			
+		
+		{ return "true" }
+		function returnTest3() : bool;
+			var
+			begin
+				return true;
+			end;
+		
+		{ return "2" }
 		function returnInt() : int;
 			var
 				a int;
@@ -38,7 +47,8 @@ function main(): void; { TJ VOID }
 				
 				return b;
 			end;
-			
+		
+		{ return "9" }
 		function returnInt2() : int;
 			var
 				a int;
@@ -55,6 +65,7 @@ function main(): void; { TJ VOID }
 				return a+b;
 			end;
 		
+		{ return "8" }
 		function returnInt3() : int;
 			var
 				a int;
@@ -72,16 +83,70 @@ function main(): void; { TJ VOID }
 				
 				return a;
 			end;
+		
+		{ return "42" }
+		function returnInt4() : int;
+			var
+			begin
+				return 42;
+			end;
+		
+		{ return "2" }
+		function returnInt5() : int;
+			var
+				test int;
+			begin
+				test := 2;
+				if ( test = 1) then
+					while (test <= 5) do
+						test := test + 2;
+					od;
+				if;
+				
+				return test;
+			end;
+			
+		{ return "6" }
+		function returnInt6() : int;
+			var
+				test int;
+			begin
+				test := 2;
+				if ( test = 2) then
+					while (test <= 5) do
+						test := test + 2;
+					od;
+				if;
+				
+				return test;
+			end;
 	 
 	begin
-		returnFalse();
-		resultBoolTrue := returnTrue();
+		returnTest2();
+		resultBoolTrue := returnTest1();
 		resultInt3 := returnInt3();
 		
+		{ affiche "2" }
 		write returnInt();
+		
+		{ affiche "9" }
 		write returnInt2();
+		
+		{ affiche "8" }
 		write resultInt3;
-
+		
+		{ affiche "true" }
+		write returnTest3();
+		
+		{ affiche "42" }
+		write returnInt4();
+		
+		{ affiche "2" }
+		write returnInt5();
+		
+		{ affiche "6" }
+		write returnInt6();
+		
 	end;
 
 end;
