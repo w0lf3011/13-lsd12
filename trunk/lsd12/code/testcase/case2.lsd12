@@ -136,7 +136,11 @@ function main(): void; { TJ VOID }
 		write resultInt3;
 		
 		{ affiche "true" }
-		write returnTest3();
+		if (returnTest3()) then
+			write 1;
+		else
+			write 0;
+		fi;
 		
 		{ affiche "42" }
 		write returnInt4();

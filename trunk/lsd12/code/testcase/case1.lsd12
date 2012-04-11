@@ -83,9 +83,18 @@ function main(): void; { TJ VOID }
 		write soustration;
 		write multiplication;
 		write division;
+
+		if (bool1) then
+			write 1;
+		else
+			write 0;
+		fi;
 		
-		write bool1;
-		write bool2;
+		if (bool2) then
+			write 1;
+		else
+			write 0;
+		fi;
 		
 	end;
 
