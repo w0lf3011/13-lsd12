@@ -41,9 +41,6 @@ function main(): void; { TJ VOID }
 
 		bool2 := !bool2;
 		
-		{ Test pour afficher tous les résultats }
-		write resultWhile;
-		
 		write addition;
 		write soustration;
 		write multiplication;
