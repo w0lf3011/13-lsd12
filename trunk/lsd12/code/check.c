@@ -575,7 +575,28 @@ int checkType(ASTTREE tree, int type, SYMTABLE tds)
 							}	
 						}
 						
-						// si type de retour correspond
+						node = function->down;
+						tree = tree->left; 
+						do{
+							if(node->state != 2 || node == NULL)
+							{
+								printf(";ERROR Appel de la fonction %s avec trop arguments\n",function->id);
+								return KO;
+							}
+							if(checkType(tree->left,node->varType,tds) != node->varType)
+							{
+								printf(";ERROR Argument mal type dans l'appel de fonction %s\n",function->id);
+								return KO;
+							}
+							node = node->next; 
+							tree = tree->right; 
+						}while(tree != NULL);	
+						if(node != NULL && node->state == 2)
+						{
+							printf(";ERROR Appel de la fonction %s avec trop peu arguments\n",function->id);
+							return KO;
+						}
+						
 						if(type == function->varType) 
 						{
 							return type;
