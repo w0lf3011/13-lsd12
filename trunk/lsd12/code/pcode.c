@@ -382,9 +382,10 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 
 	case AT_APPELF :
 	  
-	  printf(";appel de %s\n", s->id);
+	  printf(";appel de %s\n", tree->sval);
+	  
 	  printf("mst %d\n", 0);  // pour le moment pas de fonctions imbriquees -> 0
-	  printf("cup %d @%s\n", 0, s->id);  // pour p2: pas de parametres -> 0 
+	  printf("cup %d @%s\n", 0, tree->sval);  // pour p2: pas de parametres -> 0 
 
 
 	  break;
