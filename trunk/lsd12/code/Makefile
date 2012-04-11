@@ -1,8 +1,8 @@
 # Makefile
 #
-# part of the DEMO compiler
+# part of the LSD12 compiler
 #
-# H. Toussaint (hto@info.fundp.ac.be), 14/06/05
+# J. Barthelemy, march 2012
 
 
 all:

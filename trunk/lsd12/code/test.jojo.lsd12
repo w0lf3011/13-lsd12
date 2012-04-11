@@ -4,18 +4,29 @@ function main(): void;
 var 
 
 	x int;
+	y bool;
 	
-	function addTo( ) : int;
+	function addTo( ) : bool;
 		var
+			e int;
 		begin
-			return 5;
+			e := 1;
+			return true;
 		end;
+
+	function addTo2( ) : int;
+		var
+			e int;
+		begin
+			e := 1;
+			return e;
+		end;
+
 
 begin
 
-	x := 2;
-	x := addTo();
-	write x;
+	x := addTo2();
+	y := addTo();
 
 
 end;

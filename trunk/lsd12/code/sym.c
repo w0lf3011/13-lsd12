@@ -204,10 +204,10 @@ void computeLocations(SYMTABLE s)
 int getMaxMemoryUsage(SYMTABLE s)
 {
 	SYMTABLE tmp = s->down;
-  	int max = 0;
+  	int max = 5; // avant O
   	while (tmp->next != NULL)
     	{
-		if(tmp->state != 1)
+		if(tmp->state != 1 )
       			max++;
       		tmp = tmp->next;
     	}
