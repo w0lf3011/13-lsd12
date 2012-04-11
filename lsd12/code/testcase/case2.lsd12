@@ -101,7 +101,7 @@ function main(): void; { TJ VOID }
 					while (test <= 5) do
 						test := test + 2;
 					od;
-				if;
+				fi;
 				
 				return test;
 			end;
@@ -116,7 +116,7 @@ function main(): void; { TJ VOID }
 					while (test <= 5) do
 						test := test + 2;
 					od;
-				if;
+				fi;
 				
 				return test;
 			end;
