@@ -5,6 +5,7 @@
 ;*** BEGIN SymbolTable ***
 ;*** END SymbolTable ***
 ; * Verification de la specification LSD12 :
+;---GPS = tree_id : 3 AT_FUNCT LEFT & RIGHT ;---
 ;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
 ; check AT_APPELF
 ; check AT_APPELF
@@ -143,26 +144,26 @@ ind i
 sto i
 retf
 define @main
-;appel de returnInt3
+;appel de returnFalse
 mst 0
-cup 0 @returnInt3
+cup 0 @returnFalse
 lda b 0 9
-;appel de returnInt3
+;appel de returnTrue
 mst 0
-cup 0 @returnInt3
+cup 0 @returnTrue
 sto b
 lda i 0 5
 ;appel de returnInt3
 mst 0
 cup 0 @returnInt3
 sto i
-;appel de returnInt3
+;appel de returnInt
 mst 0
-cup 0 @returnInt3
+cup 0 @returnInt
 prin
-;appel de returnInt3
+;appel de returnInt2
 mst 0
-cup 0 @returnInt3
+cup 0 @returnInt2
 prin
 lda i 0 5
 ind i
