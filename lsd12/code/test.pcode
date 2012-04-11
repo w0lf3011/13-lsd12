@@ -1,4 +1,173 @@
 ; *** Compiler ***
 ;
 ;*** BEGIN yyparse() ***
-ERROR 'syntax error' AT LINE  8 : UNRECOGNISED 'a'
+;*** END yyparse() ***
+;*** BEGIN SymbolTable ***
+;*** END SymbolTable ***
+; * Verification de la specification LSD12 :
+;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
+; check AT_APPELF
+; check AT_APPELF
+;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
+; check AT_APPELF
+;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
+; check AT_APPELF
+; check AT_APPELF
+; * Fin de la verification de la specification LSD12!
+;*** BEGIN computeLocations(..) ***
+;*** END computeLocations(..) ***
+;*** BEGIN PCodeGeneration ***
+ssp 10
+ujp @main
+define @returnTrue
+ssp 6
+ujp @returnTrue_body
+define @returnTrue_body
+lda b 0 0
+ldc b 1
+sto b
+; type ret = 3
+lda b 0 0
+lda b 0 0
+ind b
+sto b
+retf
+define @returnFalse
+ssp 5
+ujp @returnFalse_body
+define @returnFalse_body
+define @returnInt
+ssp 7
+ujp @returnInt_body
+define @returnInt_body
+lda i 0 1
+ldc i 1
+sto i
+lda i 0 0
+ldc i 1
+sto i
+lda i 0 1
+ind i
+ldc i 1
+equ b
+fjp @fi_47
+lda i 0 0
+ldc i 2
+sto i
+ujp @fi_47
+define @fi_47
+; type ret = 2
+lda i 0 0
+lda i 0 0
+ind i
+sto i
+retf
+define @returnInt2
+ssp 7
+ujp @returnInt2_body
+define @returnInt2_body
+lda i 0 1
+ldc i 1
+sto i
+lda i 0 0
+ldc i 4
+sto i
+define @while_69
+lda i 0 1
+ind i
+lda i 0 0
+ind i
+leq b
+fjp @od_69
+lda i 0 1
+lda i 0 1
+ind i
+lda i 0 0
+ind i
+add i
+sto i
+ujp @while_69
+define @od_69
+; type ret = 2
+lda i 0 0
+lda i 0 1
+ind i
+lda i 0 0
+ind i
+add i
+sto i
+retf
+define @returnInt3
+ssp 7
+ujp @returnInt3_body
+define @returnInt3_body
+lda i 0 1
+ldc i 1
+sto i
+lda i 0 0
+ldc i 4
+sto i
+define @while_98
+lda i 0 1
+ind i
+lda i 0 0
+ind i
+leq b
+fjp @od_98
+lda i 0 1
+lda i 0 1
+ind i
+ldc i 3
+add i
+sto i
+lda i 0 1
+ind i
+ldc i 4
+equ b
+fjp @fi_112
+lda i 0 1
+lda i 0 1
+ind i
+lda i 0 0
+ind i
+add i
+sto i
+ujp @fi_112
+define @fi_112
+ujp @while_98
+define @od_98
+; type ret = 2
+lda i 0 0
+lda i 0 1
+ind i
+sto i
+retf
+define @main
+;appel de returnInt3
+mst 0
+cup 0 @returnInt3
+lda b 0 9
+;appel de returnInt3
+mst 0
+cup 0 @returnInt3
+sto b
+lda i 0 5
+;appel de returnInt3
+mst 0
+cup 0 @returnInt3
+sto i
+;appel de returnInt3
+mst 0
+cup 0 @returnInt3
+prin
+;appel de returnInt3
+mst 0
+cup 0 @returnInt3
+prin
+lda i 0 5
+ind i
+prin
+stp
+;*** END PCodeGeneration ***
+;*** BEGIN Cleaning ***
+;*** END Cleaning ***
