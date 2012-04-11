@@ -365,7 +365,7 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  
 	  // determiner type de retour: entier ou booleen
 	  printf("; type ret = %d\n", s->up->varType);
-	  if( s->up->varType == 2 ) {
+	  if( s->up->varType == 2 ) { //VAL_INT ????
 	    type_return = 'i';
 	  }
 	  else {
@@ -379,6 +379,10 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  printf("retf\n");
 	  	  
 	  break;
+
+
+
+
 
 	case AT_APPELF :
 	  
