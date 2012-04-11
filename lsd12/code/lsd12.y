@@ -142,9 +142,9 @@ Instruction : ExprD
 ;
 
 FunctParam: { $$ = NULL;}
-	   | Var
-           { $$ = createNode(AT_FUNCTPARAM, VAL_NOTYPE, 0, NULL, $1, NULL);}
-	   | Var COMMA FunctParam
+	   | ExprD
+           { $$ = createNode(AT_FUNCTPARAM, VAL_NOTYPE, 0, NULL, NULL, $1);}
+	   | ExprD COMMA FunctParam
            { $$ = createNode(AT_FUNCTPARAM, VAL_NOTYPE, 0, NULL, $1, $3);}
 
 ;
@@ -188,7 +188,7 @@ ExprD : Var  { $$ = $1;}
    	| LP ExprD RP
         { $$ = $2;}
 	| VAR LP FunctParam RP
-        { $$ = createNode(AT_APPELF, VAL_NOTYPE, 0, $1, $3, NULL);}
+        { $$ = createNode(AT_APPELF, VAL_NOTYPE, 0, $1, NULL, $3);}
 ;
 
 
