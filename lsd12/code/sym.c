@@ -10,13 +10,13 @@ SYMTABLE creaNode()
 
 	if (node == NULL)
 	{
-		fprintf(stderr,";KO\n");
- 		printf(";ERROR : cannot malloc in createNode()\n");
- 		exit(1);
+	  fprintf(stderr,";KO\n");
+	  printf(";ERROR : cannot malloc in createNode()\n");
+	  exit(1);
  	}
 
  	node->id = NULL;       // Identifiant du noeud
- 	node->address = -1;    // location pour pcode
+ 	node->address = -1;     // location pour pcode avant -1
  	node->varType = -1;    // Type de la variable
 	node->ref = 0;         // variable par défaut
 	
@@ -212,10 +212,7 @@ void computeLocations(SYMTABLE s)
 	SYMTABLE local = s;
 	int available  = 0; // 5 pour le block réservé par la fonction dans la stack -> fait dans pcode!
 
-	if(s->down != NULL) {
-	  computeLocations(s->down);
-	}
-
+	
 	
 	while (local != NULL) {
 	  if(local->state != 1 ) {   // avant pas cette condition, permet de ne conserver les adresse des variables!
@@ -225,7 +222,10 @@ void computeLocations(SYMTABLE s)
 	  local = local->next;
 	}
 	  
-	
+	if(s->down != NULL) {
+	  computeLocations(s->down);
+	}
+
 
 }
 

@@ -300,8 +300,6 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  
 	  break;
 	  
-	  // printf("define @%s\n",s->up->id);
-
 	// condition bool du if
 	case AT_IF :
 
