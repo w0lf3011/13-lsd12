@@ -16,7 +16,7 @@ SYMTABLE creaNode()
  	}
 
  	node->id = NULL;       // Identifiant du noeud
- 	node->address = -1;     // location pour pcode avant -1
+ 	node->address = -1;    // location pour pcode avant -1
  	node->varType = -1;    // Type de la variable
 	node->ref = 0;         // variable par défaut
 	
@@ -33,7 +33,7 @@ void printSymbolTableGraphViz(SYMTABLE s)
 	if (s != NULL && s->id != NULL)
  	{
 		
- 		//printf("\"%p\";\n", s);
+ 		printf("\"%p\";\n", s);
  		if (s->id == NULL)
  			printf("NULL");
  		else{
@@ -130,95 +130,105 @@ SYMTABLE alreadyIsSymbol(SYMTABLE s, char* name, int state)
 
 
 SYMTABLE addToSymbolTable(SYMTABLE s, char* name, int state, int type)
-{		
-	if (alreadyIsSymbolLevel(s,name,state) != NULL)
+{	
+
+  printf("; ... ajout de %s dans la table, state = %d, type = %d\n", name, state, type); // a virer
+  if (alreadyIsSymbolLevel(s,name,state) != NULL) {
  		return NULL;
+  }
  	else {
 			
-			while(s->next != NULL)
-		 		s = s->next;
+	  while(s->next != NULL) {
+	    s = s->next;
+	  }
+	  
+	  // Spécifie les infos
+	  s->id = name;
+	  s->varType = type;
+	  s->state = state;
+	  
+	  printf("; ....... s->id = %s\n", s->id);
 
-			// Spécifie les infos
-		 	s->id = name;
-		 	s->varType = type;
-			s->state = state;
-			
-
-			// Specifie son level
-		 	if(s->up == NULL)
-				s->levelNode = 0;
-		 	
-			// Cree un noeud Next
-		 	s->next = creaNode();
-		 	s->next->previous = s;
-
-		 	// Specifie le parent et le level
-		 	if (s->previous != NULL)
-			{
-		 		s->up= s->previous->up;
-		 		s->levelNode = s->previous->levelNode;
-			}
+	  // Specifie son level
+	  if(s->up == NULL)
+	    s->levelNode = 0;
+	  
+	  // Cree un noeud Next
+	  s->next = creaNode();
+	  s->next->previous = s;
+	  
+	  // Specifie le parent et le level
+	  if (s->previous != NULL) {
+	    s->up= s->previous->up;
+	    s->levelNode = s->previous->levelNode;
+	  }
 		
-			// Si c'est une fonction on ajoute un enfant
-			if(state == 1)
-			{
-				s->down = creaNode();
-				s->down->up = s;
-				s->down->levelNode = s->levelNode + 1;
-			}
-
-		 	return s;
+	  // Si c'est une fonction on ajoute un enfant
+	  if(state == 1) {
+	    s->down = creaNode();
+	    s->down->up = s;
+	    s->down->levelNode = s->levelNode + 1;
+	  }
+	  
+	  return s;
  	}
 }
 
+// liberation de la memoire
+void freeSymbolTable(SYMTABLE s) {
 
-void freeSymbolTable(SYMTABLE s)
-{
- 	if (s != NULL)
-	{
-		 if (s->down != NULL)
-			freeSymbolTable(s->down);
- 		freeSymbolTable(s->next);
- 		free(s);
- 	}
+  if (s != NULL) {
+    if (s->down != NULL) {
+      freeSymbolTable(s->down);
+    }
+    freeSymbolTable(s->next);
+    free(s);
+  }
+
 }
 
 // fonctionne a l envers...
-/*
+
 void computeLocations(SYMTABLE s)
 {
 	SYMTABLE local = s;
 	int available = 0; // 5 pour le block réservé par la fonction dans la stack
-	//if ( strcmp(s->id, "main") == 0 ) { available = 0;}
+
 	while(local != NULL)
 	{
 		if(local->down != NULL)
 			computeLocations(local->down);
 		if(local->next != NULL)
 		{
+		  if ( local->state != 1 ) {
+
 			local->address = available;
+			printf("; ... localisation de %s : %d\n", local->id, available);
 			available++;
+		  }
+
 		}
 		local = local->next;
 	}	
 }
-*/
+
 
 
 // calcule les adresses memoires des symboles (niveau par niveau)
-
+ /*
 void computeLocations(SYMTABLE s)
 {
 	SYMTABLE local = s;
 	int available  = 0; // 5 pour le block réservé par la fonction dans la stack -> fait dans pcode!
-
-	
-	
+		
 	while (local != NULL) {
-	  if(local->state != 1 ) {   // avant pas cette condition, permet de ne conserver les adresse des variables!
+	  //if(local->state != 1 ) {   // avant pas cette condition, permet de ne conserver les adresse des variables!
 	    local->address = available;
 	    available++;
-	  }
+
+	    printf("; ... localisation de %s : %d\n", local->id, available - 1);
+
+	    //}
 	  local = local->next;
 	}
 	  
@@ -228,7 +238,7 @@ void computeLocations(SYMTABLE s)
 
 
 }
-
+ */
 
 int getMaxMemoryUsage(SYMTABLE s)
 {
