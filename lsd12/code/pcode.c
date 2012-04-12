@@ -78,6 +78,7 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  if (tree->left != NULL) {   
 	    pcodeGenValue(tree->left,s);
 	  }
+	  
 	  printf("stp\n");	  
 	  break;
 
@@ -85,34 +86,34 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 
 	  // trouver la fonction
 	  node = alreadyIsSymbol(s, tree->sval, 1);
-	  if(node != NULL)
-	    {
+	  if(node != NULL) {
 	      
-	      if( strcmp(s->id, "main") == 0  ) {
-		printf("ssp %d\n",getMaxMemoryUsage(s));
-		printf("ujp @main\n");		
-	       }      
-	      
-	      if (tree->left != NULL) {
-		pcodeGenValue(tree->left,node->down);
-	      }
-	      if(tree->right != NULL) {
-		pcodeGenValue(tree->right,node->down);
-	      }
-	      	      
-	      // return des fonction void et diffente du main
-	      if(node->varType == VAL_NOTYPE && strcmp(s->id, "main") != 0)
-	      printf("retf\n");
-
+	    if( strcmp(s->id, "main") == 0  ) {
+	      printf("ssp %d\n",getMaxMemoryUsage(s));
+	      printf("ujp @main\n");		
+	    }      
+	    
+	    if (tree->left != NULL) {
+	      pcodeGenValue(tree->left,node->down);
 	    }
+	    if(tree->right != NULL) {
+	      pcodeGenValue(tree->right,node->down);
+	    }
+	      	      
+	    // return des fonction void et diffente du main
+	    if(node->varType == VAL_NOTYPE && strcmp(s->id, "main") != 0) {
+	      printf("retf\n");
+	    }
+
+	  }
 	  
 	  break; 
 
 	case AT_HEADFUNCT :  // arguments fonction, entre les () (pas besoin pour p2)
-	  if( tree->left != NULL )
+	  /*if( tree->left != NULL )
 	    {
 	      pcodeGenValue(tree->left,s);
-	    }
+	      }*/
 	  break;
 
 	case AT_CORPS :

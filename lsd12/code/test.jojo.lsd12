@@ -3,10 +3,10 @@ program LSD12;
 function main(): void;
 var 
 
-	x int;
-	y bool;
+{	x int; }
+	y bool;  
 	
-	function addTo( ) : bool;
+{	function addTo() : bool;
 		var
 			e int;
 		begin
@@ -14,20 +14,46 @@ var
 			return true;
 		end;
 
-	function addTo2( ) : int;
+	function addTo2() : int;
 		var
 			e2 int;
 		begin
 			e2 := 1;
 			return e2;
 		end;
+}
 
+
+	function test() : int;
+		var
+		begin
+			return 10;
+		end;
+
+	function test2() : bool;
+		var
+		begin
+			return true;
+		end;
+
+	function test3() : void;
+		var
+		begin
+			write 11;
+		end;
+
+	
 
 begin
 
+{
 	x := addTo2();
 	y := addTo();
+}
 
+	write test();
+	y := test2();
+	test3();
 
 end;
 

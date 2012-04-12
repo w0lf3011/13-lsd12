@@ -189,56 +189,28 @@ void freeSymbolTable(SYMTABLE s) {
 
 // fonctionne a l envers...
 
-void computeLocations(SYMTABLE s)
-{
-	SYMTABLE local = s;
-	int available = 0; // 5 pour le block réservé par la fonction dans la stack
-
-	while(local != NULL)
-	{
-		if(local->down != NULL)
-			computeLocations(local->down);
-		if(local->next != NULL)
-		{
-		  if ( local->state != 1 ) {
-
-			local->address = available;
-			printf("; ... localisation de %s : %d\n", local->id, available);
-			available++;
-		  }
-
-		}
-		local = local->next;
-	}	
-}
-
-
-
-// calcule les adresses memoires des symboles (niveau par niveau)
- /*
-void computeLocations(SYMTABLE s)
-{
-	SYMTABLE local = s;
-	int available  = 0; // 5 pour le block réservé par la fonction dans la stack -> fait dans pcode!
-		
-	while (local != NULL) {
-	  //if(local->state != 1 ) {   // avant pas cette condition, permet de ne conserver les adresse des variables!
-	    local->address = available;
-	    available++;
-
-	    printf("; ... localisation de %s : %d\n", local->id, available - 1);
-
-	    //}
-	  local = local->next;
-	}
-	  
-	if(s->down != NULL) {
-	  computeLocations(s->down);
-	}
-
+void computeLocations(SYMTABLE s) {
+  
+  SYMTABLE local = s;
+  int available = 0; // 5 pour le block réservé par la fonction dans la stack
+  
+  while(local != NULL) {
+    if(local->down != NULL)
+      computeLocations(local->down);
+    
+    if(local->next != NULL) {
+      if ( local->state != 1 ) {   // pour n identifier que les adresses relatives des variables/constantes 
+	local->address = available;
+	printf("; ... localisation de %s : %d\n", local->id, available);
+	available++;
+      }
+    }
+    
+    local = local->next;
+    
+  }
 
 }
- */
 
 int getMaxMemoryUsage(SYMTABLE s)
 {

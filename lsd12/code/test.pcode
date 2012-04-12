@@ -5,345 +5,67 @@
 ;*** BEGIN SymbolTable ***
 ; ... ajout de main dans la table, state = 1, type = 5
 ; ....... s->id = main
-; ... ajout de returnInt6 dans la table, state = 1, type = 2
-; ....... s->id = returnInt6
-; ... ajout de test dans la table, state = 0, type = 2
+; ... ajout de test3 dans la table, state = 1, type = 5
+; ....... s->id = test3
+; ... ajout de test2 dans la table, state = 1, type = 3
+; ....... s->id = test2
+; ... ajout de test dans la table, state = 1, type = 2
 ; ....... s->id = test
-; ... ajout de returnInt5 dans la table, state = 1, type = 2
-; ....... s->id = returnInt5
-; ... ajout de test dans la table, state = 0, type = 2
-; ....... s->id = test
-; ... ajout de returnInt4 dans la table, state = 1, type = 2
-; ....... s->id = returnInt4
-; ... ajout de returnInt3 dans la table, state = 1, type = 2
-; ....... s->id = returnInt3
-; ... ajout de b dans la table, state = 0, type = 2
-; ....... s->id = b
-; ... ajout de a dans la table, state = 0, type = 2
-; ....... s->id = a
-; ... ajout de returnInt2 dans la table, state = 1, type = 2
-; ....... s->id = returnInt2
-; ... ajout de b dans la table, state = 0, type = 2
-; ....... s->id = b
-; ... ajout de a dans la table, state = 0, type = 2
-; ....... s->id = a
-; ... ajout de returnInt dans la table, state = 1, type = 2
-; ....... s->id = returnInt
-; ... ajout de b dans la table, state = 0, type = 2
-; ....... s->id = b
-; ... ajout de a dans la table, state = 0, type = 2
-; ....... s->id = a
-; ... ajout de returnTest3 dans la table, state = 1, type = 3
-; ....... s->id = returnTest3
-; ... ajout de returnTest2 dans la table, state = 1, type = 5
-; ....... s->id = returnTest2
-; ... ajout de returnTest1 dans la table, state = 1, type = 3
-; ....... s->id = returnTest1
-; ... ajout de retour dans la table, state = 0, type = 3
-; ....... s->id = retour
-; ... ajout de resultInt3 dans la table, state = 0, type = 2
-; ....... s->id = resultInt3
-; ... ajout de resultInt2 dans la table, state = 0, type = 2
-; ....... s->id = resultInt2
-; ... ajout de resultInt1 dans la table, state = 0, type = 2
-; ....... s->id = resultInt1
-; ... ajout de resultBoolFalse dans la table, state = 0, type = 3
-; ....... s->id = resultBoolFalse
-; ... ajout de resultBoolTrue dans la table, state = 0, type = 3
-; ....... s->id = resultBoolTrue
+; ... ajout de y dans la table, state = 0, type = 3
+; ....... s->id = y
 ;*** END SymbolTable ***
 ; * Verification de la specification LSD12 :
 ;---GPS = tree_id : 3 AT_FUNCT LEFT & RIGHT ;---
 ;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
-; check AT_APPELF
-; check AT_APPELF
-; check AT_APPELF
-; check AT_APPELF
-; check AT_APPELF
-; check AT_APPELF
-;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
 ; check AT_APPELF
 ;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
 ; check AT_APPELF
 ; check AT_APPELF
 ; * Fin de la verification de la specification LSD12!
 ;*** BEGIN computeLocations(..) ***
-; ... localisation de test : 0
-; ... localisation de test : 0
-; ... localisation de b : 0
-; ... localisation de a : 1
-; ... localisation de b : 0
-; ... localisation de a : 1
-; ... localisation de b : 0
-; ... localisation de a : 1
-; ... localisation de retour : 0
-; ... localisation de resultInt3 : 0
-; ... localisation de resultInt2 : 1
-; ... localisation de resultInt1 : 2
-; ... localisation de resultBoolFalse : 3
-; ... localisation de resultBoolTrue : 4
+; ... localisation de y : 0
 ;*** END computeLocations(..) ***
 ;*** BEGIN PCodeGeneration ***
-ssp 5
+ssp 1
 ujp @main
-define @returnTest1
-ssp 6
-ujp @returnTest1_body
-define @returnTest1_body
-lda b 0 0
-ldc b 1
-sto b
-; type ret = 3
-lda b 0 0
-lda b 0 0
-ind b
-sto b
-retf
-define @returnTest2
+define @test
 ssp 5
-ujp @returnTest2_body
-define @returnTest2_body
+ujp @test_body
+define @test_body
+; type ret = 2
+lda i 0 0
+ldc i 10
+sto i
 retf
-define @returnTest3
+define @test2
 ssp 5
-ujp @returnTest3_body
-define @returnTest3_body
+ujp @test2_body
+define @test2_body
 ; type ret = 3
 lda b 0 0
 ldc b 1
 sto b
 retf
-define @returnInt
-ssp 7
-ujp @returnInt_body
-define @returnInt_body
-lda i 0 1
-ldc i 1
-sto i
-lda i 0 0
-ldc i 1
-sto i
-lda i 0 1
-ind i
-ldc i 1
-equ b
-fjp @fi_56
-lda i 0 0
-ldc i 2
-sto i
-ujp @fi_56
-define @fi_56
-; type ret = 2
-lda i 0 0
-lda i 0 0
-ind i
-sto i
-retf
-define @returnInt2
-ssp 7
-ujp @returnInt2_body
-define @returnInt2_body
-lda i 0 1
-ldc i 1
-sto i
-lda i 0 0
-ldc i 4
-sto i
-define @while_78
-lda i 0 1
-ind i
-lda i 0 0
-ind i
-leq b
-fjp @od_78
-lda i 0 1
-lda i 0 1
-ind i
-lda i 0 0
-ind i
-add i
-sto i
-ujp @while_78
-define @od_78
-; type ret = 2
-lda i 0 0
-lda i 0 1
-ind i
-lda i 0 0
-ind i
-add i
-sto i
-retf
-define @returnInt3
-ssp 7
-ujp @returnInt3_body
-define @returnInt3_body
-lda i 0 1
-ldc i 1
-sto i
-lda i 0 0
-ldc i 4
-sto i
-define @while_107
-lda i 0 1
-ind i
-lda i 0 0
-ind i
-leq b
-fjp @od_107
-lda i 0 1
-lda i 0 1
-ind i
-ldc i 3
-add i
-sto i
-lda i 0 1
-ind i
-ldc i 4
-equ b
-fjp @fi_121
-lda i 0 1
-lda i 0 1
-ind i
-lda i 0 0
-ind i
-add i
-sto i
-ujp @fi_121
-define @fi_121
-ujp @while_107
-define @od_107
-; type ret = 2
-lda i 0 0
-lda i 0 1
-ind i
-sto i
-retf
-define @returnInt4
+define @test3
 ssp 5
-ujp @returnInt4_body
-define @returnInt4_body
-; type ret = 2
-lda i 0 0
-ldc i 42
-sto i
-retf
-define @returnInt5
-ssp 6
-ujp @returnInt5_body
-define @returnInt5_body
-lda i 0 0
-ldc i 2
-sto i
-lda i 0 0
-ind i
-ldc i 1
-equ b
-fjp @fi_154
-define @while_156
-lda i 0 0
-ind i
-ldc i 5
-leq b
-fjp @od_156
-lda i 0 0
-lda i 0 0
-ind i
-ldc i 2
-add i
-sto i
-ujp @while_156
-define @od_156
-ujp @fi_154
-define @fi_154
-; type ret = 2
-lda i 0 0
-lda i 0 0
-ind i
-sto i
-retf
-define @returnInt6
-ssp 6
-ujp @returnInt6_body
-define @returnInt6_body
-lda i 0 0
-ldc i 2
-sto i
-lda i 0 0
-ind i
-ldc i 2
-equ b
-fjp @fi_183
-define @while_185
-lda i 0 0
-ind i
-ldc i 5
-leq b
-fjp @od_185
-lda i 0 0
-lda i 0 0
-ind i
-ldc i 2
-add i
-sto i
-ujp @while_185
-define @od_185
-ujp @fi_183
-define @fi_183
-; type ret = 2
-lda i 0 0
-lda i 0 0
-ind i
-sto i
+ujp @test3_body
+define @test3_body
+ldc i 11
+prin
 retf
 define @main
-;appel de returnTest2
+;appel de test
 mst 0
-cup 0 @returnTest2
-lda b 0 4
-;appel de returnTest1
+cup 0 @test
+prin
+lda b 0 0
+;appel de test2
 mst 0
-cup 0 @returnTest1
+cup 0 @test2
 sto b
-lda i 0 0
-;appel de returnInt3
+;appel de test3
 mst 0
-cup 0 @returnInt3
-sto i
-;appel de returnInt
-mst 0
-cup 0 @returnInt
-prin
-;appel de returnInt2
-mst 0
-cup 0 @returnInt2
-prin
-lda i 0 0
-ind i
-prin
-;appel de returnTest3
-mst 0
-cup 0 @returnTest3
-fjp @else_220
-ldc i 1
-prin
-ujp @fi_220
-define @else_220
-ldc i 0
-prin
-define @fi_220
-;appel de returnInt4
-mst 0
-cup 0 @returnInt4
-prin
-;appel de returnInt5
-mst 0
-cup 0 @returnInt5
-prin
-;appel de returnInt6
-mst 0
-cup 0 @returnInt6
-prin
+cup 0 @test3
 stp
 ;*** END PCodeGeneration ***
 ;*** BEGIN Cleaning ***
