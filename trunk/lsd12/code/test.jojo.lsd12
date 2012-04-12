@@ -16,10 +16,10 @@ var
 
 	function addTo2( ) : int;
 		var
-			e int;
+			e2 int;
 		begin
-			e := 1;
-			return e;
+			e2 := 1;
+			return e2;
 		end;
 
 

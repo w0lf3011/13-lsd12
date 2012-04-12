@@ -21,10 +21,9 @@ void pcodeGenAddress(ASTTREE tree, SYMTABLE s, SYMTABLE function) // function = 
     {
     case AT_VAR :
       node = alreadyIsSymbol(s, tree->sval,0);
-      
+   
+      // calcul l'écart d'imbrication entre la fonction et la variable   
       niveau = s->levelNode - 1;
-      
-      // calcul l'écart d'imbrication entre la fonction et la variable
       if(niveau <= function->levelNode) 	
 	niveau = function->levelNode - niveau;
       else{
@@ -53,11 +52,11 @@ void pcodeGenAddress(ASTTREE tree, SYMTABLE s, SYMTABLE function) // function = 
 
 void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 {
+
   SYMTABLE node;
   int location, argument, lvl;
   static int staticlabel = 0;
   static int main_defined = 0;
-  int i = staticlabel; // numero du label
   ASTTREE treeTmp = NULL;
 
   int id_while;
@@ -93,7 +92,6 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 		printf("ssp %d\n",getMaxMemoryUsage(s));
 		printf("ujp @main\n");		
 	       }      
-
 	      
 	      if (tree->left != NULL) {
 		pcodeGenValue(tree->left,node->down);
@@ -102,8 +100,9 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 		pcodeGenValue(tree->right,node->down);
 	      }
 	      	      
-	      //if(node->varType == VAL_NOTYPE)
-	      //printf("retf\n");
+	      // return des fonction void et diffente du main
+	      if(node->varType == VAL_NOTYPE && strcmp(s->id, "main") != 0)
+	      printf("retf\n");
 
 	    }
 	  
@@ -118,11 +117,10 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 
 	case AT_CORPS :
 
-	  // cas particulier: fonction main (memoire deja reservee plus haut)
-	  	  	  
+	  // reservation memoire pour les fonctions autre que main
 	  if( strcmp(s->up->id, "main") != 0 ) {
 	    printf("define @%s\n", s->up->id);
-	    printf("ssp %d\n",getMaxMemoryUsage(s->up));
+	    printf("ssp %d\n",getMaxMemoryUsage(s->up) + 5);
 	    printf("ujp @%s_body\n", s->up->id);
 	  }
 	  
@@ -377,23 +375,14 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  pcodeGenValue(tree->right, s);
 	  printf("sto %c\n", type_return);
 	  printf("retf\n");
-	  	  
 	  break;
-
-
-
-
 
 	case AT_APPELF :
 	  
-	  printf(";appel de %s\n", tree->sval);
-	  
+	  printf(";appel de %s\n", tree->sval);  
 	  printf("mst %d\n", 0);  // pour le moment pas de fonctions imbriquees -> 0
 	  printf("cup %d @%s\n", 0, tree->sval);  // pour p2: pas de parametres -> 0 
-
-
 	  break;
-
 
 	default:
 	  printf(";ERROR : unrecognized type=%d in pcodeGenValue(..)\n", tree->type);

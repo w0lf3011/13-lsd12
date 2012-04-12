@@ -248,7 +248,7 @@ printf(";*** BEGIN computeLocations(..) ***\n");
 printf(";*** END computeLocations(..) ***\n");
 
 //  printf(";*** BEGIN SymbolTable ***\n");
-//  printSymbolTable(sym);
+printSymbolTable(sym);
 //  printf(";*** END SymbolTable ***\n");
 
 printf(";*** BEGIN PCodeGeneration ***\n");
