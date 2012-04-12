@@ -15,15 +15,15 @@ SYMTABLE creaNode()
  		exit(1);
  	}
 
- 	node->id = NULL; // Identifiant du noeud
- 	node->address = -1;// location pour pcode
- 	node->varType = -1; // Type de la variable
-	node->ref = 0; // variable par défaut
+ 	node->id = NULL;       // Identifiant du noeud
+ 	node->address = -1;    // location pour pcode
+ 	node->varType = -1;    // Type de la variable
+	node->ref = 0;         // variable par défaut
 	
- 	node->next = NULL; // Pointeur next du noeud
+ 	node->next = NULL;     // Pointeur next du noeud
  	node->previous = NULL; // Pointeur previous du noeud
- 	node->up = NULL; // Pointeur parent du noeud
- 	node->down = NULL; // Pointeur child du noeud
+ 	node->up = NULL;       // Pointeur parent du noeud
+ 	node->down = NULL;     // Pointeur child du noeud
 
  	return node;
 }
@@ -159,7 +159,7 @@ SYMTABLE addToSymbolTable(SYMTABLE s, char* name, int state, int type)
 		 		s->levelNode = s->previous->levelNode;
 			}
 		
-			// Si c'est une fonction on ajout un enfant
+			// Si c'est une fonction on ajoute un enfant
 			if(state == 1)
 			{
 				s->down = creaNode();
@@ -183,10 +183,13 @@ void freeSymbolTable(SYMTABLE s)
  	}
 }
 
+// fonctionne a l envers...
+/*
 void computeLocations(SYMTABLE s)
 {
 	SYMTABLE local = s;
 	int available = 0; // 5 pour le block réservé par la fonction dans la stack
+	//if ( strcmp(s->id, "main") == 0 ) { available = 0;}
 	while(local != NULL)
 	{
 		if(local->down != NULL)
@@ -199,12 +202,39 @@ void computeLocations(SYMTABLE s)
 		local = local->next;
 	}	
 }
+*/
+
+
+// calcule les adresses memoires des symboles (niveau par niveau)
+
+void computeLocations(SYMTABLE s)
+{
+	SYMTABLE local = s;
+	int available  = 0; // 5 pour le block réservé par la fonction dans la stack -> fait dans pcode!
+
+	if(s->down != NULL) {
+	  computeLocations(s->down);
+	}
+
+	
+	while (local != NULL) {
+	  if(local->state != 1 ) {   // avant pas cette condition, permet de ne conserver les adresse des variables!
+	    local->address = available;
+	    available++;
+	  }
+	  local = local->next;
+	}
+	  
+	
+
+}
 
 
 int getMaxMemoryUsage(SYMTABLE s)
 {
-	SYMTABLE tmp = s->down;
-  	int max = 5; // avant O
+        SYMTABLE tmp = s->down;
+	int max = 0; // avant O (?1 dans le cas ou une fonction renvoit juste une constante)
+	//if ( strcmp(s->id, "main") == 0 ) { max = 0;}
   	while (tmp->next != NULL)
     	{
 		if(tmp->state != 1 )
