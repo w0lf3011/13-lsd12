@@ -25,9 +25,9 @@ ASTTREE root;
 
 // définition du type des variables $x
 %union{
-        int ival;
-        char *sval;
-        ASTTREE tval;
+  int ival;
+  char *sval;
+  ASTTREE tval;
 }
 
 %token PRINT READ WRITE 
@@ -201,10 +201,11 @@ Var: VAR { $$ = createNode(AT_VAR, VAL_NOTYPE, 0, yylval.sval, NULL, NULL);}
 int yyerror(char *str)
 {
         fprintf(stderr,"KO\n");
-        printf("ERROR '%s' AT LINE  %d : UNRECOGNISED '%s'\n",
-                str,num_lines,yytext);
+        printf("ERROR '%s' AT LINE  %d : UNRECOGNISED '%s'\n", str,num_lines, yytext);
         exit(0);
 }
+
+// Programme principal
 int main() { 
   SYMTABLE sym;
   
