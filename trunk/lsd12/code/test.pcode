@@ -7,56 +7,227 @@
 ; * Verification de la specification LSD12 :
 ;---GPS = tree_id : 3 AT_FUNCT LEFT & RIGHT ;---
 ;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
+; check AT_APPELF
+; check AT_APPELF
+; check AT_APPELF
+; check AT_APPELF
+; check AT_APPELF
+; check AT_APPELF
 ;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
 ; check AT_APPELF
 ;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
+; check AT_APPELF
 ; check AT_APPELF
 ; * Fin de la verification de la specification LSD12!
 ;*** BEGIN computeLocations(..) ***
 ;*** END computeLocations(..) ***
-;--
-; [0x1968b70] Id : id: main address: -1 type: 5 niv: 0 state: 1
-;	 Next : 0x1968bc0, Previous : (nil), down : 0x1968c10, up : (nil)
-;--
-; [0x1968c10] Id : id: addTo2 address: -1 type: 2 niv: 1 state: 1
-;	 Next : 0x1968c60, Previous : (nil), down : 0x1968cb0, up : 0x1968b70
-;--
-; [0x1968cb0] Id : id: e2 address: 0 type: 2 niv: 2 state: 0
-;	 Next : 0x1968d00, Previous : (nil), down : (nil), up : 0x1968c10
-;--
-; [0x1968c60] Id : id: addTo address: -1 type: 3 niv: 1 state: 1
-;	 Next : 0x1968d50, Previous : 0x1968c10, down : 0x1968da0, up : 0x1968b70
-;--
-; [0x1968da0] Id : id: e address: -1 type: 2 niv: 2 state: 0
-;	 Next : 0x1968df0, Previous : (nil), down : (nil), up : 0x1968c60
-;--
-; [0x1968d50] Id : id: y address: 0 type: 3 niv: 1 state: 0
-;	 Next : 0x1968e40, Previous : 0x1968c60, down : (nil), up : 0x1968b70
-;--
-; [0x1968e40] Id : id: x address: 1 type: 2 niv: 1 state: 0
-;	 Next : 0x1968e90, Previous : 0x1968d50, down : (nil), up : 0x1968b70
 ;*** BEGIN PCodeGeneration ***
-ssp 2
+ssp 5
 ujp @main
-define @addTo
+define @returnTest1
 ssp 6
-ujp @addTo_body
-define @addTo_body
-lda i 0 -1
-ldc i 1
-sto i
+ujp @returnTest1_body
+define @returnTest1_body
+lda b 0 -1
+ldc b 1
+sto b
+; type ret = 3
+lda b 0 0
+lda b 0 -1
+ind b
+sto b
+retf
+define @returnTest2
+ssp 5
+ujp @returnTest2_body
+define @returnTest2_body
+retf
+define @returnTest3
+ssp 5
+ujp @returnTest3_body
+define @returnTest3_body
 ; type ret = 3
 lda b 0 0
 ldc b 1
 sto b
 retf
-define @addTo2
-ssp 6
-ujp @addTo2_body
-define @addTo2_body
-lda i 0 0
+define @returnInt
+ssp 7
+ujp @returnInt_body
+define @returnInt_body
+lda i 0 -1
 ldc i 1
 sto i
+lda i 0 -1
+ldc i 1
+sto i
+lda i 0 -1
+ind i
+ldc i 1
+equ b
+fjp @fi_56
+lda i 0 -1
+ldc i 2
+sto i
+ujp @fi_56
+define @fi_56
+; type ret = 2
+lda i 0 0
+lda i 0 -1
+ind i
+sto i
+retf
+define @returnInt2
+ssp 7
+ujp @returnInt2_body
+define @returnInt2_body
+lda i 0 -1
+ldc i 1
+sto i
+lda i 0 -1
+ldc i 4
+sto i
+define @while_78
+lda i 0 -1
+ind i
+lda i 0 -1
+ind i
+leq b
+fjp @od_78
+lda i 0 -1
+lda i 0 -1
+ind i
+lda i 0 -1
+ind i
+add i
+sto i
+ujp @while_78
+define @od_78
+; type ret = 2
+lda i 0 0
+lda i 0 -1
+ind i
+lda i 0 -1
+ind i
+add i
+sto i
+retf
+define @returnInt3
+ssp 7
+ujp @returnInt3_body
+define @returnInt3_body
+lda i 0 -1
+ldc i 1
+sto i
+lda i 0 -1
+ldc i 4
+sto i
+define @while_107
+lda i 0 -1
+ind i
+lda i 0 -1
+ind i
+leq b
+fjp @od_107
+lda i 0 -1
+lda i 0 -1
+ind i
+ldc i 3
+add i
+sto i
+lda i 0 -1
+ind i
+ldc i 4
+equ b
+fjp @fi_121
+lda i 0 -1
+lda i 0 -1
+ind i
+lda i 0 -1
+ind i
+add i
+sto i
+ujp @fi_121
+define @fi_121
+ujp @while_107
+define @od_107
+; type ret = 2
+lda i 0 0
+lda i 0 -1
+ind i
+sto i
+retf
+define @returnInt4
+ssp 5
+ujp @returnInt4_body
+define @returnInt4_body
+; type ret = 2
+lda i 0 0
+ldc i 42
+sto i
+retf
+define @returnInt5
+ssp 6
+ujp @returnInt5_body
+define @returnInt5_body
+lda i 0 -1
+ldc i 2
+sto i
+lda i 0 -1
+ind i
+ldc i 1
+equ b
+fjp @fi_154
+define @while_156
+lda i 0 -1
+ind i
+ldc i 5
+leq b
+fjp @od_156
+lda i 0 -1
+lda i 0 -1
+ind i
+ldc i 2
+add i
+sto i
+ujp @while_156
+define @od_156
+ujp @fi_154
+define @fi_154
+; type ret = 2
+lda i 0 0
+lda i 0 -1
+ind i
+sto i
+retf
+define @returnInt6
+ssp 6
+ujp @returnInt6_body
+define @returnInt6_body
+lda i 0 0
+ldc i 2
+sto i
+lda i 0 0
+ind i
+ldc i 2
+equ b
+fjp @fi_183
+define @while_185
+lda i 0 0
+ind i
+ldc i 5
+leq b
+fjp @od_185
+lda i 0 0
+lda i 0 0
+ind i
+ldc i 2
+add i
+sto i
+ujp @while_185
+define @od_185
+ujp @fi_183
+define @fi_183
 ; type ret = 2
 lda i 0 0
 lda i 0 0
@@ -64,16 +235,53 @@ ind i
 sto i
 retf
 define @main
-lda i 0 1
-;appel de addTo2
+;appel de returnTest2
 mst 0
-cup 0 @addTo2
-sto i
-lda b 0 0
-;appel de addTo
+cup 0 @returnTest2
+lda b 0 4
+;appel de returnTest1
 mst 0
-cup 0 @addTo
+cup 0 @returnTest1
 sto b
+lda i 0 0
+;appel de returnInt3
+mst 0
+cup 0 @returnInt3
+sto i
+;appel de returnInt
+mst 0
+cup 0 @returnInt
+prin
+;appel de returnInt2
+mst 0
+cup 0 @returnInt2
+prin
+lda i 0 0
+ind i
+prin
+;appel de returnTest3
+mst 0
+cup 0 @returnTest3
+fjp @else_220
+ldc i 1
+prin
+ujp @fi_220
+define @else_220
+ldc i 0
+prin
+define @fi_220
+;appel de returnInt4
+mst 0
+cup 0 @returnInt4
+prin
+;appel de returnInt5
+mst 0
+cup 0 @returnInt5
+prin
+;appel de returnInt6
+mst 0
+cup 0 @returnInt6
+prin
 stp
 ;*** END PCodeGeneration ***
 ;*** BEGIN Cleaning ***
