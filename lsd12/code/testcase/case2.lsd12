@@ -123,7 +123,7 @@ function main(): void; { TJ VOID }
 			end;
 			
 		{ affiche "69"	}
-		function fct0 : void;
+		function fct0() : void;
 			var
 				lol int;
 			begin
@@ -132,7 +132,7 @@ function main(): void; { TJ VOID }
 			end;
 	 
 		{ return "2" }
-		function fct1 : int;
+		function fct1() : int;
 			var
 				lol int;
 			begin
@@ -141,7 +141,7 @@ function main(): void; { TJ VOID }
 			end;
 		
 		{ return "true" }
-		function fct2 : bool;
+		function fct2() : bool;
 			var
 				lol bool;
 			begin
