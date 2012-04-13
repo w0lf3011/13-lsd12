@@ -167,8 +167,8 @@ function main(): void; { TJ VOID }
 				testBool := false;
 				if ( testBool ) then
 				else
-					while ( testInt >= 121 ) do
-						testInt := testInt - 1;
+					while ( testInt = 125 ) do
+						testInt := testInt - 5;
 					od;
 				fi;
 				
@@ -197,6 +197,7 @@ function main(): void; { TJ VOID }
 			begin
 				return false;
 			end;
+		
 	begin
 		returnTest2();
 		resultBoolTrue := returnTest1();
