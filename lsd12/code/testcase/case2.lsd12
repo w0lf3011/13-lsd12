@@ -149,6 +149,54 @@ function main(): void; { TJ VOID }
 				return lol;
 			end;
 
+		{ affiche "120" }
+		function fct3() : void;
+			var
+				testInt int;
+				testBool bool;
+				result int;
+			begin
+				testInt := 5;
+				testBool := true;
+				while ( testInt < 99 ) do
+					if ( testBool ) then
+						testInt := testInt * testInt;
+					fi;
+				od;
+				
+				testBool := false;
+				if ( testBool ) then
+				else
+					while ( testInt >= 121 ) do
+						testInt := testInt - 1;
+					od;
+				fi;
+				
+				result := testInt;
+				
+				write result;
+			end;
+			
+		{ affiche "69"	}
+		function fct4() : void;
+			var
+			begin
+				write 69;
+			end;
+	 
+		{ return "2" }
+		function fct5() : int;
+			var
+			begin
+				return 2;
+			end;
+			
+		{ return "true" }
+		function fct6() : bool;
+			var
+			begin
+				return false;
+			end;
 	begin
 		returnTest2();
 		resultBoolTrue := returnTest1();
@@ -191,6 +239,22 @@ function main(): void; { TJ VOID }
 		
 		{ affiche "69" }
 		fct0();
+		
+		{ affiche "120" }
+		fct3();
+		
+		{ affiche "69" }
+		fct4();
+		
+		{ affiche "2" }
+		write fct5();
+		
+		{ affiche "false" }
+		if (fct6()) then
+			write 1;
+		else
+			write 0;
+		fi;
 		
 	end;
 
