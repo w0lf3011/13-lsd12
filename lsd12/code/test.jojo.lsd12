@@ -6,7 +6,7 @@ var
 {	x int; }
 	y bool;  
 	
-{	function addTo() : bool;
+	function addTo() : bool;
 		var
 			e int;
 		begin
@@ -14,7 +14,7 @@ var
 			return true;
 		end;
 
-	function addTo2() : int;
+{	function addTo2() : int;
 		var
 			e2 int;
 		begin
@@ -53,7 +53,9 @@ begin
 
 	write test();
 	y := test2();
-	test3();
+	if( test2() ) then
+	    write 111;
+	fi;
 
 end;
 
