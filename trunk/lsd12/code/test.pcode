@@ -5,67 +5,552 @@
 ;*** BEGIN SymbolTable ***
 ; ... ajout de main dans la table, state = 1, type = 5
 ; ....... s->id = main
-; ... ajout de test3 dans la table, state = 1, type = 5
-; ....... s->id = test3
-; ... ajout de test2 dans la table, state = 1, type = 3
-; ....... s->id = test2
-; ... ajout de test dans la table, state = 1, type = 2
+; ... ajout de fct6 dans la table, state = 1, type = 3
+; ....... s->id = fct6
+; ... ajout de fct5 dans la table, state = 1, type = 2
+; ....... s->id = fct5
+; ... ajout de fct4 dans la table, state = 1, type = 5
+; ....... s->id = fct4
+; ... ajout de fct3 dans la table, state = 1, type = 5
+; ....... s->id = fct3
+; ... ajout de result dans la table, state = 0, type = 2
+; ....... s->id = result
+; ... ajout de testBool dans la table, state = 0, type = 3
+; ....... s->id = testBool
+; ... ajout de testInt dans la table, state = 0, type = 2
+; ....... s->id = testInt
+; ... ajout de fct2 dans la table, state = 1, type = 3
+; ....... s->id = fct2
+; ... ajout de lol dans la table, state = 0, type = 3
+; ....... s->id = lol
+; ... ajout de fct1 dans la table, state = 1, type = 2
+; ....... s->id = fct1
+; ... ajout de lol dans la table, state = 0, type = 2
+; ....... s->id = lol
+; ... ajout de fct0 dans la table, state = 1, type = 5
+; ....... s->id = fct0
+; ... ajout de lol dans la table, state = 0, type = 2
+; ....... s->id = lol
+; ... ajout de returnInt6 dans la table, state = 1, type = 2
+; ....... s->id = returnInt6
+; ... ajout de test dans la table, state = 0, type = 2
 ; ....... s->id = test
-; ... ajout de y dans la table, state = 0, type = 3
-; ....... s->id = y
+; ... ajout de returnInt5 dans la table, state = 1, type = 2
+; ....... s->id = returnInt5
+; ... ajout de test dans la table, state = 0, type = 2
+; ....... s->id = test
+; ... ajout de returnInt4 dans la table, state = 1, type = 2
+; ....... s->id = returnInt4
+; ... ajout de returnInt3 dans la table, state = 1, type = 2
+; ....... s->id = returnInt3
+; ... ajout de b dans la table, state = 0, type = 2
+; ....... s->id = b
+; ... ajout de a dans la table, state = 0, type = 2
+; ....... s->id = a
+; ... ajout de returnInt2 dans la table, state = 1, type = 2
+; ....... s->id = returnInt2
+; ... ajout de b dans la table, state = 0, type = 2
+; ....... s->id = b
+; ... ajout de a dans la table, state = 0, type = 2
+; ....... s->id = a
+; ... ajout de returnInt dans la table, state = 1, type = 2
+; ....... s->id = returnInt
+; ... ajout de b dans la table, state = 0, type = 2
+; ....... s->id = b
+; ... ajout de a dans la table, state = 0, type = 2
+; ....... s->id = a
+; ... ajout de returnTest3 dans la table, state = 1, type = 3
+; ....... s->id = returnTest3
+; ... ajout de returnTest2 dans la table, state = 1, type = 5
+; ....... s->id = returnTest2
+; ... ajout de returnTest1 dans la table, state = 1, type = 3
+; ....... s->id = returnTest1
+; ... ajout de retour dans la table, state = 0, type = 3
+; ....... s->id = retour
+; ... ajout de resultInt3 dans la table, state = 0, type = 2
+; ....... s->id = resultInt3
+; ... ajout de resultInt2 dans la table, state = 0, type = 2
+; ....... s->id = resultInt2
+; ... ajout de resultInt1 dans la table, state = 0, type = 2
+; ....... s->id = resultInt1
+; ... ajout de resultBoolFalse dans la table, state = 0, type = 3
+; ....... s->id = resultBoolFalse
+; ... ajout de resultBoolTrue dans la table, state = 0, type = 3
+; ....... s->id = resultBoolTrue
 ;*** END SymbolTable ***
 ; * Verification de la specification LSD12 :
 ;---GPS = tree_id : 3 AT_FUNCT LEFT & RIGHT ;---
 ;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
+; check AT_APPELF
+; check AT_APPELF
+; check AT_APPELF
+; check AT_APPELF
+; check AT_APPELF
+; check AT_APPELF
+; check AT_APPELF
+; check AT_APPELF
+; check AT_APPELF
+; check AT_APPELF
+; check AT_APPELF
+; check AT_APPELF
+; check AT_APPELF
+;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
 ; check AT_APPELF
 ;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
 ; check AT_APPELF
 ; check AT_APPELF
 ; * Fin de la verification de la specification LSD12!
 ;*** BEGIN computeLocations(..) ***
-; ... localisation de y : 0
+; ... localisation de result : 0
+; ... localisation de testBool : 1
+; ... localisation de testInt : 2
+; ... localisation de lol : 0
+; ... localisation de lol : 0
+; ... localisation de lol : 0
+; ... localisation de test : 0
+; ... localisation de test : 0
+; ... localisation de b : 0
+; ... localisation de a : 1
+; ... localisation de b : 0
+; ... localisation de a : 1
+; ... localisation de b : 0
+; ... localisation de a : 1
+; ... localisation de retour : 0
+; ... localisation de resultInt3 : 0
+; ... localisation de resultInt2 : 1
+; ... localisation de resultInt1 : 2
+; ... localisation de resultBoolFalse : 3
+; ... localisation de resultBoolTrue : 4
 ;*** END computeLocations(..) ***
 ;*** BEGIN PCodeGeneration ***
-ssp 1
+ssp 5
 ujp @main
-define @test
-ssp 5
-ujp @test_body
-define @test_body
-; type ret = 2
-lda i 0 0
-ldc i 10
-sto i
+define @returnTest1
+ssp 6
+ujp @returnTest1_body
+define @returnTest1_body
+lda b 0 0
+ldc b 1
+sto b
+; type ret = 3
+lda b 0 0
+lda b 0 0
+ind b
+sto b
 retf
-define @test2
+define @returnTest2
 ssp 5
-ujp @test2_body
-define @test2_body
+ujp @returnTest2_body
+define @returnTest2_body
+retf
+define @returnTest3
+ssp 5
+ujp @returnTest3_body
+define @returnTest3_body
 ; type ret = 3
 lda b 0 0
 ldc b 1
 sto b
 retf
-define @test3
+define @returnInt
+ssp 7
+ujp @returnInt_body
+define @returnInt_body
+lda i 0 1
+ldc i 1
+sto i
+lda i 0 0
+ldc i 1
+sto i
+lda i 0 1
+ind i
+ldc i 1
+equ b
+fjp @fi_56
+lda i 0 0
+ldc i 2
+sto i
+ujp @fi_56
+define @fi_56
+; type ret = 2
+lda i 0 0
+lda i 0 0
+ind i
+sto i
+retf
+define @returnInt2
+ssp 7
+ujp @returnInt2_body
+define @returnInt2_body
+lda i 0 1
+ldc i 1
+sto i
+lda i 0 0
+ldc i 4
+sto i
+define @while_78
+lda i 0 1
+ind i
+lda i 0 0
+ind i
+leq b
+fjp @od_78
+lda i 0 1
+lda i 0 1
+ind i
+lda i 0 0
+ind i
+add i
+sto i
+ujp @while_78
+define @od_78
+; type ret = 2
+lda i 0 0
+lda i 0 1
+ind i
+lda i 0 0
+ind i
+add i
+sto i
+retf
+define @returnInt3
+ssp 7
+ujp @returnInt3_body
+define @returnInt3_body
+lda i 0 1
+ldc i 1
+sto i
+lda i 0 0
+ldc i 4
+sto i
+define @while_107
+lda i 0 1
+ind i
+lda i 0 0
+ind i
+leq b
+fjp @od_107
+lda i 0 1
+lda i 0 1
+ind i
+ldc i 3
+add i
+sto i
+lda i 0 1
+ind i
+ldc i 4
+equ b
+fjp @fi_121
+lda i 0 1
+lda i 0 1
+ind i
+lda i 0 0
+ind i
+add i
+sto i
+ujp @fi_121
+define @fi_121
+ujp @while_107
+define @od_107
+; type ret = 2
+lda i 0 0
+lda i 0 1
+ind i
+sto i
+retf
+define @returnInt4
 ssp 5
-ujp @test3_body
-define @test3_body
-ldc i 11
+ujp @returnInt4_body
+define @returnInt4_body
+; type ret = 2
+lda i 0 0
+ldc i 42
+sto i
+retf
+define @returnInt5
+ssp 6
+ujp @returnInt5_body
+define @returnInt5_body
+lda i 0 0
+ldc i 2
+sto i
+lda i 0 0
+ind i
+ldc i 1
+equ b
+fjp @fi_154
+define @while_156
+lda i 0 0
+ind i
+ldc i 5
+leq b
+fjp @od_156
+lda i 0 0
+lda i 0 0
+ind i
+ldc i 2
+add i
+sto i
+ujp @while_156
+define @od_156
+ujp @fi_154
+define @fi_154
+; type ret = 2
+lda i 0 0
+lda i 0 0
+ind i
+sto i
+retf
+define @returnInt6
+ssp 6
+ujp @returnInt6_body
+define @returnInt6_body
+lda i 0 0
+ldc i 2
+sto i
+lda i 0 0
+ind i
+ldc i 2
+equ b
+fjp @fi_183
+define @while_185
+lda i 0 0
+ind i
+ldc i 5
+leq b
+fjp @od_185
+lda i 0 0
+lda i 0 0
+ind i
+ldc i 2
+add i
+sto i
+ujp @while_185
+define @od_185
+ujp @fi_183
+define @fi_183
+; type ret = 2
+lda i 0 0
+lda i 0 0
+ind i
+sto i
+retf
+define @fct0
+ssp 6
+ujp @fct0_body
+define @fct0_body
+lda i 0 0
+ldc i 69
+sto i
+lda i 0 0
+ind i
 prin
 retf
-define @main
-;appel de test
-mst 0
-cup 0 @test
-prin
+define @fct1
+ssp 6
+ujp @fct1_body
+define @fct1_body
+lda i 0 0
+ldc i 2
+sto i
+; type ret = 2
+lda i 0 0
+lda i 0 0
+ind i
+sto i
+retf
+define @fct2
+ssp 6
+ujp @fct2_body
+define @fct2_body
 lda b 0 0
-;appel de test2
-mst 0
-cup 0 @test2
+ldc b 0
 sto b
-;appel de test3
+; type ret = 3
+lda b 0 0
+lda b 0 0
+ind b
+sto b
+retf
+define @fct3
+ssp 8
+ujp @fct3_body
+define @fct3_body
+lda i 0 2
+ldc i 5
+sto i
+lda b 0 1
+ldc b 1
+sto b
+define @while_252
+lda i 0 2
+ind i
+ldc i 99
+les b
+fjp @od_252
+lda b 0 1
+ind b
+fjp @fi_259
+lda i 0 2
+lda i 0 2
+ind i
+lda i 0 2
+ind i
+mul i
+sto i
+ujp @fi_259
+define @fi_259
+ujp @while_252
+define @od_252
+lda i 0 2
+ind i
+prin
+lda b 0 1
+ldc b 0
+sto b
+lda b 0 1
+ind b
+fjp @else_274
+ujp @fi_274
+define @else_274
+define @while_276
+lda i 0 2
+ind i
+ldc i 125
+equ b
+fjp @od_276
+lda i 0 2
+lda i 0 2
+ind i
+ldc i 5
+sub i
+sto i
+ujp @while_276
+define @od_276
+define @fi_274
+lda i 0 2
+ind i
+prin
+lda i 0 0
+lda i 0 2
+ind i
+sto i
+lda i 0 0
+ind i
+prin
+retf
+define @fct4
+ssp 5
+ujp @fct4_body
+define @fct4_body
+ldc i 69
+prin
+retf
+define @fct5
+ssp 5
+ujp @fct5_body
+define @fct5_body
+; type ret = 2
+lda i 0 0
+ldc i 2
+sto i
+retf
+define @fct6
+ssp 5
+ujp @fct6_body
+define @fct6_body
+; type ret = 3
+lda b 0 0
+ldc b 0
+sto b
+retf
+define @main
+;appel de returnTest2
 mst 0
-cup 0 @test3
+cup 0 @returnTest2
+lda b 0 4
+;appel de returnTest1
+mst 0
+cup 0 @returnTest1
+sto b
+lda i 0 0
+;appel de returnInt3
+mst 0
+cup 0 @returnInt3
+sto i
+;appel de returnInt
+mst 0
+cup 0 @returnInt
+prin
+;appel de returnInt2
+mst 0
+cup 0 @returnInt2
+prin
+lda i 0 0
+ind i
+prin
+;appel de returnTest3
+mst 0
+cup 0 @returnTest3
+fjp @else_344
+ldc i 1
+prin
+ujp @fi_344
+define @else_344
+ldc i 0
+prin
+define @fi_344
+;appel de returnInt4
+mst 0
+cup 0 @returnInt4
+prin
+;appel de returnInt5
+mst 0
+cup 0 @returnInt5
+prin
+;appel de returnInt6
+mst 0
+cup 0 @returnInt6
+prin
+;appel de fct1
+mst 0
+cup 0 @fct1
+prin
+;appel de fct2
+mst 0
+cup 0 @fct2
+fjp @else_366
+ldc i 1
+prin
+ujp @fi_366
+define @else_366
+ldc i 0
+prin
+define @fi_366
+;appel de fct0
+mst 0
+cup 0 @fct0
+;appel de fct3
+mst 0
+cup 0 @fct3
+;appel de fct4
+mst 0
+cup 0 @fct4
+;appel de fct5
+mst 0
+cup 0 @fct5
+prin
+;appel de fct6
+mst 0
+cup 0 @fct6
+fjp @else_388
+ldc i 1
+prin
+ujp @fi_388
+define @else_388
+ldc i 0
+prin
+define @fi_388
 stp
 ;*** END PCodeGeneration ***
 ;*** BEGIN Cleaning ***
