@@ -1,7 +1,8 @@
 program LSD12; 
 { Case 2 : où sont géré :
 	- fonctions sans paramètres,
-	- pas de fonctions récursives ni imbriquées }
+	- pas de fonctions récursives 
+	- ni imbriquées }
 function main(): void; { TJ VOID }
 	var 
 		resultBoolTrue bool;
@@ -120,7 +121,34 @@ function main(): void; { TJ VOID }
 				
 				return test;
 			end;
+			
+		{ affiche "69"	}
+		function fct0 : void;
+			var
+				lol int;
+			begin
+				lol := 69;
+				write lol;
+			end;
 	 
+		{ return "2" }
+		function fct1 : int;
+			var
+				lol int;
+			begin
+				lol := 2;
+				return lol;
+			end;
+		
+		{ return "true" }
+		function fct2 : bool;
+			var
+				lol bool;
+			begin
+				lol := false;
+				return lol;
+			end;
+
 	begin
 		returnTest2();
 		resultBoolTrue := returnTest1();
@@ -150,6 +178,19 @@ function main(): void; { TJ VOID }
 		
 		{ affiche "6" }
 		write returnInt6();
+		
+		{ affiche "2" }
+		write fct1();
+		
+		{ affiche "false" }
+		if (fct2()) then
+			write 1;
+		else
+			write 0;
+		fi;
+		
+		{ affiche "69" }
+		fct0();
 		
 	end;
 
