@@ -11,6 +11,12 @@ function main(): void; { TJ VOID }
 		resultInt2 int;
 		resultInt3 int;
 		
+		val1 int;
+		val2 int;
+		
+		val3 bool;
+		val4 bool;
+		
 		{ return "true" }
 		function returnTest1() : bool;
 			var
@@ -199,6 +205,32 @@ function main(): void; { TJ VOID }
 				return false;
 			end;
 		
+		{ utilise les variables globales
+		  affiche "152" }
+		function fct7() : void;
+			var
+				tmp int;
+			begin
+				val1 := 77;
+				val2 := 66;
+				
+				val3 := true;
+				val4 := true;
+				if (val3 = true) then
+					if (val2 < val1) then
+						tmp := val2;
+						val2 := val1;
+						val1:= tmp;
+					fi;
+				fi;
+				
+				if (val4 = true) then
+					tmp := val1 + val2 + 9;
+				fi;
+				
+				write tmp;
+			end;
+		
 	begin
 		returnTest2();
 		resultBoolTrue := returnTest1();
@@ -229,6 +261,12 @@ function main(): void; { TJ VOID }
 		{ affiche "6" }
 		write returnInt6();
 		
+		{ affiche "69" }
+		fct0();
+		
+		{ affiche "152" }
+		fct7();
+		
 		{ affiche "2" }
 		write fct1();
 		
@@ -238,9 +276,6 @@ function main(): void; { TJ VOID }
 		else
 			write 0;
 		fi;
-		
-		{ affiche "69" }
-		fct0();
 		
 		write 88888888;
 		
