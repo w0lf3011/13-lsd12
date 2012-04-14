@@ -160,7 +160,7 @@ function main(): void; { TJ VOID }
 				testBool := true;
 				while ( testInt < 99 ) do
 					if ( testBool ) then
-						testInt := testInt * testInt;
+						testInt := testInt * 5;
 					fi;
 				od;
 				
