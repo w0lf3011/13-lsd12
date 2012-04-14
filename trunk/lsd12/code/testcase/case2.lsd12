@@ -228,6 +228,8 @@ function main(): void; { TJ VOID }
 					tmp := val1 + val2 + 9;
 				fi;
 				
+				val4 := false;
+				
 				write tmp;
 			end;
 		
@@ -270,7 +272,7 @@ function main(): void; { TJ VOID }
 			{ affiche "66"}
 			write val1;
 		fi;
-		if (val4) then
+		if (val4 = false) then
 			{ affiche "77"}
 			write val2;
 		fi;
