@@ -178,31 +178,25 @@ function main(): void; { TJ VOID }
 				write result;
 			end;
 			
-		{ affiche "69"	}
+		{ affiche "6998"	}
 		function fct4() : void;
 			var
-				local int;
 			begin
-				local := 69;
-				write local;
+				write 6998;
 			end;
 	 
 		{ return "2" }
 		function fct5() : int;
 			var
-				local int;
 			begin
-				local := 2;
-				return local;
+				return 2;
 			end;
 			
 		{ return "true" }
 		function fct6() : bool;
 			var
-				local bool;
 			begin
-				local := false;
-				return local;
+				return false;
 			end;
 		
 	begin
@@ -251,7 +245,7 @@ function main(): void; { TJ VOID }
 		{ affiche "120" }
 		fct3();
 		
-		{ affiche "69" }
+		{ affiche "6998" }
 		fct4();
 		
 		{ affiche "2" }
