@@ -181,22 +181,28 @@ function main(): void; { TJ VOID }
 		{ affiche "69"	}
 		function fct4() : void;
 			var
+				local int;
 			begin
-				write 69;
+				local := 69;
+				write local;
 			end;
 	 
 		{ return "2" }
 		function fct5() : int;
 			var
+				local int;
 			begin
-				return 2;
+				local := 2;
+				return local;
 			end;
 			
 		{ return "true" }
 		function fct6() : bool;
 			var
+				local bool;
 			begin
-				return false;
+				local := false;
+				return local;
 			end;
 		
 	begin
