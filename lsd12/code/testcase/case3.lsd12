@@ -112,7 +112,45 @@ function main(): void; { TJ VOID }
 				
 				globalInt := globalInt + 1;
 			end;
+		
+		{ 2 int arguments
+		  affiche la somme de test1 et de test2 }
+		function fct9 (test1 int, test2 int) : void;
+			var
+			begin
+				write test1 + test2;
+			end;
 			
+		{ 2 bool arguments
+		  affiche "1" si true, true et "0" dans les autres cas}
+		function fct10 (test1 bool, test2 bool) : void;
+			var
+			begin
+				if (test1) then
+					if (test2) then
+						write 1;
+					else
+						write 0;
+					fi;
+				else
+					write 0;
+				fi;
+			end;
+		
+		{ 2 arguments de types différents
+		  affiche test1 si test2 est true }
+		function fct11 (test1 int, test2 bool) : void;
+			var
+			begin
+				if (test2) then
+					write test1;
+				else
+					write 0;
+				fi;
+			end;
+		
+		{ test de fonction imbriquee
+		  affiche "5", "1" }
 		function fctImbriquer() : void;
 			var
 				int1 int;
@@ -181,10 +219,14 @@ function main(): void; { TJ VOID }
 		fi;
 		
 		{ affiche "18" }
-		fct7(18);	
+		fct7(18);
 
 		{ affiche "1" si true, "0" si false}
 		fct8(true);
+		
+		{ test de fonction imbriquee
+		  affiche "5", "1" }
+		fctImbriquer();
 		
 		write globalInt;
 	end;
