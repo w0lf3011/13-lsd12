@@ -156,7 +156,7 @@ function main(): void; { TJ VOID }
 			end;
 
 		{ affiche "120" }
-		function fct3() : void;
+		function fct3() : int;
 			var
 				testInt int;
 				testBool bool;
@@ -181,7 +181,7 @@ function main(): void; { TJ VOID }
 				write testInt + 1;
 				result := testInt;
 				
-				write result - 1;
+				return result - 1;
 			end;
 			
 		{ affiche "6998"	}
@@ -272,7 +272,9 @@ function main(): void; { TJ VOID }
 			{ affiche "66"}
 			write val1;
 		fi;
-		if (val4 = false) then
+		if (val4) then
+			write 0;
+		else
 			{ affiche "77"}
 			write val2;
 		fi;
@@ -290,7 +292,7 @@ function main(): void; { TJ VOID }
 		write 88888888;
 		
 		{ affiche "120" }
-		fct3();
+		write fct3();
 		
 		write 88888888;
 		
