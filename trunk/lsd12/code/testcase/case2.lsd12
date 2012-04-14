@@ -213,9 +213,7 @@ function main(): void; { TJ VOID }
 			begin
 				val1 := 77;
 				val2 := 66;
-				
-				val3 := true;
-				val4 := true;
+
 				if (val3 = true) then
 					if (val2 < val1) then
 						tmp := val2;
@@ -268,6 +266,8 @@ function main(): void; { TJ VOID }
 		
 		{ affiche "152"  et tests variables globales}
 		fct7();
+		val3 := true;
+		val4 := true;
 		if (val3) then
 			{ affiche "66"}
 			write val1;
