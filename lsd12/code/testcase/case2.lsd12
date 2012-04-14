@@ -264,8 +264,16 @@ function main(): void; { TJ VOID }
 		{ affiche "69" }
 		fct0();
 		
-		{ affiche "152" }
+		{ affiche "152"  et tests variables globales}
 		fct7();
+		if (val3) then
+			{ affiche "66"}
+			write val1;
+		fi;
+		if (val4) then
+			{ affiche "77"}
+			write val2;
+		fi;
 		
 		{ affiche "2" }
 		write fct1();
