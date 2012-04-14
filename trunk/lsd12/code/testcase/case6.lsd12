@@ -15,8 +15,8 @@ function main(): void; { TJ VOID }
 		resultInt2 int;
 		resultInt3 int;
 		
-		{ Test pour renvoyer un "bool" d'une simple fonction }
-		function returnTrue() : bool;
+		{ return "true" }
+		function returnTest1() : bool;
 			var
 				retour bool;
 			begin
@@ -24,14 +24,20 @@ function main(): void; { TJ VOID }
 				return retour;
 			end;
 		
-		{ Test pour renvoyer un "bool" d'une simple fonction sans variable }
-		function returnFalse() : bool;
+		{ return "void" }
+		function returnTest2() : void;
+			var
 			begin
-				return false;
 			end;
-			
-		{ Test pour renvoyer un "int" d'une fonction avec une condition 
-		post condition : return 2 }
+		
+		{ return "true" }
+		function returnTest3() : bool;
+			var
+			begin
+				return true;
+			end;
+		
+		{ return "2" }
 		function returnInt() : int;
 			var
 				a int;
@@ -46,9 +52,8 @@ function main(): void; { TJ VOID }
 				
 				return b;
 			end;
-			
-		{ Test pour renvoyer un "int" d'une fonction avec une boucle 
-		post condition : return 5 }
+		
+		{ return "9" }
 		function returnInt2() : int;
 			var
 				a int;
@@ -60,12 +65,12 @@ function main(): void; { TJ VOID }
 				while ( a <= b) do
 					a := a + b;
 				od;
+
 				
-				return a;
+				return a+b;
 			end;
 		
-		{ Test pour renvoyer un "int" d'une fonction avec une boucle et une condition
-		post condition : return 8 }
+		{ return "8" }
 		function returnInt3() : int;
 			var
 				a int;
@@ -83,21 +88,184 @@ function main(): void; { TJ VOID }
 				
 				return a;
 			end;
+		
+		{ return "42" }
+		function returnInt4() : int;
+			var
+			begin
+				return 42;
+			end;
+		
+		{ return "2" }
+		function returnInt5() : int;
+			var
+				test int;
+			begin
+				test := 2;
+				if ( test = 1) then
+					while (test <= 5) do
+						test := test + 2;
+					od;
+				fi;
+				
+				return test;
+			end;
+			
+		{ return "6" }
+		function returnInt6() : int;
+			var
+				test int;
+			begin
+				test := 2;
+				if ( test = 2) then
+					while (test <= 5) do
+						test := test + 2;
+					od;
+				fi;
+				
+				return test;
+			end;
+			
+		{ affiche "69"	}
+		function fct0() : void;
+			var
+				lol int;
+			begin
+				lol := 69;
+				write lol;
+			end;
 	 
-	begin
+		{ return "2" }
+		function fct1() : int;
+			var
+				lol int;
+			begin
+				lol := 2;
+				return lol;
+			end;
+		
+		{ return "true" }
+		function fct2() : bool;
+			var
+				lol bool;
+			begin
+				lol := false;
+				return lol;
+			end;
 
-		resultBoolTrue := returnTrue();
-		resultBoolFalse := returnFalse();
-		resultInt1 := returnInt();
-		resultInt2 := returnInt2();
+		{ affiche "120" }
+		function fct3() : void;
+			var
+				testInt int;
+				testBool bool;
+				result int;
+			begin
+				testInt := 5;
+				testBool := true;
+				while ( testInt < 99 ) do
+					if ( testBool ) then
+						testInt := testInt * 5;
+					fi;
+				od;
+				
+				write testInt;
+				testBool := false;
+				if ( testBool ) then
+				else
+					while ( testInt = 125 ) do
+						testInt := testInt - 5;
+					od;
+				fi;
+				write testInt + 1;
+				result := testInt;
+				
+				write result - 1;
+			end;
+			
+		{ affiche "6998"	}
+		function fct4() : void;
+			var
+			begin
+				write 6998;
+			end;
+	 
+		{ return "2" }
+		function fct5() : int;
+			var
+			begin
+				return 2;
+			end;
+			
+		{ return "true" }
+		function fct6() : bool;
+			var
+			begin
+				return false;
+			end;
+		
+	begin
+		returnTest2();
+		resultBoolTrue := returnTest1();
 		resultInt3 := returnInt3();
 		
-		write resultBoolTrue;
-		write resultBoolFalse;
-		write resultInt1;
-		write resultInt2;
+		{ affiche "2" }
+		write returnInt();
+		
+		{ affiche "9" }
+		write returnInt2();
+		
+		{ affiche "8" }
 		write resultInt3;
-
+		
+		{ affiche "true" }
+		if (returnTest3()) then
+			write 1;
+		else
+			write 0;
+		fi;
+		
+		{ affiche "42" }
+		write returnInt4();
+		
+		{ affiche "2" }
+		write returnInt5();
+		
+		{ affiche "6" }
+		write returnInt6();
+		
+		{ affiche "2" }
+		write fct1();
+		
+		{ affiche "false" }
+		if (fct2()) then
+			write 1;
+		else
+			write 0;
+		fi;
+		
+		{ affiche "69" }
+		fct0();
+		
+		write 88888888;
+		
+		{ affiche "120" }
+		fct3();
+		
+		write 88888888;
+		
+		{ affiche "6998" }
+		fct4();
+		
+		{ affiche "2" }
+		write fct5();
+		
+		{ affiche "false" }
+		if (fct6()) then
+			write 1;
+		else
+			write 0;
+		fi;
+		
 	end;
 
 end;

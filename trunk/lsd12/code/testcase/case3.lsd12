@@ -3,60 +3,124 @@ program LSD12;
 	- fonction imbriquées avec paramètres,
 	- mais sans récursives }
 function main(): void; { TJ VOID }
-	var 
-		resultBoolTrue bool;
-		resultBoolFalse bool;
-		resultInt1 int;
-		resultInt2 int;
-		resultInt3 int;
-		
-		
-		function returnTrue(var lol: bool) : bool;
+	vae
+		{ affiche "69"	}
+		function fct0() : void;
 			var
-				
+				lol int;
 			begin
+				lol := 69;
+				write lol;
+			end;
+	 
+		{ return "2" }
+		function fct1() : int;
+			var
+				lol int;
+			begin
+				lol := 2;
 				return lol;
 			end;
 		
-		{
-		function returnInt(var un: int, var deux:int) : int;
+		{ return "true" }
+		function fct2() : bool;
 			var
-				a int;
-				b int;
+				lol bool;
 			begin
-				a := 1;
-				b := un + deux+ a;
-						
-				return b;
+				lol := false;
+				return lol;
 			end;
 
-		function returnInt2() : int;
+		{ affiche "120" }
+		function fct3() : void;
 			var
-				a int;
-				b int;
+				testInt int;
+				testBool bool;
+				result int;
 			begin
-				a := 1;
-				b := 4 + a + returnInt(1,1);
+				testInt := 5;
+				testBool := true;
+				while ( testInt < 99 ) do
+					if ( testBool ) then
+						testInt := testInt * 5;
+					fi;
+				od;
 				
-						
+				write testInt;
+				testBool := false;
+				if ( testBool ) then
+				else
+					while ( testInt = 125 ) do
+						testInt := testInt - 5;
+					od;
+				fi;
+				write testInt + 1;
+				result := testInt;
 				
-				return b;
+				write result - 1;
+			end;
+			
+		{ affiche "6998"	}
+		function fct4() : void;
+			var
+			begin
+				write 6998;
+			end;
+	 
+		{ return "2" }
+		function fct5() : int;
+			var
+			begin
+				return 2;
+			end;
+			
+		{ return "true" }
+		function fct6() : bool;
+			var
+			begin
+				return false;
 			end;
 		
-		}
+		{ argument : test1 int;
+		  affiche test1 }
+		function fct7(test1 int) : void;
+			var
+			begin
+				write test1;
+			end;
 	begin
-
-		resultBoolTrue := returnTrue(true);
-		{
-		resultInt1 := returnInt();
-		resultInt2 := returnInt2();
-
-
-		write resultInt1;
-		write resultInt2;
-		}
-
-
+		
+		{ affiche "69" }
+		fct0();
+		
+		{ affiche "2" }
+		write fct1();
+		
+		{ affiche "false" }
+		if (fct2()) then
+			write 1;
+		else
+			write 0;
+		fi;
+		
+		{ affiche "120" }
+		fct3();
+		
+		{ affiche "6998" }
+		fct4();
+		
+		{ affiche "2" }
+		write fct5();
+		
+		{ affiche "false" }
+		if (fct6()) then
+			write 1;
+		else
+			write 0;
+		fi;
+		
+		{ affiche "18" }
+		fct7(18);		
 	end;
 
 end;
