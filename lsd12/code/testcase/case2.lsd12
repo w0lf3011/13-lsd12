@@ -172,10 +172,10 @@ function main(): void; { TJ VOID }
 						testInt := testInt - 5;
 					od;
 				fi;
-				write testInt;
+				write testInt + 1;
 				result := testInt;
 				
-				write result;
+				write result - 1;
 			end;
 			
 		{ affiche "6998"	}
@@ -242,8 +242,12 @@ function main(): void; { TJ VOID }
 		{ affiche "69" }
 		fct0();
 		
+		write 88888888;
+		
 		{ affiche "120" }
 		fct3();
+		
+		write 88888888;
 		
 		{ affiche "6998" }
 		fct4();
