@@ -7,265 +7,88 @@ program LSD12;
 	- max,
 	- nombre d'éléments,
 	- test de la présence d'un élément dans un ensemble }
-function main(): void; { TJ VOID }
-	var 
-		resultBoolTrue bool;
-		resultBoolFalse bool;
-		resultInt1 int;
-		resultInt2 int;
-		resultInt3 int;
-		
-		{ return "true" }
-		function returnTest1() : bool;
-			var
-				retour bool;
-			begin
-				retour := true;
-				return retour;
-			end;
-		
-		{ return "void" }
-		function returnTest2() : void;
-			var
-			begin
-			end;
-		
-		{ return "true" }
-		function returnTest3() : bool;
-			var
-			begin
-				return true;
-			end;
-		
-		{ return "2" }
-		function returnInt() : int;
-			var
-				a int;
-				b int;
-			begin
-				a := 1;
-				b := 1;
-				
-				if (a = 1) then
-					b := 2;
-				fi;
-				
-				return b;
-			end;
-		
-		{ return "9" }
-		function returnInt2() : int;
-			var
-				a int;
-				b int;
-			begin
-				a := 1;
-				b := 4;
-				
-				while ( a <= b) do
-					a := a + b;
-				od;
+function main():void;
+	var
+		{ declaration de variables+fonctions }
+		a bool;
+		b int;
+		ensA iset;
+		ensB iset;
 
-				
-				return a+b;
-			end;
+		{ Vérifie que ensA e t ensB sont identiques }
+		function equals():bool ;
+			forward ;
+
+		{ Initilise ensA avec des valeurs saisies par l’utilisateur }
+		function buildEnsA():void;
+		var
+			x int ;
+		begin
+			read x ;
+			while(!(x=0)) do
+				add x to ensA;
+				read x;
+			od;
+		end;
 		
-		{ return "8" }
-		function returnInt3() : int;
+		{ Initilise ensB avec des valeurs saisies par l’utilisateur }
+		function buildEnsB():void;
 			var
+				x int;
+			begin
+				read x;
+				while(!(x=0)) do
+					add x to ensB;
+					read x;
+				od;
+			end ;
+
+		{ Définition complète de equals }
+		function equals():bool;
+			var
+				tmpA iset;
+				tmpB iset;
 				a int;
 				b int;
+				equal bool;
 			begin
-				a := 1;
-				b := 4;
-				
-				while ( a <= b) do
-					a := a + 3;
-					if (a = 4) then
-						a := a + b;
+
+				equal:= #ensA = #ensB ;
+				{ Vérifier que les élements sont les mêmes }
+				while(equal && 0 < #ensA && 0 < #ensB ) do
+					a := min ensA;
+					b := min ensB;
+					equal:=(a=b);
+					if(equal) then
+						add a to tmpA;
+						add b to tmpB;
+						remove a from ensA;
+						remove b from ensB;
 					fi;
 				od;
-				
-				return a;
-			end;
-		
-		{ return "42" }
-		function returnInt4() : int;
-			var
-			begin
-				return 42;
-			end;
-		
-		{ return "2" }
-		function returnInt5() : int;
-			var
-				test int;
-			begin
-				test := 2;
-				if ( test = 1) then
-					while (test <= 5) do
-						test := test + 2;
-					od;
-				fi;
-				
-				return test;
-			end;
-			
-		{ return "6" }
-		function returnInt6() : int;
-			var
-				test int;
-			begin
-				test := 2;
-				if ( test = 2) then
-					while (test <= 5) do
-						test := test + 2;
-					od;
-				fi;
-				
-				return test;
-			end;
-			
-		{ affiche "69"	}
-		function fct0() : void;
-			var
-				lol int;
-			begin
-				lol := 69;
-				write lol;
-			end;
-	 
-		{ return "2" }
-		function fct1() : int;
-			var
-				lol int;
-			begin
-				lol := 2;
-				return lol;
-			end;
-		
-		{ return "true" }
-		function fct2() : bool;
-			var
-				lol bool;
-			begin
-				lol := false;
-				return lol;
+				{ Remettre les ensembles dans leur état d’origine }
+				{while ( 0 < #tmpA && 0 < #tmpB) do
+					a := min tmpA;
+					b := min tmpB;
+					add a to ensA;
+					add b to ensB;
+					remove a from tmpA;
+					remove b from tmpB;
+				od ;}
+				return equal;
 			end;
 
-		{ affiche "120" }
-		function fct3() : void;
-			var
-				testInt int;
-				testBool bool;
-				result int;
-			begin
-				testInt := 5;
-				testBool := true;
-				while ( testInt < 99 ) do
-					if ( testBool ) then
-						testInt := testInt * 5;
-					fi;
-				od;
-				
-				write testInt;
-				testBool := false;
-				if ( testBool ) then
-				else
-					while ( testInt = 125 ) do
-						testInt := testInt - 5;
-					od;
-				fi;
-				write testInt + 1;
-				result := testInt;
-				
-				write result - 1;
-			end;
-			
-		{ affiche "6998"	}
-		function fct4() : void;
-			var
-			begin
-				write 6998;
-			end;
-	 
-		{ return "2" }
-		function fct5() : int;
-			var
-			begin
-				return 2;
-			end;
-			
-		{ return "true" }
-		function fct6() : bool;
-			var
-			begin
-				return false;
-			end;
-		
+			ens1 iset;
+			ens2 iset;
+
 	begin
-		returnTest2();
-		resultBoolTrue := returnTest1();
-		resultInt3 := returnInt3();
-		
-		{ affiche "2" }
-		write returnInt();
-		
-		{ affiche "9" }
-		write returnInt2();
-		
-		{ affiche "8" }
-		write resultInt3;
-		
-		{ affiche "true" }
-		if (returnTest3()) then
+		buildEnsA();
+		buildEnsB();
+		if(equals()) then
 			write 1;
 		else
 			write 0;
 		fi;
-		
-		{ affiche "42" }
-		write returnInt4();
-		
-		{ affiche "2" }
-		write returnInt5();
-		
-		{ affiche "6" }
-		write returnInt6();
-		
-		{ affiche "2" }
-		write fct1();
-		
-		{ affiche "false" }
-		if (fct2()) then
-			write 1;
-		else
-			write 0;
-		fi;
-		
-		{ affiche "69" }
-		fct0();
-		
-		write 88888888;
-		
-		{ affiche "120" }
-		fct3();
-		
-		write 88888888;
-		
-		{ affiche "6998" }
-		fct4();
-		
-		{ affiche "2" }
-		write fct5();
-		
-		{ affiche "false" }
-		if (fct6()) then
-			write 1;
-		else
-			write 0;
-		fi;
-		
 	end;
 
 end;
