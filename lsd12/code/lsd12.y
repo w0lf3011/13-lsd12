@@ -94,6 +94,8 @@ ListParam: DeclaParam
 
 DeclaParam : REF VAR TWOPOINT TYPE
 	{ $$ = createNode(AT_ARG, $4, 0, $2, NULL, NULL);}
+	| VAR TWOPOINT TYPE
+	{ $$ = createNode(AT_ARG, $3, 0, $1, NULL, NULL);}
 
 ;
 
