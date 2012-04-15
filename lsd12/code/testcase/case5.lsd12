@@ -50,37 +50,37 @@ function main(): void; { TJ VOID }
 			
 		function fct3() : void;
 			var
-				fct1() : bool;
+				function fct1() : bool;
 					forward;
 				
-				fct1(var val : bool) : bool;
+				function fct1(var val : bool) : bool;
 					foward;
 				
-				fct02() : int;
+				function fct02() : int;
 					foward;
 				
-				fct2(var val : int) : int;
+				function fct2(var val : int) : int;
 					forward;
 					
-				fct1() : bool;
+				function fct1() : bool;
 					var
 					begin
 						return true;
 					end;
 				
-				fct1(var val : bool) : bool;
+				function fct1(var val : bool) : bool;
 					var
 					begin
 						return val;
 					end;
 				
-				fct2() : int;
+				function fct2() : int;
 					var
 					begin
 						return 2;
 					end;
 				
-				fct2(var val : int) : int;
+				function fct2(var val : int) : int;
 					var
 					begin
 						return val;
