@@ -32,9 +32,11 @@ void pcodeGenAddress(ASTTREE tree, SYMTABLE s, SYMTABLE function) // function = 
       
       if(s->varType == VAL_INT) {
 	printf("lda i %d %d\n",niveau,node->address);
+	//printf("lda i %d %d\n",0,node->address);
       }
       if(s->varType == VAL_BOOL) {
 	printf("lda b %d %d\n",niveau,node->address);
+	//printf("lda b %d %d\n",0,node->address);
       }
       if(s->ref == 1) {
 	printf("ind a\n");
@@ -88,10 +90,10 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  node = alreadyIsSymbol(s, tree->sval, 1);
 	  if(node != NULL) {
 	      
-	    if( strcmp(s->id, "main") == 0  ) {
-	      printf("ssp %d\n",getMaxMemoryUsage(s));
-	      printf("ujp @main\n");		
-	    }      
+	    //if( strcmp(s->id, "main") == 0  ) {
+	    //  printf("ssp %d\n",getMaxMemoryUsage(s));
+	    //  printf("ujp @main\n");		
+	    //}      
 	    
 	    if (tree->left != NULL) {
 	      pcodeGenValue(tree->left,node->down);
@@ -119,11 +121,11 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	case AT_CORPS :
 
 	  // reservation memoire pour les fonctions autre que main
-	  if( strcmp(s->up->id, "main") != 0 ) {
+	  //if( strcmp(s->up->id, "main") != 0 ) {
 	    printf("define @%s\n", s->up->id);
 	    printf("ssp %d\n",getMaxMemoryUsage(s->up) + 5);
 	    printf("ujp @%s_body\n", s->up->id);
-	  }
+	    //}
 	  
 	  // pcode bloc decla
 	  if (tree->left != NULL ){
@@ -132,12 +134,12 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  // pcode implementation	  
 	  if (tree->right != NULL ){
 	    // cas particulier: fonction main
-	    if( strcmp(s->up->id, "main") == 0 ) {
-	      printf("define @main\n");
-	    }
-	    else {
+	    //if( strcmp(s->up->id, "main") == 0 ) {
+	    //  printf("define @main\n");
+	    //}
+	    //else {
 	      printf("define @%s_body\n", s->up->id);
-	    }
+	      //}
 	    pcodeGenValue(tree->right,s);
 	  }
 	  break;
@@ -296,6 +298,7 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	    printf("ind i\n");
 	  }
 	  if(node->varType == VAL_BOOL) {
+	    printf(";bool var\n");
 	    printf("ind b\n");
 	  }
 	  
@@ -381,6 +384,9 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  printf(";appel de %s\n", tree->sval);  
 	  printf("mst %d\n", 0);  // pour le moment pas de fonctions imbriquees -> 0
 	  printf("cup %d @%s\n", 0, tree->sval);  // pour p2: pas de parametres -> 0 
+	  break;
+
+	case AT_FORWARD :
 	  break;
 
 	default:
