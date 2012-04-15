@@ -92,7 +92,7 @@ function main(): void; { TJ VOID }
 		
 		{ argument : test1 int;
 		  affiche test1 }
-		function fct7(test1 int) : void;
+		function fct7(var test1 : int) : void;
 			var
 			begin
 				globalInt := globalInt + 1;
