@@ -115,7 +115,7 @@ function main(): void; { TJ VOID }
 		
 		{ 2 int arguments
 		  affiche la somme de test1 et de test2 }
-		function fct9 (var test1 : int, test2 : int) : void;
+		function fct9 (var test1 : int,var test2 : int) : void;
 			var
 			begin
 				write test1 + test2;
@@ -123,7 +123,7 @@ function main(): void; { TJ VOID }
 			
 		{ 2 bool arguments
 		  affiche "1" si true, true et "0" dans les autres cas}
-		function fct10 (var test1 : bool, test2 : bool) : void;
+		function fct10 (var test1 : bool,var test2 : bool) : void;
 			var
 			begin
 				if (test1) then
@@ -139,7 +139,7 @@ function main(): void; { TJ VOID }
 		
 		{ 2 arguments de types différents
 		  affiche test1 si test2 est true }
-		function fct11 (var test1 : int, test2 : bool) : void;
+		function fct11 (var test1 : int,var test2 : bool) : void;
 			var
 			begin
 				if (test2) then
