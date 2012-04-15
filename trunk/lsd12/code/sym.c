@@ -298,14 +298,9 @@ int fillTable(ASTTREE tree, SYMTABLE s, int currentType)
 			}
  		}
 	
-		/*
 		if(tree->id == AT_ARG)
 		{
 			s = addToSymbolTable(s,tree->sval,2,tree->type);
-			if(tree->varRef == 1)
-			{
-					s->ref = 1;
-			}
 			if(s == NULL)
 			{
  				printf("; ATTENTION ARGUMENT %s !, Il existe deja une declaration local annotee\n.",tree->sval);
@@ -313,15 +308,16 @@ int fillTable(ASTTREE tree, SYMTABLE s, int currentType)
 				exit(1);
 			}
 		}
-		*/
+		
 		// si fonction ajoutée => tout les pointeurs fils de AT_FUNCT seront sauvés sur un niveau imbrication plus élevé dans la table
 		// sauf le fils à droite qui permet d'aller à la fonction suivante sur le même niveau
 		if(tree->id  == AT_FUNCT)
 		{
+			if(tree->right != NULL)
+ 				fillTable(tree->right, s->down,type);
 			if(tree->left != NULL)
  				fillTable(tree->left, s->down,type);
-			if(tree->right != NULL)
- 				fillTable(tree->right, s,type);
+			
 		}else{
 			if(tree->left != NULL)
 				fillTable(tree->left, s,type);

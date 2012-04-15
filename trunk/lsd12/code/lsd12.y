@@ -92,8 +92,8 @@ ListParam: DeclaParam
 	{ $$ = createNode(AT_LISTPARAM, VAL_NOTYPE, 0, NULL, $1, $3);}
 ;
 
-DeclaParam : REF Var TWOPOINT TYPE
-	{ $$ = createNode(AT_DECLAPARAM, $4, 0, NULL, $2, NULL);}
+DeclaParam : REF VAR TWOPOINT TYPE
+	{ $$ = createNode(AT_ARG, $4, 0, $2, NULL, NULL);}
 
 ;
 
@@ -145,7 +145,7 @@ FunctParam: { $$ = NULL;}
 	   | ExprD
            { $$ = createNode(AT_FUNCTPARAM, VAL_NOTYPE, 0, NULL, NULL, $1);}
 	   | ExprD COMMA FunctParam
-           { $$ = createNode(AT_FUNCTPARAM, VAL_NOTYPE, 0, NULL, $1, $3);}
+           { $$ = createNode(AT_FUNCTPARAM, VAL_NOTYPE, 0, NULL, $3, $1);}
 
 ;
 
@@ -216,22 +216,22 @@ int main() {
   yyparse();
   printf(";*** END yyparse() ***\n");
   
-  //printf(";*** BEGIN printTree(..) ***\n");
-  //printTree(root);
-  //printf(";*** END printTree(..) ***\n");
+printf(";*** BEGIN printTree(..) ***\n");
+printTree(root);
+printf(";*** END printTree(..) ***\n");
 
-  //printf(";*** BEGIN printTreeGraphViz(..) ***\n");
-  //printTreeGraphViz(root);
-  //printf(";*** END printTreeGraphViz(..) ***\n");
+printf(";*** BEGIN printTreeGraphViz(..) ***\n");
+//printTreeGraphViz(root);
+printf(";*** END printTreeGraphViz(..) ***\n");
   
   printf(";*** BEGIN SymbolTable ***\n");
   sym = creaNode();
   fillTable(root, sym, -1);
   printf(";*** END SymbolTable ***\n");
  
-  //printf(";*** BEGIN printSymbolTableGraphViz(..)  ***\n");
-  //printSymbolTableGraphViz(sym);
-  //printf(";*** END printSymbolTableGraphViz(..)  ***\n");
+printf(";*** BEGIN printSymbolTableGraphViz(..)  ***\n");
+//printSymbolTableGraphViz(sym);
+printf(";*** END printSymbolTableGraphViz(..)  ***\n");
 
   printf("; * Verification de la specification LSD12 :\n");
   if (check(root,sym) != 1) {
@@ -246,12 +246,12 @@ int main() {
   computeLocations(sym);
   printf(";*** END computeLocations(..) ***\n");
   
-  //printf(";*** BEGIN SymbolTable ***\n");
+printf(";*** BEGIN SymbolTable ***\n");
   //printSymbolTable(sym);
-  //printf(";*** END SymbolTable ***\n");
+printf(";*** END SymbolTable ***\n");
   
   printf(";*** BEGIN PCodeGeneration ***\n");
-  pcodeGenValue(root, sym);
+pcodeGenValue(root, sym);
   printf(";*** END PCodeGeneration ***\n");
   
   printf(";*** BEGIN Cleaning ***\n");
