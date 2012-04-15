@@ -101,7 +101,7 @@ function main(): void; { TJ VOID }
 		
 		{ argument : test1 int;
 		  affiche "1" si true, "0" si false }
-		function fct8(test1 bool) : void;
+		function fct8(var test1 : bool) : void;
 			var
 			begin
 				if (test1) then
