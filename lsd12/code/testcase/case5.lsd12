@@ -54,10 +54,10 @@ function main(): void; { TJ VOID }
 					forward;
 				
 				function fct1(var val : bool) : bool;
-					foward;
+					forward;
 				
 				function fct02() : int;
-					foward;
+					forward;
 				
 				function fct2(var val : int) : int;
 					forward;
