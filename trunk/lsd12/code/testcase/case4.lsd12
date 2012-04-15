@@ -2,129 +2,15 @@ program LSD12;
 { Case 4 : où sont géré :
 	- fonctions récursives et imbriquées avec paramètres entiers et booléens }
 function main(): void; { TJ VOID }
-	var 
-		resultBoolTrue bool;
-		resultBoolFalse bool;
-		resultInt1 int;
-		resultInt2 int;
-		resultInt3 int;
+	var
+		globalInt int;
 		
-		{ return "true" }
-		function returnTest1() : bool;
-			var
-				retour bool;
-			begin
-				retour := true;
-				return retour;
-			end;
-		
-		{ return "void" }
-		function returnTest2() : void;
-			var
-			begin
-			end;
-		
-		{ return "true" }
-		function returnTest3() : bool;
-			var
-			begin
-				return true;
-			end;
-		
-		{ return "2" }
-		function returnInt() : int;
-			var
-				a int;
-				b int;
-			begin
-				a := 1;
-				b := 1;
-				
-				if (a = 1) then
-					b := 2;
-				fi;
-				
-				return b;
-			end;
-		
-		{ return "9" }
-		function returnInt2() : int;
-			var
-				a int;
-				b int;
-			begin
-				a := 1;
-				b := 4;
-				
-				while ( a <= b) do
-					a := a + b;
-				od;
-
-				
-				return a+b;
-			end;
-		
-		{ return "8" }
-		function returnInt3() : int;
-			var
-				a int;
-				b int;
-			begin
-				a := 1;
-				b := 4;
-				
-				while ( a <= b) do
-					a := a + 3;
-					if (a = 4) then
-						a := a + b;
-					fi;
-				od;
-				
-				return a;
-			end;
-		
-		{ return "42" }
-		function returnInt4() : int;
-			var
-			begin
-				return 42;
-			end;
-		
-		{ return "2" }
-		function returnInt5() : int;
-			var
-				test int;
-			begin
-				test := 2;
-				if ( test = 1) then
-					while (test <= 5) do
-						test := test + 2;
-					od;
-				fi;
-				
-				return test;
-			end;
-			
-		{ return "6" }
-		function returnInt6() : int;
-			var
-				test int;
-			begin
-				test := 2;
-				if ( test = 2) then
-					while (test <= 5) do
-						test := test + 2;
-					od;
-				fi;
-				
-				return test;
-			end;
-			
 		{ affiche "69"	}
 		function fct0() : void;
 			var
 				lol int;
 			begin
+				globalInt := globalInt + 1;
 				lol := 69;
 				write lol;
 			end;
@@ -134,6 +20,7 @@ function main(): void; { TJ VOID }
 			var
 				lol int;
 			begin
+				globalInt := globalInt + 1;
 				lol := 2;
 				return lol;
 			end;
@@ -143,6 +30,7 @@ function main(): void; { TJ VOID }
 			var
 				lol bool;
 			begin
+				globalInt := globalInt + 1;
 				lol := false;
 				return lol;
 			end;
@@ -174,12 +62,14 @@ function main(): void; { TJ VOID }
 				result := testInt;
 				
 				write result - 1;
+				globalInt := globalInt + 1;
 			end;
 			
 		{ affiche "6998"	}
 		function fct4() : void;
 			var
 			begin
+				globalInt := globalInt + 1;
 				write 6998;
 			end;
 	 
@@ -187,6 +77,7 @@ function main(): void; { TJ VOID }
 		function fct5() : int;
 			var
 			begin
+				globalInt := globalInt + 1;
 				return 2;
 			end;
 			
@@ -194,38 +85,130 @@ function main(): void; { TJ VOID }
 		function fct6() : bool;
 			var
 			begin
+				globalInt := globalInt + 1;
 				return false;
 			end;
 		
+		{ argument : test1 int;
+		  affiche test1 }
+		function fct7(var test1 : int) : void;
+			var
+			begin
+				globalInt := globalInt + 1;
+				write test1;
+			end;
+		
+		{ argument : test1 int;
+		  affiche "1" si true, "0" si false }
+		function fct8(var test1 : bool) : void;
+			var
+			begin
+				if (test1) then
+					write 1;
+				else
+					write 0;
+				fi;
+				
+				globalInt := globalInt + 1;
+			end;
+		
+		{ 2 int arguments
+		  affiche la somme de test1 et de test2 }
+		function fct9 (var test1 : int, test2 : int) : void;
+			var
+			begin
+				write test1 + test2;
+			end;
+			
+		{ 2 bool arguments
+		  affiche "1" si true, true et "0" dans les autres cas}
+		function fct10 (var test1 : bool, test2 : bool) : void;
+			var
+			begin
+				if (test1) then
+					if (test2) then
+						write 1;
+					else
+						write 0;
+					fi;
+				else
+					write 0;
+				fi;
+			end;
+		
+		{ 2 arguments de types différents
+		  affiche test1 si test2 est true }
+		function fct11 (var test1 : int, test2 : bool) : void;
+			var
+			begin
+				if (test2) then
+					write test1;
+				else
+					write 0;
+				fi;
+			end;
+		
+		{ test de fonction imbriquee
+		  affiche "5", "1" }
+		function fctImbriquer() : void;
+			var
+				int1 int;
+				int2 int;
+				
+				function fct01() : int;
+					var
+					begin
+						globalInt := globalInt + 1;
+						return int1;
+					end;
+				
+				function fct02() : bool;
+					var
+					begin
+						globalInt := globalInt + 1;
+						if (int1 = int2) then
+							return true;
+						else
+							return false;
+						fi;
+					end;
+			begin
+				int1 := 5;
+				int2 := 5;
+				
+				write fct01();
+				if (fct02()) then
+					write 1;
+				else
+					write 0;
+				fi;
+				
+				globalInt := globalInt + 1;
+			end;
+			
+		{ Exemple de fonction récurcive : 
+		  Les nombres de Fibonacci }
+		function fctRecurcive(var pNum : int, cNum : int) : void;
+			var
+				tmp : int;
+			begin
+				write cNum;
+				
+				tmp := cNum;
+				cNum := cNum + pNum;
+				pNum := tmp;
+				
+				globalInt := globalInt + 1;
+				
+				if (currentNumber < 1000) then
+					fctRecurcive(cNum, pNum);
+				fi;
+			end;
 	begin
-		returnTest2();
-		resultBoolTrue := returnTest1();
-		resultInt3 := returnInt3();
+		globalInt :=0;
 		
-		{ affiche "2" }
-		write returnInt();
-		
-		{ affiche "9" }
-		write returnInt2();
-		
-		{ affiche "8" }
-		write resultInt3;
-		
-		{ affiche "true" }
-		if (returnTest3()) then
-			write 1;
-		else
-			write 0;
-		fi;
-		
-		{ affiche "42" }
-		write returnInt4();
-		
-		{ affiche "2" }
-		write returnInt5();
-		
-		{ affiche "6" }
-		write returnInt6();
+		{ affiche "69" }
+		fct0();
 		
 		{ affiche "2" }
 		write fct1();
@@ -237,15 +220,8 @@ function main(): void; { TJ VOID }
 			write 0;
 		fi;
 		
-		{ affiche "69" }
-		fct0();
-		
-		write 88888888;
-		
 		{ affiche "120" }
 		fct3();
-		
-		write 88888888;
 		
 		{ affiche "6998" }
 		fct4();
@@ -260,6 +236,20 @@ function main(): void; { TJ VOID }
 			write 0;
 		fi;
 		
+		{ affiche "18" }
+		fct7(18);
+
+		{ affiche "1" si true, "0" si false}
+		fct8(true);
+		
+		{ test de fonction imbriquee
+		  affiche "5", "1" }
+		fctImbriquer();
+		
+		{ Fibonacci number }
+		fctRecurcive(0, 1);
+		
+		write globalInt;
 	end;
 
 end;
