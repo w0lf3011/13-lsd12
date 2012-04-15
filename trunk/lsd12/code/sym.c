@@ -84,8 +84,10 @@ SYMTABLE checkSymbolLevel(SYMTABLE s, char* name, int state)
 					if(s->state != state) // fonction peut avoir le meme nom qu'une variable ou un paramètre
 					{
 						return checkSymbolLevel(s->previous, name , state);
-					}else
+					}else{
 						retour = s;
+				
+					}
 				}
 			}
  		}
@@ -96,8 +98,10 @@ SYMTABLE checkSymbolLevel(SYMTABLE s, char* name, int state)
 
 SYMTABLE alreadyIsSymbolLevel(SYMTABLE s, char* name,int state)
 {
- 	if(s == NULL) return NULL;
-
+ 	if(s == NULL) {
+		printf("; BORDEL-1");		
+		return NULL;
+	}
  	while(s->next != NULL) s = s->next;
 
  	return checkSymbolLevel(s->previous, name, state);
@@ -109,6 +113,7 @@ SYMTABLE alreadyIsSymbol(SYMTABLE s, char* name, int state)
 
  	if (s == NULL)
 	{
+		printf("; BORDEL0");
  		return NULL;
 	}
 
@@ -120,6 +125,7 @@ SYMTABLE alreadyIsSymbol(SYMTABLE s, char* name, int state)
 		{
  			return alreadyIsSymbol(s->up, name,state);
 		}else{
+			printf("; BORDEL1");
  			return NULL;
  		}
  	}else{
@@ -132,16 +138,17 @@ SYMTABLE alreadyIsSymbol(SYMTABLE s, char* name, int state)
 SYMTABLE addToSymbolTable(SYMTABLE s, char* name, int state, int type)
 {	
 
-  printf("; ... ajout de %s dans la table, state = %d, type = %d\n", name, state, type); // a virer
-  if (alreadyIsSymbolLevel(s,name,state) != NULL) {
- 		return NULL;
-  }
- 	else {
-			
+	printf("; ... ajout de %s dans la table, state = %d, type = %d\n", name, state, type); // a virer
+	if (alreadyIsSymbolLevel(s,name,state) != NULL) {
+		printf("; BORDEL2");
+		return NULL;
+	}
+	else {
+		
 	  while(s->next != NULL) {
 	    s = s->next;
 	  }
-	  
+	  printf("; BORDEL56");
 	  // Spécifie les infos
 	  s->id = name;
 	  s->varType = type;
@@ -162,16 +169,17 @@ SYMTABLE addToSymbolTable(SYMTABLE s, char* name, int state, int type)
 	    s->up= s->previous->up;
 	    s->levelNode = s->previous->levelNode;
 	  }
-		
+	
 	  // Si c'est une fonction on ajoute un enfant
 	  if(state == 1) {
+		
 	    s->down = creaNode();
 	    s->down->up = s;
 	    s->down->levelNode = s->levelNode + 1;
 	  }
 	  
 	  return s;
- 	}
+	}
 }
 
 // liberation de la memoire
@@ -258,13 +266,14 @@ int fillTable(ASTTREE tree, SYMTABLE s, int currentType)
 			type = tree->type; 
 			s = addToSymbolTable(s, tree->sval,1, type);
 			type = -1; // on n'est plus dans les déclarations, on nettoye le type sauvé
-						
+			/*			
 			if(s == NULL) // ajouter la fonction sur le niveau courant imbrication "s->level"
 			{
  				printf("; ATTENTION FONCTION %s !, Il existe deja une fonction de même nom sur ce niveau\n.",tree->sval);
  				fprintf(stderr,";KO\n");
 				exit(1);
 			}
+			*/
 			
 		} 
 		

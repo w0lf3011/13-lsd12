@@ -223,7 +223,7 @@ printTree(root);
 printf(";*** END printTree(..) ***\n");
 
 printf(";*** BEGIN printTreeGraphViz(..) ***\n");
-//printTreeGraphViz(root);
+printTreeGraphViz(root);
 printf(";*** END printTreeGraphViz(..) ***\n");
   
   printf(";*** BEGIN SymbolTable ***\n");
@@ -232,7 +232,7 @@ printf(";*** END printTreeGraphViz(..) ***\n");
   printf(";*** END SymbolTable ***\n");
  
 printf(";*** BEGIN printSymbolTableGraphViz(..)  ***\n");
-//printSymbolTableGraphViz(sym);
+printSymbolTableGraphViz(sym);
 printf(";*** END printSymbolTableGraphViz(..)  ***\n");
 
   printf("; * Verification de la specification LSD12 :\n");
@@ -253,7 +253,7 @@ printf(";*** BEGIN SymbolTable ***\n");
 printf(";*** END SymbolTable ***\n");
   
   printf(";*** BEGIN PCodeGeneration ***\n");
-pcodeGenValue(root, sym);
+//pcodeGenValue(root, sym);
   printf(";*** END PCodeGeneration ***\n");
   
   printf(";*** BEGIN Cleaning ***\n");

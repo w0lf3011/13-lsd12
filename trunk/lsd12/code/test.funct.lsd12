@@ -3,32 +3,42 @@ program LSD12;
 function main(): void; 
 var 
 
-	a int;
-
-
-	function lulu(var lol:int, lol1:int): int;
-		var
-
-			function lala(var lol2:bool): bool;
-				var
-					 b bool; 
-				begin
-					b := true;
-					if (b && lol2) then
-		   				return true;
-					fi;
-				end; 
-		begin
-			if(lala(false)) then
-				return lol+lol1;
-			else
-				return 1;
-			fi;
-		end;
-
+		function fct1() : int;
+			var
+			begin
+				return 2;
+			end;
+			
+		function fct1( var number : int) : int;
+			var
+			begin
+				return 2 + number;
+			end;
+			
+		function fct1( var number : int, number1 : int) : int;
+			var
+			begin
+				return 2 + number + number1;
+			end;
+			
+		function fct2() : int;
+			forward;
+				
+		
+		function fct2() : int;
+			var
+			begin
+				return 2;
+			end;
+		
+	
 begin
-	a := 1;
-	write 1+lulu(1,2);
+	write fct1();
+	write fct1(5);
+	write fct1(5, 9);
+	
+	write fct2();
+
 end;
 
 end;
