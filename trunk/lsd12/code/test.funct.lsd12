@@ -6,7 +6,7 @@ var
 	a int;
 
 
-	function lulu(var lol:int, var lol1:int): int;
+	function lulu(var lol:int, lol1:int): int;
 		var
 
 			function lala(var lol2:bool): bool;
