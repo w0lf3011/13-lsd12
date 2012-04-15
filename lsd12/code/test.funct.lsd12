@@ -1,24 +1,34 @@
 program LSD12; 
 
-function main(): void; { TJ VOID }
+function main(): void; 
 var 
 
 	a int;
-{	b int;
-	c bool;}
 
 
-	function lulu(): int;
+	function lulu(var lol:int, var lol1:int): int;
 		var
-			c int; 
+
+			function lala(var lol2:bool): bool;
+				var
+					 b bool; 
+				begin
+					b := true;
+					if (b && lol2) then
+		   				return true;
+					fi;
+				end; 
 		begin
-			c := 1;
-			return c;
+			if(lala(true)) then
+				return lol+lol1;
+			else
+				return 1;
+			fi;
 		end;
 
 begin
 	a := 1;
-	write lulu();
+	write 1+lulu(1,2);
 end;
 
 end;

@@ -25,9 +25,9 @@ ASTTREE root;
 
 // définition du type des variables $x
 %union{
-        int ival;
-        char *sval;
-        ASTTREE tval;
+  int ival;
+  char *sval;
+  ASTTREE tval;
 }
 
 %token PRINT READ WRITE 
@@ -92,8 +92,8 @@ ListParam: DeclaParam
 	{ $$ = createNode(AT_LISTPARAM, VAL_NOTYPE, 0, NULL, $1, $3);}
 ;
 
-DeclaParam : REF Var TWOPOINT TYPE
-	{ $$ = createNode(AT_DECLAPARAM, $4, 0, NULL, $2, NULL);}
+DeclaParam : REF VAR TWOPOINT TYPE
+	{ $$ = createNode(AT_ARG, $4, 0, $2, NULL, NULL);}
 
 ;
 
@@ -142,10 +142,10 @@ Instruction : ExprD
 ;
 
 FunctParam: { $$ = NULL;}
-	   | Var
+	   | ExprD
            { $$ = createNode(AT_FUNCTPARAM, VAL_NOTYPE, 0, NULL, NULL, $1);}
-	   | Var COMMA FunctParam
-           { $$ = createNode(AT_FUNCTPARAM, VAL_NOTYPE, 0, NULL, $1, $3);}
+	   | ExprD COMMA FunctParam
+           { $$ = createNode(AT_FUNCTPARAM, VAL_NOTYPE, 0, NULL, $3, $1);}
 
 ;
 
@@ -201,67 +201,66 @@ Var: VAR { $$ = createNode(AT_VAR, VAL_NOTYPE, 0, yylval.sval, NULL, NULL);}
 int yyerror(char *str)
 {
         fprintf(stderr,"KO\n");
-        printf("ERROR '%s' AT LINE  %d : UNRECOGNISED '%s'\n",
-                str,num_lines,yytext);
+        printf("ERROR '%s' AT LINE  %d : UNRECOGNISED '%s'\n", str,num_lines, yytext);
         exit(0);
 }
-int main()
-{ 
-SYMTABLE sym;
 
-printf("; *** Compiler ***\n");
-printf(";\n");
-
-printf(";*** BEGIN yyparse() ***\n");
+// Programme principal
+int main() { 
+  SYMTABLE sym;
+  
+  printf("; *** Compiler ***\n");
+  printf(";\n");
+  
+  printf(";*** BEGIN yyparse() ***\n");
   yyparse();
-printf(";*** END yyparse() ***\n");
-
+  printf(";*** END yyparse() ***\n");
+  
 printf(";*** BEGIN printTree(..) ***\n");
-  printTree(root);
+printTree(root);
 printf(";*** END printTree(..) ***\n");
 
 printf(";*** BEGIN printTreeGraphViz(..) ***\n");
-  printTreeGraphViz(root);
+printTreeGraphViz(root);
 printf(";*** END printTreeGraphViz(..) ***\n");
-
-printf(";*** BEGIN SymbolTable ***\n");
+  
+  printf(";*** BEGIN SymbolTable ***\n");
   sym = creaNode();
   fillTable(root, sym, -1);
-printf(";*** END SymbolTable ***\n");
-
+  printf(";*** END SymbolTable ***\n");
+ 
 printf(";*** BEGIN printSymbolTableGraphViz(..)  ***\n");
 printSymbolTableGraphViz(sym);
 printf(";*** END printSymbolTableGraphViz(..)  ***\n");
 
-printf("; * Verification de la specification LSD12 :\n");
-  if (check(root,sym) != 1)
-    {
-      freeTree(root);
-      freeSymbolTable(sym);
-      fprintf(stderr,"KO\n");
-      exit(1);
-    }
-printf("; * Fin de la verification de la specification LSD12!\n");
-
-printf(";*** BEGIN computeLocations(..) ***\n");
-//  computeLocations(sym);
-printf(";*** END computeLocations(..) ***\n");
-
-  printf(";*** BEGIN SymbolTable ***\n");
-  printSymbolTable(sym);
-  printf(";*** END SymbolTable ***\n");
-
-printf(";*** BEGIN PCodeGeneration ***\n");
-// pcodeGenValue(root, sym);
-printf(";*** END PCodeGeneration ***\n");
-
-printf(";*** BEGIN Cleaning ***\n");
+  printf("; * Verification de la specification LSD12 :\n");
+  if (check(root,sym) != 1) {
+    freeTree(root);
+    freeSymbolTable(sym);
+    fprintf(stderr,"KO\n");
+    exit(1);
+  }
+  printf("; * Fin de la verification de la specification LSD12!\n");
+  
+  printf(";*** BEGIN computeLocations(..) ***\n");
+  computeLocations(sym);
+  printf(";*** END computeLocations(..) ***\n");
+  
+  //printf(";*** BEGIN SymbolTable ***\n");
+  //printSymbolTable(sym);
+  //printf(";*** END SymbolTable ***\n");
+  
+  printf(";*** BEGIN PCodeGeneration ***\n");
+//  pcodeGenValue(root, sym);
+  printf(";*** END PCodeGeneration ***\n");
+  
+  printf(";*** BEGIN Cleaning ***\n");
   freeTree(root);
   freeSymbolTable(sym);
-printf(";*** END Cleaning ***\n");
-
-  fprintf(stderr,"OK\n");
+  printf(";*** END Cleaning ***\n");
   
+  fprintf(stderr,"OK\n");
+ 
   return 0;
 
 }

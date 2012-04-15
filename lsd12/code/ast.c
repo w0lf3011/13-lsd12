@@ -62,7 +62,7 @@ char* humanReadableNodeType(int id)
 
   case AT_FUNCTPARAM:      return "AT_FUNCTPARAM"; break;
   case AT_APPELF:      return "AT_APPELF"; break;
-  case AT_DECLAPARAM:      return "AT_DECLAPARAM"; break;
+  case AT_ARG:      return "AT_ARG"; break;
   case AT_LISTPARAM:      return "AT_LISTPARAM"; break;
   case AT_WHILE:      return "AT_WHILE"; break;
   case AT_InstructionIFELSE:      return "AT_InstructionIFELSE"; break;
