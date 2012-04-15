@@ -19,6 +19,7 @@ int check(ASTTREE tree, SYMTABLE tds)
 		switch (tree->id)
 		{
 			case AT_ROOT : 
+				
 				if(tree->left != NULL) {
 					printf(";---GPS = tree_id : %d AT_ROOT LEFT ;---\n", tree->id);
 					return (check(tree->left, tds));
@@ -323,6 +324,7 @@ int checkType(ASTTREE tree, int type, SYMTABLE tds)
 
 			
 			case AT_VAR : 
+
 						printf(";---GPS = tree_id : %d AT_VAR ;---\n", tree->id);
 						node = alreadyIsSymbol(tds, tree->sval, 3); 
 						//printf("-- %s -- ", node->id);

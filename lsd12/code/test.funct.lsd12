@@ -19,7 +19,7 @@ var
 					fi;
 				end; 
 		begin
-			if(lala(true)) then
+			if(lala(false)) then
 				return lol+lol1;
 			else
 				return 1;
