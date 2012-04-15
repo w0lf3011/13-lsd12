@@ -190,7 +190,7 @@ function main(): void; { TJ VOID }
 		  Les nombres de Fibonacci }
 		function fctRecurcive(var pNum : int, cNum : int) : void;
 			var
-				tmp : int;
+				tmp int;
 			begin
 				write cNum;
 				
