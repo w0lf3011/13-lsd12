@@ -29,18 +29,27 @@ void pcodeGenAddress(ASTTREE tree, SYMTABLE s, SYMTABLE function) // function = 
       else{
 	niveau = niveau - function->levelNode;
       }
+      // on peut le faire avec une valeur absolue -> a modifier
       
+      int tmp = -5 * niveau;
+     
       if(s->varType == VAL_INT) {
-	printf("lda i %d %d\n",niveau,node->address);
-	//printf("lda i %d %d\n",0,node->address);
+	//if( strcmp(function->id, "main") != 0 ) { 
+	//  printf("lda i %d %d\n",niveau,node->address + 5 );
+	//}
+	//else 
+	  printf("lda i %d %d\n",niveau,node->address + tmp);
       }
       if(s->varType == VAL_BOOL) {
-	printf("lda b %d %d\n",niveau,node->address);
-	//printf("lda b %d %d\n",0,node->address);
+	//if( strcmp(function->id, "main") != 0 ) { 
+	//printf("lda b %d %d\n",niveau,node->address + 5);
+	//}
+	//else 
+	  printf("lda b %d %d\n",niveau,node->address + tmp);
       }
-      if(s->ref == 1) {
-	printf("ind a\n");
-      }
+      //      if(s->ref == 1) {
+      // printf("ind a\n");
+      // }
       break;
       
     default:
@@ -123,7 +132,13 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  // reservation memoire pour les fonctions autre que main
 	  //if( strcmp(s->up->id, "main") != 0 ) {
 	    printf("define @%s\n", s->up->id);
-	    printf("ssp %d\n",getMaxMemoryUsage(s->up) + 5);
+
+	    if( strcmp(s->up->id, "main") != 0 ) {
+	      printf("ssp %d\n",getMaxMemoryUsage(s->up) + 5);
+	    }
+	    else {
+	      printf("ssp %d\n",getMaxMemoryUsage(s->up) + 0);
+	    }
 	    printf("ujp @%s_body\n", s->up->id);
 	    //}
 	  
@@ -298,7 +313,7 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	    printf("ind i\n");
 	  }
 	  if(node->varType == VAL_BOOL) {
-	    printf(";bool var\n");
+	    //printf(";bool var\n");
 	    printf("ind b\n");
 	  }
 	  
