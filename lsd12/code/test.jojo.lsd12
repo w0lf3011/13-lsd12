@@ -3,92 +3,16 @@ program LSD12;
 function main(): void;
 var 
 
-{	x int; 
-	y bool;  
-}
-	val1 int;
-	val2 int;
-	val3 bool;
-	val4 bool;
-{	
-	function addTo() : bool;
-		var
-			e int;
-		begin
-			e := 1;
-			return true;
-		end;
-}
-	function addTo2() : int;
-		var
-			e2 int;
-		begin
-			e2 := 1;
-			return e2;
-		end;
+	x int; 
 
-	function fct7() : void;
-		var
-			tmp int;
-			val5 bool;
-		begin
-			val5 := true;
-			val1 := 77;
-			val2 := 66;
-			if (val5 = true) then
-				if (val2 < val1) then
-					tmp := val2;
-					val2 := val1;
-					val1:= tmp;
-				fi;
-			fi;
-			
-			if (val4 = true) then
-				tmp := val1 + val2 + 9;
-			fi;
-			
-			val4 := false;
-			
-			write tmp;
-		end;
-		
-
-{
-	function test() : int;
+	function addTo( a : int, b : int ) : int;
 		var
 		begin
-			return 10;
+			return a + b;
 		end;
-
-	function test2() : bool;
-		var
-		begin
-			return true;
-		end;
-
-	function test3() : void;
-		var
-		begin
-			write 11;
-		end;
-}
-	
-
 begin
-
-{
-	x := addTo2();
-	y := addTo();
-}
-
-{	write test();
-	y := test2();
-	if( test2() ) then
-	    write 111;
-	fi;
-}
-	fct7();
-
+	x := 2;
+	x := addTo( x, 3 );
 end;
 
 end;

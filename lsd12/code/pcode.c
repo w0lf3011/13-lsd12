@@ -20,6 +20,7 @@ void pcodeGenAddress(ASTTREE tree, SYMTABLE s, SYMTABLE function) // function = 
   
   switch (tree->id) 
     {
+    case AT_ARG :
     case AT_VAR :
       node = alreadyIsSymbol(s, tree->sval,0);
    
@@ -36,7 +37,7 @@ void pcodeGenAddress(ASTTREE tree, SYMTABLE s, SYMTABLE function) // function = 
       int tmp = 0;
      
       if ( niveau == 0 && strcmp(function->id, "main") != 0 ) {
-	tmp = 5;
+	tmp = 5;  // 5 + niveau * 5 ????
       }
 
       if(s->varType == VAL_INT) {
@@ -74,8 +75,10 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
   SYMTABLE node;
   int location, argument, lvl;
   static int staticlabel = 0;
-  static int main_defined = 0;
+  static int main_defined = 0;  // a supprimer?
   ASTTREE treeTmp = NULL;
+
+  static int n_par;
 
   int id_while;
   int id_if;
@@ -127,11 +130,23 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  
 	  break; 
 
-	case AT_HEADFUNCT :  // arguments fonction, entre les () (pas besoin pour p2)
-	  /*if( tree->left != NULL )
-	    {
-	      pcodeGenValue(tree->left,s);
-	      }*/
+	case AT_HEADFUNCT :  // arguments fonction, entre les ()
+	  
+	  printf(";at_headfunc\n");
+	  if( tree->left != NULL ) {
+	    pcodeGenValue(tree->left,s);
+	  }
+	  break;
+
+	case AT_LISTPARAM :
+	  printf(";at_listparam g\n");
+	  if( tree->left != NULL ) {
+	    pcodeGenValue(tree->left,s->down);
+	  }
+	  printf(";at_listparam d\n");
+	  if( tree->right != NULL ) {
+	    pcodeGenValue(tree->right,s->down);
+	  }
 	  break;
 
 	case AT_CORPS :
@@ -384,7 +399,6 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  break;
 	
 	case AT_RETURN :
-	  
 	  // determiner type de retour: entier ou booleen
 	  printf("; type ret = %d\n", s->up->varType);
 	  if( s->up->varType == 2 ) { //VAL_INT ????
@@ -401,15 +415,39 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  printf("retf\n");
 	  break;
 
+
+	case AT_FUNCTPARAM :
+	  if( tree->right != NULL && tree->left == NULL ) {
+	    pcodeGenValue(tree->right,s);
+	    n_par++;
+	  }
+	  if( tree->left != NULL ) {
+	    pcodeGenValue(tree->right,s);
+	    pcodeGenValue(tree->left,s);
+	    n_par++;
+	  }
+	  break;
+
+	case AT_ARG :
+	  pcodeGenAddress(tree, node ,s->up);
+	  break;
+
 	case AT_APPELF :
 	  
+	  n_par = 0;
+
 	  printf(";calcul diff de profondeur d\n");
 	  int niveau = s->levelNode - 1;
 	  
+	  printf("mst %d\n", niveau);  // pour le moment pas de fonctions imbriquees -> 0
+
+	  printf(";calcul nombre para n_par\n");
+	  if(tree->right != NULL) {
+	    pcodeGenValue(tree->right, s->down);
+	  }
 
 	  printf(";appel de %s\n", tree->sval);  
-	  printf("mst %d\n", niveau);  // pour le moment pas de fonctions imbriquees -> 0
-	  printf("cup %d @%s\n", 0, tree->sval);  // pour p2: pas de parametres -> 0 
+	  printf("cup %d @%s\n", n_par, tree->sval);  // pour p2: pas de parametres -> 0 
 	  break;
 
 	case AT_FORWARD :

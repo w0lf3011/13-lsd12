@@ -13,7 +13,6 @@
 
 extern int num_lines;
 extern char* yytext;
-
   
 // to avoid 'implicit definition'
 int yylex(void);
@@ -77,7 +76,6 @@ Corps: BlocDecla BEG Implement END FIN
 
 Implement: InstructionList 
 	{ $$ = createNode(AT_IMPLEMENT, VAL_NOTYPE, 0, NULL, $1, NULL);}
-
 ;
 
 HeadFunct: LP RP
@@ -95,7 +93,7 @@ ListParam: DeclaParam
 DeclaParam : REF VAR TWOPOINT TYPE
 	{ $$ = createNode(AT_ARG, $4, 0, $2, NULL, NULL);}
 	| VAR TWOPOINT TYPE
-	{ $$ = createNode(AT_ARG, $3, 0, $1, NULL, NULL);}
+	{ $$ = createNode(AT_ARG, $3, 0, $1, NULL, NULL);} // pour p3
 
 ;
 
