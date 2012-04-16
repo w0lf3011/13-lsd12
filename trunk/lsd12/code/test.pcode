@@ -5,17 +5,49 @@
 ;*** BEGIN SymbolTable ***
 ; ... ajout de main dans la table, state = 1, type = 5
 ; BORDEL56; ....... s->id = main
+; ... ajout de fctImbriquer dans la table, state = 1, type = 5
+; BORDEL56; ....... s->id = fctImbriquer
+; ... ajout de fct02 dans la table, state = 1, type = 3
+; BORDEL56; ....... s->id = fct02
+; ... ajout de fct01 dans la table, state = 1, type = 2
+; BORDEL56; ....... s->id = fct01
+; ... ajout de int2 dans la table, state = 0, type = 2
+; BORDEL56; ....... s->id = int2
+; ... ajout de int1 dans la table, state = 0, type = 2
+; BORDEL56; ....... s->id = int1
+; ... ajout de fct11 dans la table, state = 1, type = 5
+; BORDEL56; ....... s->id = fct11
+; ... ajout de test1 dans la table, state = 2, type = 2
+; BORDEL56; ....... s->id = test1
+; ... ajout de test2 dans la table, state = 2, type = 3
+; BORDEL56; ....... s->id = test2
+; ... ajout de fct10 dans la table, state = 1, type = 5
+; BORDEL56; ....... s->id = fct10
+; ... ajout de test1 dans la table, state = 2, type = 3
+; BORDEL56; ....... s->id = test1
+; ... ajout de test2 dans la table, state = 2, type = 3
+; BORDEL56; ....... s->id = test2
+; ... ajout de fct9 dans la table, state = 1, type = 5
+; BORDEL56; ....... s->id = fct9
+; ... ajout de test1 dans la table, state = 2, type = 2
+; BORDEL56; ....... s->id = test1
+; ... ajout de test2 dans la table, state = 2, type = 2
+; BORDEL56; ....... s->id = test2
+; ... ajout de fct8 dans la table, state = 1, type = 5
+; BORDEL56; ....... s->id = fct8
+; ... ajout de test1 dans la table, state = 2, type = 3
+; BORDEL56; ....... s->id = test1
 ; ... ajout de fct7 dans la table, state = 1, type = 5
 ; BORDEL56; ....... s->id = fct7
-; ... ajout de tmp dans la table, state = 0, type = 2
-; BORDEL56; ....... s->id = tmp
+; ... ajout de test1 dans la table, state = 2, type = 2
+; BORDEL56; ....... s->id = test1
 ; ... ajout de fct6 dans la table, state = 1, type = 3
 ; BORDEL56; ....... s->id = fct6
 ; ... ajout de fct5 dans la table, state = 1, type = 2
 ; BORDEL56; ....... s->id = fct5
 ; ... ajout de fct4 dans la table, state = 1, type = 5
 ; BORDEL56; ....... s->id = fct4
-; ... ajout de fct3 dans la table, state = 1, type = 2
+; ... ajout de fct3 dans la table, state = 1, type = 5
 ; BORDEL56; ....... s->id = fct3
 ; ... ajout de result dans la table, state = 0, type = 2
 ; BORDEL56; ....... s->id = result
@@ -35,82 +67,14 @@
 ; BORDEL56; ....... s->id = fct0
 ; ... ajout de lol dans la table, state = 0, type = 2
 ; BORDEL56; ....... s->id = lol
-; ... ajout de returnInt6 dans la table, state = 1, type = 2
-; BORDEL56; ....... s->id = returnInt6
-; ... ajout de test dans la table, state = 0, type = 2
-; BORDEL56; ....... s->id = test
-; ... ajout de returnInt5 dans la table, state = 1, type = 2
-; BORDEL56; ....... s->id = returnInt5
-; ... ajout de test dans la table, state = 0, type = 2
-; BORDEL56; ....... s->id = test
-; ... ajout de returnInt4 dans la table, state = 1, type = 2
-; BORDEL56; ....... s->id = returnInt4
-; ... ajout de returnInt3 dans la table, state = 1, type = 2
-; BORDEL56; ....... s->id = returnInt3
-; ... ajout de b dans la table, state = 0, type = 2
-; BORDEL56; ....... s->id = b
-; ... ajout de a dans la table, state = 0, type = 2
-; BORDEL56; ....... s->id = a
-; ... ajout de returnInt2 dans la table, state = 1, type = 2
-; BORDEL56; ....... s->id = returnInt2
-; ... ajout de b dans la table, state = 0, type = 2
-; BORDEL56; ....... s->id = b
-; ... ajout de a dans la table, state = 0, type = 2
-; BORDEL56; ....... s->id = a
-; ... ajout de returnInt dans la table, state = 1, type = 2
-; BORDEL56; ....... s->id = returnInt
-; ... ajout de b dans la table, state = 0, type = 2
-; BORDEL56; ....... s->id = b
-; ... ajout de a dans la table, state = 0, type = 2
-; BORDEL56; ....... s->id = a
-; ... ajout de returnTest3 dans la table, state = 1, type = 3
-; BORDEL56; ....... s->id = returnTest3
-; ... ajout de returnTest2 dans la table, state = 1, type = 5
-; BORDEL56; ....... s->id = returnTest2
-; ... ajout de returnTest1 dans la table, state = 1, type = 3
-; BORDEL56; ....... s->id = returnTest1
-; ... ajout de retour dans la table, state = 0, type = 3
-; BORDEL56; ....... s->id = retour
-; ... ajout de val4 dans la table, state = 0, type = 3
-; BORDEL56; ....... s->id = val4
-; ... ajout de val3 dans la table, state = 0, type = 3
-; BORDEL56; ....... s->id = val3
-; ... ajout de val2 dans la table, state = 0, type = 2
-; BORDEL56; ....... s->id = val2
-; ... ajout de val1 dans la table, state = 0, type = 2
-; BORDEL56; ....... s->id = val1
-; ... ajout de resultInt3 dans la table, state = 0, type = 2
-; BORDEL56; ....... s->id = resultInt3
-; ... ajout de resultInt2 dans la table, state = 0, type = 2
-; BORDEL56; ....... s->id = resultInt2
-; ... ajout de resultInt1 dans la table, state = 0, type = 2
-; BORDEL56; ....... s->id = resultInt1
-; ... ajout de resultBoolFalse dans la table, state = 0, type = 3
-; BORDEL56; ....... s->id = resultBoolFalse
-; ... ajout de resultBoolTrue dans la table, state = 0, type = 3
-; BORDEL56; ....... s->id = resultBoolTrue
+; ... ajout de globalInt dans la table, state = 0, type = 2
+; BORDEL56; ....... s->id = globalInt
 ;*** END SymbolTable ***
 ; * Verification de la specification LSD12 :
 ;---GPS = tree_id : 12 AT_ROOT LEFT ;---
 ;---GPS = tree_id : 3 AT_FUNCT LEFT  ;---
 ;---GPS = tree_id : 5 AT_CORPS LEFT ;---
 ;---GPS = tree_id : 1 AT_BLOCDECLA LEFT ;---
-;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
-;left ;---
-;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
-;left ;---
-;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
-;left ;---
-;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
-;left ;---
-;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
-;left ;---
-;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
-;left ;---
-;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
-;left ;---
-;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
-;left ;---
 ;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
 ;left ;---
 ;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
@@ -122,11 +86,16 @@
 ;right ;---
 ;---GPS = tree_id : 6 AT_IMPLEMENT LEFT ;---
 ;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
 ;---GPS = tree_id : 8 AT_INSTRUCTION LEFT ;---
-;---GPS = tree_id : 30 AT_RETURN RIGHT ;---
+;---GPS = AT_WRITE RIGHT ;---
 ;---GPS = tree_id : 0 AT_VAR ;---
 ;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
-;---GPS = tree_id : 10 AT_BOOL ;---
+;---GPS = tree_id : 9 AT_NB ;---
+;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
+;---GPS = tree_id : 11 AT_PLUS ;---
+;---GPS = tree_id : 0 AT_VAR ;---
+;---GPS = tree_id : 9 AT_NB ;---
 ;---GPS = tree_id : 6 AT_IMPLEMENT LEFT ;---
 ;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
 ;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
@@ -139,334 +108,89 @@
 ;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
 ;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
 ;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
-;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
-;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
-;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
-;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
-;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
-;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
-;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
-;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
-;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
-;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
-;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
-;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
-;---GPS = tree_id : 8 AT_INSTRUCTION LEFT ;---
-;---GPS = tree_id : 37 AT_APPELF ;---
-;---GPS = tree_id : 8 AT_INSTRUCTION LEFT ;---
-;---GPS = AT_WRITE RIGHT ;---
-;---GPS = tree_id : 9 AT_NB ;---
-;---GPS = AT_WRITE RIGHT ;---
-;---GPS = tree_id : 37 AT_APPELF ;---
-;---GPS = AT_EXPRD LEFT ;---
-;---GPS = tree_id : 37 AT_APPELF ;---
-;---GPS = AT_WRITE RIGHT ;---
-;---GPS = tree_id : 9 AT_NB ;---
-;---GPS = AT_WRITE RIGHT ;---
-;---GPS = tree_id : 37 AT_APPELF ;---
-;---GPS = AT_WRITE RIGHT ;---
-;---GPS = tree_id : 9 AT_NB ;---
-;---GPS = tree_id : 37 AT_APPELF ;---
-;---GPS = tree_id : 8 AT_INSTRUCTION LEFT ;---
-;---GPS = AT_WRITE RIGHT ;---
-;---GPS = tree_id : 9 AT_NB ;---
-;---GPS = AT_WRITE RIGHT ;---
-;---GPS = tree_id : 37 AT_APPELF ;---
-;---GPS = tree_id : 0 AT_VAR ;---
-;---GPS = tree_id : 8 AT_INSTRUCTION LEFT ;---
-;---GPS = AT_WRITE RIGHT ;---
-;---GPS = tree_id : 9 AT_NB ;---
-;---GPS = tree_id : 0 AT_VAR ;---
 ;---GPS = tree_id : 8 AT_INSTRUCTION LEFT ;---
 ;---GPS = AT_WRITE RIGHT ;---
 ;---GPS = tree_id : 0 AT_VAR ;---
 ;---GPS = AT_EXPRD LEFT ;---
 ;---GPS = tree_id : 37 AT_APPELF ;---
-;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
-;---GPS = tree_id : 10 AT_BOOL ;---
-;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
+;---GPS = AT_EXPRD LEFT ;---
+;---GPS = tree_id : 37 AT_APPELF ;---
 ;---GPS = tree_id : 10 AT_BOOL ;---
 ;---GPS = AT_EXPRD LEFT ;---
 ;---GPS = tree_id : 37 AT_APPELF ;---
+;---GPS = tree_id : 9 AT_NB ;---
+;---GPS = tree_id : 37 AT_APPELF ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION LEFT ;---
+;---GPS = AT_WRITE RIGHT ;---
+;---GPS = tree_id : 9 AT_NB ;---
 ;---GPS = AT_WRITE RIGHT ;---
 ;---GPS = tree_id : 37 AT_APPELF ;---
-;---GPS = AT_WRITE RIGHT ;---
+;---GPS = AT_EXPRD LEFT ;---
 ;---GPS = tree_id : 37 AT_APPELF ;---
-;---GPS = AT_WRITE RIGHT ;---
+;---GPS = AT_EXPRD LEFT ;---
 ;---GPS = tree_id : 37 AT_APPELF ;---
 ;---GPS = tree_id : 37 AT_APPELF ;---
 ;---GPS = tree_id : 8 AT_INSTRUCTION LEFT ;---
 ;---GPS = AT_WRITE RIGHT ;---
 ;---GPS = tree_id : 9 AT_NB ;---
 ;---GPS = AT_WRITE RIGHT ;---
-;---GPS = tree_id : 0 AT_VAR ;---
-;---GPS = AT_WRITE RIGHT ;---
-;---GPS = tree_id : 37 AT_APPELF ;---
-;---GPS = AT_WRITE RIGHT ;---
-;---GPS = tree_id : 37 AT_APPELF ;---
-;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
-;---GPS = tree_id : 37 AT_APPELF ;---
-;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
 ;---GPS = tree_id : 37 AT_APPELF ;---
 ;---GPS = AT_EXPRD LEFT ;---
 ;---GPS = tree_id : 37 AT_APPELF ;---
+;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
+;---GPS = tree_id : 9 AT_NB ;---
 ; * Fin de la verification de la specification LSD12!
 ;*** BEGIN computeLocations(..) ***
-; ... localisation de tmp : 0
+; ... localisation de int2 : 0
+; ... localisation de int1 : 1
+; ... localisation de test1 : 0
+; ... localisation de test2 : 1
+; ... localisation de test1 : 0
+; ... localisation de test2 : 1
+; ... localisation de test1 : 0
+; ... localisation de test2 : 1
+; ... localisation de test1 : 0
+; ... localisation de test1 : 0
 ; ... localisation de result : 0
 ; ... localisation de testBool : 1
 ; ... localisation de testInt : 2
 ; ... localisation de lol : 0
 ; ... localisation de lol : 0
 ; ... localisation de lol : 0
-; ... localisation de test : 0
-; ... localisation de test : 0
-; ... localisation de b : 0
-; ... localisation de a : 1
-; ... localisation de b : 0
-; ... localisation de a : 1
-; ... localisation de b : 0
-; ... localisation de a : 1
-; ... localisation de retour : 0
-; ... localisation de val4 : 0
-; ... localisation de val3 : 1
-; ... localisation de val2 : 2
-; ... localisation de val1 : 3
-; ... localisation de resultInt3 : 4
-; ... localisation de resultInt2 : 5
-; ... localisation de resultInt1 : 6
-; ... localisation de resultBoolFalse : 7
-; ... localisation de resultBoolTrue : 8
+; ... localisation de globalInt : 0
 ;*** END computeLocations(..) ***
 ;*** BEGIN PCodeGeneration ***
 define @main
-ssp 9
+ssp 1
 ujp @main_body
-define @returnTest1
-ssp 6
-ujp @returnTest1_body
-define @returnTest1_body
-lda b 0 5
-ldc b 1
-sto b
-; type ret = 3
-lda b 0 0
-lda b 0 5
-ind b
-sto b
-retf
-define @returnTest2
-ssp 5
-ujp @returnTest2_body
-define @returnTest2_body
-retp
-define @returnTest3
-ssp 5
-ujp @returnTest3_body
-define @returnTest3_body
-; type ret = 3
-lda b 0 0
-ldc b 1
-sto b
-retf
-define @returnInt
-ssp 7
-ujp @returnInt_body
-define @returnInt_body
-lda i 0 6
-ldc i 1
-sto i
-lda i 0 5
-ldc i 1
-sto i
-lda i 0 6
-ind i
-ldc i 1
-equ b
-fjp @fi_60
-lda i 0 5
-ldc i 2
-sto i
-ujp @fi_60
-define @fi_60
-; type ret = 2
-lda i 0 0
-lda i 0 5
-ind i
-sto i
-retf
-define @returnInt2
-ssp 7
-ujp @returnInt2_body
-define @returnInt2_body
-lda i 0 6
-ldc i 1
-sto i
-lda i 0 5
-ldc i 4
-sto i
-define @while_82
-lda i 0 6
-ind i
-lda i 0 5
-ind i
-leq b
-fjp @od_82
-lda i 0 6
-lda i 0 6
-ind i
-lda i 0 5
-ind i
-add i
-sto i
-ujp @while_82
-define @od_82
-; type ret = 2
-lda i 0 0
-lda i 0 6
-ind i
-lda i 0 5
-ind i
-add i
-sto i
-retf
-define @returnInt3
-ssp 7
-ujp @returnInt3_body
-define @returnInt3_body
-lda i 0 6
-ldc i 1
-sto i
-lda i 0 5
-ldc i 4
-sto i
-define @while_111
-lda i 0 6
-ind i
-lda i 0 5
-ind i
-leq b
-fjp @od_111
-lda i 0 6
-lda i 0 6
-ind i
-ldc i 3
-add i
-sto i
-lda i 0 6
-ind i
-ldc i 4
-equ b
-fjp @fi_125
-lda i 0 6
-lda i 0 6
-ind i
-lda i 0 5
-ind i
-add i
-sto i
-ujp @fi_125
-define @fi_125
-ujp @while_111
-define @od_111
-; type ret = 2
-lda i 0 0
-lda i 0 6
-ind i
-sto i
-retf
-define @returnInt4
-ssp 5
-ujp @returnInt4_body
-define @returnInt4_body
-; type ret = 2
-lda i 0 0
-ldc i 42
-sto i
-retf
-define @returnInt5
-ssp 6
-ujp @returnInt5_body
-define @returnInt5_body
-lda i 0 5
-ldc i 2
-sto i
-lda i 0 5
-ind i
-ldc i 1
-equ b
-fjp @fi_158
-define @while_160
-lda i 0 5
-ind i
-ldc i 5
-leq b
-fjp @od_160
-lda i 0 5
-lda i 0 5
-ind i
-ldc i 2
-add i
-sto i
-ujp @while_160
-define @od_160
-ujp @fi_158
-define @fi_158
-; type ret = 2
-lda i 0 0
-lda i 0 5
-ind i
-sto i
-retf
-define @returnInt6
-ssp 6
-ujp @returnInt6_body
-define @returnInt6_body
-lda i 0 5
-ldc i 2
-sto i
-lda i 0 5
-ind i
-ldc i 2
-equ b
-fjp @fi_187
-define @while_189
-lda i 0 5
-ind i
-ldc i 5
-leq b
-fjp @od_189
-lda i 0 5
-lda i 0 5
-ind i
-ldc i 2
-add i
-sto i
-ujp @while_189
-define @od_189
-ujp @fi_187
-define @fi_187
-; type ret = 2
-lda i 0 0
-lda i 0 5
-ind i
-sto i
-retf
 define @fct0
 ssp 6
 ujp @fct0_body
 define @fct0_body
+lda i 1 0
+lda i 1 0
+ind i
+ldc i 1
+add i
+sto i
 lda i 0 5
 ldc i 69
 sto i
 lda i 0 5
 ind i
 prin
+;at_headfunc
 retp
 define @fct1
 ssp 6
 ujp @fct1_body
 define @fct1_body
+lda i 1 0
+lda i 1 0
+ind i
+ldc i 1
+add i
+sto i
 lda i 0 5
 ldc i 2
 sto i
@@ -476,10 +200,17 @@ lda i 0 5
 ind i
 sto i
 retf
+;at_headfunc
 define @fct2
 ssp 6
 ujp @fct2_body
 define @fct2_body
+lda i 1 0
+lda i 1 0
+ind i
+ldc i 1
+add i
+sto i
 lda b 0 5
 ldc b 0
 sto b
@@ -489,6 +220,7 @@ lda b 0 5
 ind b
 sto b
 retf
+;at_headfunc
 define @fct3
 ssp 8
 ujp @fct3_body
@@ -499,5 +231,382 @@ sto i
 lda b 0 6
 ldc b 1
 sto b
-define @while_256
-lda i
+define @while_75
+lda i 0 7
+ind i
+ldc i 99
+les b
+fjp @od_75
+lda b 0 6
+ind b
+fjp @fi_82
+lda i 0 7
+lda i 0 7
+ind i
+ldc i 5
+mul i
+sto i
+ujp @fi_82
+define @fi_82
+ujp @while_75
+define @od_75
+lda i 0 7
+ind i
+prin
+lda b 0 6
+ldc b 0
+sto b
+lda b 0 6
+ind b
+fjp @else_97
+ujp @fi_97
+define @else_97
+define @while_99
+lda i 0 7
+ind i
+ldc i 125
+equ b
+fjp @od_99
+lda i 0 7
+lda i 0 7
+ind i
+ldc i 5
+sub i
+sto i
+ujp @while_99
+define @od_99
+define @fi_97
+lda i 0 7
+ind i
+ldc i 1
+add i
+prin
+lda i 0 5
+lda i 0 7
+ind i
+sto i
+lda i 0 5
+ind i
+ldc i 1
+sub i
+prin
+lda i 1 0
+lda i 1 0
+ind i
+ldc i 1
+add i
+sto i
+;at_headfunc
+retp
+define @fct4
+ssp 5
+ujp @fct4_body
+define @fct4_body
+lda i 1 0
+lda i 1 0
+ind i
+ldc i 1
+add i
+sto i
+ldc i 6998
+prin
+;at_headfunc
+retp
+define @fct5
+ssp 5
+ujp @fct5_body
+define @fct5_body
+lda i 1 0
+lda i 1 0
+ind i
+ldc i 1
+add i
+sto i
+; type ret = 2
+lda i 0 0
+ldc i 2
+sto i
+retf
+;at_headfunc
+define @fct6
+ssp 5
+ujp @fct6_body
+define @fct6_body
+lda i 1 0
+lda i 1 0
+ind i
+ldc i 1
+add i
+sto i
+; type ret = 3
+lda b 0 0
+ldc b 0
+sto b
+retf
+;at_headfunc
+define @fct7
+ssp 6
+ujp @fct7_body
+define @fct7_body
+lda i 1 0
+lda i 1 0
+ind i
+ldc i 1
+add i
+sto i
+lda i 0 5
+ind i
+prin
+;at_headfunc
+;at_listparam g
+;at_listparam d
+retp
+define @fct8
+ssp 6
+ujp @fct8_body
+define @fct8_body
+lda b 0 5
+ind b
+fjp @else_193
+ldc i 1
+prin
+ujp @fi_193
+define @else_193
+ldc i 0
+prin
+define @fi_193
+lda i 1 0
+lda i 1 0
+ind i
+ldc i 1
+add i
+sto i
+;at_headfunc
+;at_listparam g
+;at_listparam d
+retp
+define @fct9
+ssp 7
+ujp @fct9_body
+define @fct9_body
+lda i 0 5
+ind i
+lda i 0 6
+ind i
+add i
+prin
+;at_headfunc
+;at_listparam g
+;at_listparam d
+retp
+define @fct10
+ssp 7
+ujp @fct10_body
+define @fct10_body
+lda b 0 5
+ind b
+fjp @else_230
+lda b 0 6
+ind b
+fjp @else_234
+ldc i 1
+prin
+ujp @fi_234
+define @else_234
+ldc i 0
+prin
+define @fi_234
+ujp @fi_230
+define @else_230
+ldc i 0
+prin
+define @fi_230
+;at_headfunc
+;at_listparam g
+;at_listparam d
+retp
+define @fct11
+ssp 7
+ujp @fct11_body
+define @fct11_body
+lda b 0 6
+ind b
+fjp @else_256
+lda i 0 5
+ind i
+prin
+ujp @fi_256
+define @else_256
+ldc i 0
+prin
+define @fi_256
+;at_headfunc
+;at_listparam g
+;at_listparam d
+retp
+define @fctImbriquer
+ssp 7
+ujp @fctImbriquer_body
+define @fct01
+ssp 5
+ujp @fct01_body
+define @fct01_body
+lda i 2 0
+lda i 2 0
+ind i
+ldc i 1
+add i
+sto i
+; type ret = 2
+lda i 0 0
+lda i 1 1
+ind i
+sto i
+retf
+;at_headfunc
+define @fct02
+ssp 5
+ujp @fct02_body
+define @fct02_body
+lda i 2 0
+lda i 2 0
+ind i
+ldc i 1
+add i
+sto i
+lda i 1 1
+ind i
+lda i 1 0
+ind i
+equ b
+fjp @else_302
+; type ret = 3
+lda b 0 0
+ldc b 1
+sto b
+retf
+ujp @fi_302
+define @else_302
+; type ret = 3
+lda b 0 0
+ldc b 0
+sto b
+retf
+define @fi_302
+;at_headfunc
+define @fctImbriquer_body
+lda i 0 6
+ldc i 5
+sto i
+lda i 0 5
+ldc i 5
+sto i
+;calcul diff de profondeur d
+mst 1
+;calcul nombre para n_par
+;appel de fct01
+cup 0 @fct01
+prin
+;calcul diff de profondeur d
+mst 1
+;calcul nombre para n_par
+;appel de fct02
+cup 0 @fct02
+fjp @else_323
+ldc i 1
+prin
+ujp @fi_323
+define @else_323
+ldc i 0
+prin
+define @fi_323
+lda i 1 0
+lda i 1 0
+ind i
+ldc i 1
+add i
+sto i
+;at_headfunc
+retp
+define @main_body
+lda i 0 0
+ldc i 0
+sto i
+;calcul diff de profondeur d
+mst 0
+;calcul nombre para n_par
+;appel de fct0
+cup 0 @fct0
+;calcul diff de profondeur d
+mst 0
+;calcul nombre para n_par
+;appel de fct1
+cup 0 @fct1
+prin
+;calcul diff de profondeur d
+mst 0
+;calcul nombre para n_par
+;appel de fct2
+cup 0 @fct2
+fjp @else_349
+ldc i 1
+prin
+ujp @fi_349
+define @else_349
+ldc i 0
+prin
+define @fi_349
+;calcul diff de profondeur d
+mst 0
+;calcul nombre para n_par
+;appel de fct3
+cup 0 @fct3
+;calcul diff de profondeur d
+mst 0
+;calcul nombre para n_par
+;appel de fct4
+cup 0 @fct4
+;calcul diff de profondeur d
+mst 0
+;calcul nombre para n_par
+;appel de fct5
+cup 0 @fct5
+prin
+;calcul diff de profondeur d
+mst 0
+;calcul nombre para n_par
+;appel de fct6
+cup 0 @fct6
+fjp @else_368
+ldc i 1
+prin
+ujp @fi_368
+define @else_368
+ldc i 0
+prin
+define @fi_368
+;calcul diff de profondeur d
+mst 0
+;calcul nombre para n_par
+ldc i 18
+;appel de fct7
+cup 1 @fct7
+;calcul diff de profondeur d
+mst 0
+;calcul nombre para n_par
+ldc b 1
+;appel de fct8
+cup 1 @fct8
+;calcul diff de profondeur d
+mst 0
+;calcul nombre para n_par
+;appel de fctImbriquer
+cup 0 @fctImbriquer
+lda i 0 0
+ind i
+prin
+;at_headfunc
+stp
+;*** END PCodeGeneration ***
+;*** BEGIN Cleaning ***
+;*** END Cleaning ***
