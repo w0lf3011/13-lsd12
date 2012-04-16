@@ -10,7 +10,7 @@ var
 	val2 int;
 	val3 bool;
 	val4 bool;
-	
+{	
 	function addTo() : bool;
 		var
 			e int;
@@ -18,15 +18,14 @@ var
 			e := 1;
 			return true;
 		end;
-
-{	function addTo2() : int;
+}
+	function addTo2() : int;
 		var
 			e2 int;
 		begin
 			e2 := 1;
 			return e2;
 		end;
-}
 
 	function fct7() : void;
 		var

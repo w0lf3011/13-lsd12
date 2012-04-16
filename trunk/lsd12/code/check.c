@@ -533,8 +533,9 @@ int checkType(ASTTREE tree, int type, SYMTABLE tds)
 								{ 
 									return VAL_BOOL;
 								}else{
-									printf(";Error : VAL_BOOL OK but -> AT_EQUAL\n");
-									return KO;
+								  printf(";Error : VAL_BOOL OK but -> AT_EQUAL\n");
+								  return KO;
+								  //return VAL_BOOL;   // Avant : decommenter lignes au dessus
 								}
 						}
 						break;

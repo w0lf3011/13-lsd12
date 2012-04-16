@@ -31,8 +31,13 @@ void pcodeGenAddress(ASTTREE tree, SYMTABLE s, SYMTABLE function) // function = 
       }
       // on peut le faire avec une valeur absolue -> a modifier
       
-      int tmp = -5 * niveau;
+      //int tmp = -5 * niveau;
+      int tmp = 0;
      
+      if ( niveau == 0 && strcmp(function->id, "main") != 0 ) {
+	tmp = 5;
+      }
+
       if(s->varType == VAL_INT) {
 	//if( strcmp(function->id, "main") != 0 ) { 
 	//  printf("lda i %d %d\n",niveau,node->address + 5 );
@@ -113,7 +118,7 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	      	      
 	    // return des fonction void et diffente du main
 	    if(node->varType == VAL_NOTYPE && strcmp(s->id, "main") != 0) {
-	      printf("retf\n");
+	      printf("retp\n");
 	    }
 
 	  }
