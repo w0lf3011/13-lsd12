@@ -202,6 +202,15 @@ void computeLocations(SYMTABLE s) {
   SYMTABLE local = s;
   int available = 0; // 5 pour le block réservé par la fonction dans la stack
   
+  /*
+  if( strcmp(s->id, "main") == 0 ) {
+    available = 0;
+  }
+  else {
+    available = 5;
+  }
+  */
+
   while(local != NULL) {
     if(local->down != NULL)
       computeLocations(local->down);
