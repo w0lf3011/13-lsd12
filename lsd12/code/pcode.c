@@ -55,6 +55,7 @@ void pcodeGenAddress(ASTTREE tree, SYMTABLE s, SYMTABLE function) // function = 
       //      if(s->ref == 1) {
       // printf("ind a\n");
       // }
+
       break;
       
     default:
@@ -401,8 +402,12 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 
 	case AT_APPELF :
 	  
+	  printf(";calcul diff de profondeur d\n");
+	  int niveau = s->levelNode - 1;
+	  
+
 	  printf(";appel de %s\n", tree->sval);  
-	  printf("mst %d\n", 0);  // pour le moment pas de fonctions imbriquees -> 0
+	  printf("mst %d\n", niveau);  // pour le moment pas de fonctions imbriquees -> 0
 	  printf("cup %d @%s\n", 0, tree->sval);  // pour p2: pas de parametres -> 0 
 	  break;
 
