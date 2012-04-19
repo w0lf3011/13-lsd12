@@ -18,7 +18,7 @@ struct SYMBOLETABLE {
   int levelNode; // Niveau d'imbrication
   int state;     // Etat : D = {variable,function,argument} : 0 variable, 1 function, 2 argument, 3 D\{function}
   int ref;       // arg par copie (0) ou par reference (1)
-  int fnctId;    // suffixe du nom de la fonction
+  int fnctId;    // suffixe du nom de la fonction -> 0 par defaut et 1 si au moins une fonction créée
 	
   struct SYMBOLETABLE* next;     // Pointeur vers le prochain symbole
   struct SYMBOLETABLE* previous; // Pointeur vers le symbole précedent
@@ -37,13 +37,13 @@ SYMTABLE creaNode();
 
 void printSymbolTableGraphViz(SYMTABLE s);
 
-SYMTABLE checkSymbolLevel(SYMTABLE s, char* name, int state);
+SYMTABLE checkSymbolLevel(SYMTABLE s, char* name, int state, int fnctId);
 
-SYMTABLE alreadyIsSymbolLevel(SYMTABLE s, char* name,int state);
+SYMTABLE alreadyIsSymbolLevel(SYMTABLE s, char* name,int state, int fnctId);
 
-SYMTABLE alreadyIsSymbol(SYMTABLE s, char* name, int state);
+SYMTABLE alreadyIsSymbol(SYMTABLE s, char* name, int state, int fnctId);
 
-SYMTABLE addToSymbolTable(SYMTABLE s, char* name, int state, int type);
+SYMTABLE addToSymbolTable(SYMTABLE s, char* name, int state, int type, int fnctId);
 
 void freeSymbolTable(SYMTABLE s);
 

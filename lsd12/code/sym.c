@@ -59,34 +59,61 @@ void printSymbolTableGraphViz(SYMTABLE s)
  	}
 }
 
-SYMTABLE checkSymbolLevel(SYMTABLE s, char* name, int state)
+SYMTABLE checkSymbolLevel(SYMTABLE s, char* name, int state, int fnctId)
 {
  	SYMTABLE retour = NULL;
  	if(s != NULL)
 	{	
 		if(strcmp(s->id,name) != 0)
 		{
- 			return checkSymbolLevel(s->previous, name,state);
+ 			return checkSymbolLevel(s->previous, name, state, fnctId);
  		}
  		else{
-			if(state == 3) // recherche d'une variable ou d'un argument
+			if(state == 1) // recherche d'une variable ou d'un argument
 			{
-				if(s->state == 0 || s->state == 2)
+				if(strcmp(name,"main")==0)
 					retour = s;
 				else
-					return checkSymbolLevel(s->previous,name,state);
-			}else{
-				// si on trouve une variable locale ayant le même nom qu'un paramètre formel
-				if((s->state == 2 && state == 0) || (s->state == 0 && state == 2))
-				{
-					retour = s;
-				}else{
-					if(s->state != state) // fonction peut avoir le meme nom qu'une variable ou un paramètre
+					if(fnctId != 0) // elle existe dans la TDS
 					{
-						return checkSymbolLevel(s->previous, name , state);
-					}else{
+						
+						if(fnctId > s->fnctId) //tand que l'ID du noeud est plus grand  à l'ID de la TDS
+						{
+							retour =  NULL;
+								
+						}
+						else
+						{	
+							return checkSymbolLevel(s->previous, name, state, fnctId);				
+							//retour = s;
+						}
+					}
+					else
+					{
+						retour = NULL;
+					}
+			}else{
+				if(state == 3)
+				{
+					if(s->state == 0 || s->state == 2)
 						retour = s;
+					else
+						return checkSymbolLevel(s->previous, name, state, fnctId);
+				}
+				else
+				{
+					// si on trouve une variable locale ayant le même nom qu'un paramètre formel
+					if((s->state == 2 && state == 0) || (s->state == 0 && state == 2))
+					{
+						retour = s;
+					}else{
+						if(s->state != state) // fonction peut avoir le meme nom qu'une variable ou un paramètre
+						{
+							return checkSymbolLevel(s->previous, name , state, fnctId);
+						}else{
+							retour = s;
 				
+						}
 					}
 				}
 			}
@@ -96,7 +123,7 @@ SYMTABLE checkSymbolLevel(SYMTABLE s, char* name, int state)
 }
 
 
-SYMTABLE alreadyIsSymbolLevel(SYMTABLE s, char* name,int state)
+SYMTABLE alreadyIsSymbolLevel(SYMTABLE s, char* name,int state, int fnctId)
 {
  	if(s == NULL) {
 		printf("; BORDEL-1");		
@@ -104,11 +131,11 @@ SYMTABLE alreadyIsSymbolLevel(SYMTABLE s, char* name,int state)
 	}
  	while(s->next != NULL) s = s->next;
 
- 	return checkSymbolLevel(s->previous, name, state);
+ 	return checkSymbolLevel(s->previous, name, state, fnctId);
 }
 
 
-SYMTABLE alreadyIsSymbol(SYMTABLE s, char* name, int state)
+SYMTABLE alreadyIsSymbol(SYMTABLE s, char* name, int state, int fnctId)
 {
 
  	if (s == NULL)
@@ -117,13 +144,13 @@ SYMTABLE alreadyIsSymbol(SYMTABLE s, char* name, int state)
  		return NULL;
 	}
 
- 	SYMTABLE symbol = alreadyIsSymbolLevel(s,name,state);
+ 	SYMTABLE symbol = alreadyIsSymbolLevel(s,name,state,fnctId);
 
  	if (symbol == NULL)
 	{
  		if(s->up != NULL)
 		{
- 			return alreadyIsSymbol(s->up, name,state);
+ 			return alreadyIsSymbol(s->up, name,state,fnctId);
 		}else{
 			printf("; BORDEL1");
  			return NULL;
@@ -133,11 +160,11 @@ SYMTABLE alreadyIsSymbol(SYMTABLE s, char* name, int state)
  	}
 }
 
-SYMTABLE addToSymbolTable(SYMTABLE s, char* name, int state, int type)
+SYMTABLE addToSymbolTable(SYMTABLE s, char* name, int state, int type, int fnctId)
 {	
 
 	printf("; ... ajout de %s dans la table, state = %d, type = %d\n", name, state, type); // a virer
-	if (alreadyIsSymbolLevel(s,name,state) != NULL) {
+	if (alreadyIsSymbolLevel(s,name,state,fnctId) != NULL) {
 		printf("; BORDEL2");
 		return NULL;
 	}
@@ -151,6 +178,7 @@ SYMTABLE addToSymbolTable(SYMTABLE s, char* name, int state, int type)
 	  s->id = name;
 	  s->varType = type;
 	  s->state = state;
+	  s->fnctId = fnctId;
 	  
 	  printf("; ....... s->id = %s\n", s->id);
 
@@ -283,16 +311,23 @@ int fillTable(ASTTREE tree, SYMTABLE s, int currentType)
 		if(tree->id == AT_FUNCT) // change de fonction courante
 		{
 			type = tree->type; 
-			s = addToSymbolTable(s, tree->sval,1, type);
-			type = -1; // on n'est plus dans les déclarations, on nettoye le type sauvé
-			/*			
-			if(s == NULL) // ajouter la fonction sur le niveau courant imbrication "s->level"
+			s = addToSymbolTable(s, tree->sval,1, type, tree->fnctId);
+			 
+			int ID = tree->fnctId;			
+			while(s == NULL) // ajouter la fonction sur le niveau courant imbrication "s->level"
 			{
+				ID=tree->fnctId+1;
+				s = addToSymbolTable(s, tree->sval,1, type, ID);
+				
+
+				/*
  				printf("; ATTENTION FONCTION %s !, Il existe deja une fonction de même nom sur ce niveau\n.",tree->sval);
  				fprintf(stderr,";KO\n");
 				exit(1);
+				*/
 			}
-			*/
+			tree->fnctId = ID;
+			type = -1;// on n'est plus dans les déclarations, on nettoye le type sauvé
 			
 		} 
 		
@@ -316,7 +351,7 @@ int fillTable(ASTTREE tree, SYMTABLE s, int currentType)
 		{
 			if(type != -1)
 			{
-				s = addToSymbolTable(s, tree->sval,0, type); 	
+				s = addToSymbolTable(s, tree->sval,0, type, tree->fnctId); 	
 				if(s == NULL) // ajouter la variable sur le niveau courant imbrication "s->level"
 				{
  					printf("; ATTENTION VARIABLE %s!, Il existe deja une declaration local annotee\n.",tree->sval);
@@ -328,7 +363,7 @@ int fillTable(ASTTREE tree, SYMTABLE s, int currentType)
 	
 		if(tree->id == AT_ARG)
 		{
-			s = addToSymbolTable(s,tree->sval,2,tree->type);
+			s = addToSymbolTable(s,tree->sval,2,tree->type, tree->fnctId);
 			if(tree->varRef == 1)
 			{
 					s->ref = 1;
