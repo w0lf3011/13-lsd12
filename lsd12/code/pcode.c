@@ -37,8 +37,11 @@ void pcodeGenAddress(ASTTREE tree, SYMTABLE s, SYMTABLE function) // function = 
       int tmp = 0;
      
       if ( niveau == 0 && strcmp(function->id, "main") != 0 ) {
-	tmp = 5;  // 5 + niveau * 5 ????
+	tmp = 0;  // 5 + niveau * 5 ????
       }
+      //if ( strcmp(function->id, "main") != 0 ) {
+      //tmp = 5 * niveau;
+      //}
 
       if(s->varType == VAL_INT) {
 	  printf("lda i %d %d\n",niveau,node->address + tmp);
@@ -46,7 +49,7 @@ void pcodeGenAddress(ASTTREE tree, SYMTABLE s, SYMTABLE function) // function = 
       if(s->varType == VAL_BOOL) {
 	printf("lda b %d %d\n",niveau,node->address + tmp);
       }
-      if(s->ref == 1) {
+      if(s->ref == 1) {   //argument passe par reference
 	printf("ind a\n");
       }
 
