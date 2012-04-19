@@ -29,7 +29,7 @@ int check(ASTTREE tree, SYMTABLE tds)
 			
 			case AT_FUNCT : // Attention gérer le type retour de main -> TJ void
 				//if (strcmp(tree->sval, "main") == 0) {
-					node = alreadyIsSymbol(tds, tree->sval, 1);
+					node = alreadyIsSymbol(tds, tree->sval, 1, tree->fnctId);
 					if(node != NULL)
 					{
 						if(tree->left != NULL) {
@@ -135,7 +135,7 @@ int check(ASTTREE tree, SYMTABLE tds)
 				break;
 			case AT_AFFECT : 
 				printf(";---GPS = tree_id : %d AT_AFFECT RIGHT ;---\n", tree->id);
-				node = alreadyIsSymbol(tds,tree->left->sval,3); 
+				node = alreadyIsSymbol(tds,tree->left->sval,3, tree->fnctId); 
 				if (node != NULL)
 				{	//printf(";--varType : %d --\n", node->varType);
 					switch(node->varType)
@@ -326,7 +326,7 @@ int checkType(ASTTREE tree, int type, SYMTABLE tds)
 			case AT_VAR : 
 
 						printf(";---GPS = tree_id : %d AT_VAR ;---\n", tree->id);
-						node = alreadyIsSymbol(tds, tree->sval, 3); 
+						node = alreadyIsSymbol(tds, tree->sval, 3, tree->fnctId); 
 						//printf("-- %s -- ", node->id);
 						if(node != NULL) // si variable existe
 						{
