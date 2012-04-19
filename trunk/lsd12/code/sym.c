@@ -216,7 +216,7 @@ void computeLocations(SYMTABLE s) {
       computeLocations(local->down);
     
     if(local->next != NULL) {
-      if ( local->state != 1 ) {   // pour n identifier que les adresses relatives des variables/constantes 
+      if ( local->state != 1 ) { // pour n identifier que les adresses relatives des variables/constantes 
 	local->address = available;
 	printf("; ... localisation de %s : %d\n", local->id, available);
 	available++;
