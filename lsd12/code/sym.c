@@ -19,6 +19,7 @@ SYMTABLE creaNode()
  	node->address = -1;    // location pour pcode avant -1
  	node->varType = -1;    // Type de la variable
 	node->ref = 0;         // variable par défaut
+	node->fnctId = 0;      // suffixe du nom de la fonction
 	
  	node->next = NULL;     // Pointeur next du noeud
  	node->previous = NULL; // Pointeur previous du noeud
@@ -51,7 +52,6 @@ void printSymbolTableGraphViz(SYMTABLE s)
 			printf("\"%p\" -> \"%p\"[color=\"#162BED\", label=\"Up\"];\n", s, s->up);
 			}			
 
-			
 		}
  		if(s->down != NULL)
  			printSymbolTableGraphViz(s->down);
@@ -133,8 +133,6 @@ SYMTABLE alreadyIsSymbol(SYMTABLE s, char* name, int state)
  	}
 }
 
-
-
 SYMTABLE addToSymbolTable(SYMTABLE s, char* name, int state, int type)
 {	
 
@@ -200,7 +198,7 @@ void freeSymbolTable(SYMTABLE s) {
 void computeLocations(SYMTABLE s) {
   
   SYMTABLE local = s;
-  int available = 0; // 5 pour le block réservé par la fonction dans la stack
+  int available = 5; // 5 pour le block réservé par la fonction dans la stack (avant 0)
   
   /*
   if( strcmp(s->id, "main") == 0 ) {
@@ -211,11 +209,23 @@ void computeLocations(SYMTABLE s) {
   }
   */
 
+    if( local->up != NULL ) {
+      if( strcmp(local->up->id, "main") == 0 ) {
+	available = 0;
+      }
+    }
+
+
   while(local != NULL) {
     if(local->down != NULL)
       computeLocations(local->down);
-    
+   
+
+  
     if(local->next != NULL) {
+
+      // a verifier!
+
       if ( local->state != 1 ) { // pour n identifier que les adresses relatives des variables/constantes 
 	local->address = available;
 	printf("; ... localisation de %s : %d\n", local->id, available);

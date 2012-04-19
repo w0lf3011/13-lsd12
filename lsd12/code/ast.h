@@ -60,14 +60,17 @@ struct astnode {
   int ival;
   char* sval;
 
+  int varRef;     // indique is variable passee par ref (1) ou pas (0)
+  int fnctId;     // suffixe nom fonction (l5)
+
   struct astnode * left;
   struct astnode * right;
 };
 
 typedef struct astnode * ASTTREE;
-typedef struct astnode   ASTNODE;
+typedef struct astnode   ASTNODE; // detail
 
-extern ASTTREE createNode(int id, int type, int ival, char* sval, ASTTREE left, ASTTREE right);
+extern ASTTREE createNode(int id, int type, int varRef, int fnctId, int ival, char* sval, ASTTREE left, ASTTREE right);
 extern void freeNode(ASTTREE node);
 extern void freeTree(ASTTREE tree);
 
