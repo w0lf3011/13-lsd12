@@ -69,9 +69,6 @@ SYMTABLE checkSymbolLevel(SYMTABLE s, char* name, int state)
  			return checkSymbolLevel(s->previous, name,state);
  		}
  		else{
-			if(state == 1){ //fonction peut avoir le même nom d'une autre
-				return checkSymbolLevel(s->previous, name , state);
-			}
 			if(state == 3) // recherche d'une variable ou d'un argument
 			{
 				if(s->state == 0 || s->state == 2)
@@ -205,12 +202,21 @@ void computeLocations(SYMTABLE s) {
   SYMTABLE local = s;
   int available = 0; // 5 pour le block réservé par la fonction dans la stack
   
+  /*
+  if( strcmp(s->id, "main") == 0 ) {
+    available = 0;
+  }
+  else {
+    available = 5;
+  }
+  */
+
   while(local != NULL) {
     if(local->down != NULL)
       computeLocations(local->down);
     
     if(local->next != NULL) {
-      if ( local->state != 1 ) {   // pour n identifier que les adresses relatives des variables/constantes 
+      if ( local->state != 1 ) { // pour n identifier que les adresses relatives des variables/constantes 
 	local->address = available;
 	printf("; ... localisation de %s : %d\n", local->id, available);
 	available++;

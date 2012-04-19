@@ -319,6 +319,10 @@ int fillTable(ASTTREE tree, SYMTABLE s, int currentType)
 		if(tree->id == AT_ARG)
 		{
 			s = addToSymbolTable(s,tree->sval,2,tree->type);
+			if(tree->varRef == 1)
+			{
+					s->ref = 1;
+			}			
 			if(s == NULL)
 			{
  				printf("; ATTENTION ARGUMENT %s !, Il existe deja une declaration local annotee\n.",tree->sval);
