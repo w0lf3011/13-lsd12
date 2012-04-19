@@ -8,6 +8,8 @@
 
 ASTTREE createNode(int id,
 		   int type,
+		   int varRef,
+		   int fnctId,
 		   int ival,
 		   char* sval,
 		   ASTTREE left,
@@ -24,10 +26,12 @@ ASTTREE createNode(int id,
     {
       node->id = id;
       node->type = type;
+      node->varRef = varRef;
+      node->fnctId = fnctId;
       node->ival = ival;
       node->sval = sval;
       node->left = left;
-      node->right = right;
+      node->right = right;      
 
       return node;
     }

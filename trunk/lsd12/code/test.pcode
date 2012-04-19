@@ -5,22 +5,26 @@
 ;*** BEGIN SymbolTable ***
 ; ... ajout de main dans la table, state = 1, type = 5
 ; BORDEL56; ....... s->id = main
-; ... ajout de addTo dans la table, state = 1, type = 2
-; BORDEL56; ....... s->id = addTo
-; ... ajout de a dans la table, state = 2, type = 2
-; BORDEL56; ....... s->id = a
-; ... ajout de b dans la table, state = 2, type = 2
-; BORDEL56; ....... s->id = b
-; ... ajout de addTo2 dans la table, state = 1, type = 2
-; BORDEL56; ....... s->id = addTo2
-; ... ajout de c dans la table, state = 2, type = 2
-; BORDEL56; ....... s->id = c
-; ... ajout de d dans la table, state = 2, type = 2
-; BORDEL56; ....... s->id = d
-; ... ajout de e dans la table, state = 2, type = 2
-; BORDEL56; ....... s->id = e
-; ... ajout de x dans la table, state = 0, type = 2
-; BORDEL56; ....... s->id = x
+; ... ajout de bool2 dans la table, state = 0, type = 3
+; BORDEL56; ....... s->id = bool2
+; ... ajout de bool1 dans la table, state = 0, type = 3
+; BORDEL56; ....... s->id = bool1
+; ... ajout de testWrite dans la table, state = 0, type = 2
+; BORDEL56; ....... s->id = testWrite
+; ... ajout de testRead dans la table, state = 0, type = 2
+; BORDEL56; ....... s->id = testRead
+; ... ajout de division dans la table, state = 0, type = 2
+; BORDEL56; ....... s->id = division
+; ... ajout de multiplication dans la table, state = 0, type = 2
+; BORDEL56; ....... s->id = multiplication
+; ... ajout de soustration dans la table, state = 0, type = 2
+; BORDEL56; ....... s->id = soustration
+; ... ajout de addition dans la table, state = 0, type = 2
+; BORDEL56; ....... s->id = addition
+; ... ajout de num2 dans la table, state = 0, type = 2
+; BORDEL56; ....... s->id = num2
+; ... ajout de num1 dans la table, state = 0, type = 2
+; BORDEL56; ....... s->id = num1
 ;*** END SymbolTable ***
 ; * Verification de la specification LSD12 :
 ;---GPS = tree_id : 12 AT_ROOT LEFT ;---
@@ -30,126 +34,169 @@
 ;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
 ;left ;---
 ;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
-;Funct ;---
-;---GPS = tree_id : 3 AT_FUNCT LEFT  ;---
-;---GPS = tree_id : 5 AT_CORPS LEFT ;---
-;---GPS = tree_id : 1 AT_BLOCDECLA LEFT ;---
+;left ;---
 ;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
-;Funct ;---
-;---GPS = tree_id : 3 AT_FUNCT LEFT  ;---
-;---GPS = tree_id : 5 AT_CORPS LEFT ;---
-;---GPS = tree_id : 1 AT_BLOCDECLA NULL NULL ;---
-;---GPS = tree_id : 6 AT_IMPLEMENT LEFT ;---
-;---GPS = tree_id : 8 AT_INSTRUCTION LEFT ;---
-;---GPS = tree_id : 30 AT_RETURN RIGHT ;---
-;---GPS = tree_id : 11 AT_PLUS ;---
-;---GPS = tree_id : 0 AT_VAR ;---
-;---GPS = tree_id : 0 AT_VAR ;---
+;left ;---
+;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
+;left ;---
+;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
+;left ;---
+;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
+;left ;---
+;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
+;left ;---
+;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
+;left ;---
+;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
+;left ;---
+;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
+;right ;---
 ;---GPS = tree_id : 6 AT_IMPLEMENT LEFT ;---
 ;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
-;---GPS = tree_id : 8 AT_INSTRUCTION LEFT ;---
-;---GPS = tree_id : 30 AT_RETURN RIGHT ;---
-;---GPS = tree_id : 11 AT_PLUS ;---
-;---GPS = tree_id : 0 AT_VAR ;---
-;---GPS = tree_id : 0 AT_VAR ;---
-;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
-;---GPS = tree_id : 37 AT_APPELF ;---
-;---GPS = tree_id : 0 AT_VAR ;---
-;---GPS = tree_id : 0 AT_VAR ;---
-;---GPS = tree_id : 9 AT_NB ;---
-;---GPS = tree_id : 6 AT_IMPLEMENT LEFT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
 ;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
 ;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
 ;---GPS = tree_id : 8 AT_INSTRUCTION LEFT ;---
 ;---GPS = AT_WRITE RIGHT ;---
 ;---GPS = tree_id : 0 AT_VAR ;---
-;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
-;---GPS = tree_id : 37 AT_APPELF ;---
+;---GPS = AT_WRITE RIGHT ;---
 ;---GPS = tree_id : 0 AT_VAR ;---
+;---GPS = AT_WRITE RIGHT ;---
+;---GPS = tree_id : 0 AT_VAR ;---
+;---GPS = AT_WRITE RIGHT ;---
+;---GPS = tree_id : 0 AT_VAR ;---
+;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
+;---GPS = tree_id : 14 AT_NOT ;---
+;---GPS = tree_id : 0 AT_VAR ;---
+;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
+;---GPS = tree_id : 10 AT_BOOL ;---
+;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
+;---GPS = tree_id : 10 AT_BOOL ;---
+;---GPS = AT_WRITE RIGHT ;---
+;---GPS = tree_id : 0 AT_VAR ;---
+;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
+;---GPS = tree_id : 11 AT_PLUS ;---
+;---GPS = tree_id : 0 AT_VAR ;---
+;---GPS = tree_id : 0 AT_VAR ;---
+;---GPS = AT_READ RIGHT ;---
+;---GPS = tree_id : 0 AT_VAR ;---
+;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
+;---GPS = tree_id : 24 AT_DIVISE ;---
+;---GPS = tree_id : 0 AT_VAR ;---
+;---GPS = tree_id : 0 AT_VAR ;---
+;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
+;---GPS = tree_id : 25 AT_FOIS ;---
+;---GPS = tree_id : 0 AT_VAR ;---
+;---GPS = tree_id : 0 AT_VAR ;---
+;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
+;---GPS = tree_id : 26 AT_MOINS ;---
+;---GPS = tree_id : 0 AT_VAR ;---
+;---GPS = tree_id : 0 AT_VAR ;---
+;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
+;---GPS = tree_id : 11 AT_PLUS ;---
+;---GPS = tree_id : 0 AT_VAR ;---
+;---GPS = tree_id : 0 AT_VAR ;---
+;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
 ;---GPS = tree_id : 9 AT_NB ;---
 ;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
 ;---GPS = tree_id : 9 AT_NB ;---
 ; * Fin de la verification de la specification LSD12!
 ;*** BEGIN computeLocations(..) ***
-; ... localisation de a : 0
-; ... localisation de b : 1
-; ... localisation de c : 0
-; ... localisation de d : 1
-; ... localisation de e : 2
-; ... localisation de x : 0
+; ... localisation de bool2 : 0
+; ... localisation de bool1 : 1
+; ... localisation de testWrite : 2
+; ... localisation de testRead : 3
+; ... localisation de division : 4
+; ... localisation de multiplication : 5
+; ... localisation de soustration : 6
+; ... localisation de addition : 7
+; ... localisation de num2 : 8
+; ... localisation de num1 : 9
 ;*** END computeLocations(..) ***
 ;*** BEGIN PCodeGeneration ***
 define @main
-ssp 1
+ssp 10
 ujp @main_body
-define @addTo
-ssp 7
-ujp @addTo_body
-define @addTo2
-ssp 8
-ujp @addTo2_body
-define @addTo2_body
-; type ret = 2
-lda i 0 0
-lda i 0 0
-ind i
-lda i 0 1
-ind i
-add i
-sto i
-retf
-;at_headfunc
-;at_listparam g
-;at_listparam d
-define @addTo_body
-lda i 0 0
-;calcul diff de profondeur d
-mst 1
-;calcul nombre para n_par
-;test
-;test
-;test
-;test
-;test
-;test
-;test
-;generation pcode parametres
-;appel de addTo2
-cup 3 @addTo2
-sto i
-; type ret = 2
-lda i 0 0
-lda i 0 0
-ind i
-lda i 0 1
-ind i
-add i
-sto i
-retf
-;at_headfunc
-;at_listparam g
-;at_listparam d
 define @main_body
-lda i 0 0
+lda i 0 9
+ldc i 1
+sto i
+lda i 0 8
 ldc i 2
 sto i
-lda i 0 0
-;calcul diff de profondeur d
-mst 0
-;calcul nombre para n_par
-;test
-;test
-;test
-;test
-;test
-;generation pcode parametres
-lda i 1 0
+lda i 0 7
+lda i 0 9
 ind i
-ldc i 3
-;appel de addTo
-cup 2 @addTo
+lda i 0 8
+ind i
+add i
 sto i
-lda i 0 0
+lda i 0 6
+lda i 0 7
+ind i
+lda i 0 9
+ind i
+sub i
+sto i
+lda i 0 5
+lda i 0 7
+ind i
+lda i 0 8
+ind i
+mul i
+sto i
+lda i 0 4
+lda i 0 5
+ind i
+lda i 0 8
+ind i
+div i
+sto i
+lda i 0 3
+read
+sto i
+lda i 0 2
+lda i 0 9
+ind i
+lda i 0 8
+ind i
+add i
+sto i
+lda i 0 2
+ind i
+prin
+lda b 0 1
+ldc b 1
+sto b
+lda b 0 0
+ldc b 0
+sto b
+lda b 0 0
+lda b 0 0
+ind b
+not b
+sto b
+lda i 0 7
+ind i
+prin
+lda i 0 6
+ind i
+prin
+lda i 0 5
+ind i
+prin
+lda i 0 4
 ind i
 prin
 ;at_headfunc
