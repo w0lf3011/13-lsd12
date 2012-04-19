@@ -44,11 +44,11 @@ void pcodeGenAddress(ASTTREE tree, SYMTABLE s, SYMTABLE function) // function = 
 	  printf("lda i %d %d\n",niveau,node->address + tmp);
       }
       if(s->varType == VAL_BOOL) {
-	  printf("lda b %d %d\n",niveau,node->address + tmp);
+	printf("lda b %d %d\n",niveau,node->address + tmp);
       }
-      //      if(s->ref == 1) {
-      // printf("ind a\n");
-      // }
+      if(s->ref == 1) {
+	printf("ind a\n");
+      }
 
       break;
       
@@ -67,10 +67,10 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
   SYMTABLE node;
   int location, argument, lvl;
   static int staticlabel = 0;
-  //static int main_defined = 0;  // a supprimer?
-  ASTTREE treeTmp = NULL;
+  //ASTTREE treeTmp = NULL;
 
   int n_par;
+  int niveau;
 
   int id_while;
   int id_if;
@@ -144,17 +144,17 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	case AT_CORPS :
 
 	  // reservation memoire pour les fonctions autre que main
-	  //if( strcmp(s->up->id, "main") != 0 ) {
-	    printf("define @%s\n", s->up->id);
+	  // if( strcmp(s->up->id, "main") != 0 ) {
+	  printf("define @%s\n", s->up->id);
 
-	    if( strcmp(s->up->id, "main") != 0 ) {
-	      printf("ssp %d\n",getMaxMemoryUsage(s->up) + 5);
-	    }
-	    else {
-	      printf("ssp %d\n",getMaxMemoryUsage(s->up) + 0);
-	    }
-	    printf("ujp @%s_body\n", s->up->id);
-	    //}
+	  if( strcmp(s->up->id, "main") != 0 ) {
+	    printf("ssp %d\n",getMaxMemoryUsage(s->up) + 5);
+	  }
+	  else {
+	    printf("ssp %d\n",getMaxMemoryUsage(s->up) + 0);
+	  }
+	  printf("ujp @%s_body\n", s->up->id);
+	  //}
 	  
 	  // pcode bloc decla
 	  if (tree->left != NULL ){
@@ -167,8 +167,8 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	    //  printf("define @main\n");
 	    //}
 	    //else {
-	      printf("define @%s_body\n", s->up->id);
-	      //}
+	    printf("define @%s_body\n", s->up->id);
+	    //}
 	    pcodeGenValue(tree->right,s);
 	  }
 	  break;
@@ -427,7 +427,8 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  n_par = 0;
 
 	  printf(";calcul diff de profondeur d\n");
-	  int niveau = s->levelNode - 1;
+	  niveau = s->levelNode - 1; 
+	  //niveau = s->levelNode - s->up->levelNode; 
 	  
 	  printf("mst %d\n", niveau);  // pour le moment pas de fonctions imbriquees -> 0
 
@@ -443,7 +444,7 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  }
 
 	  printf(";appel de %s\n", tree->sval);  
-	  printf("cup %d @%s\n", n_par, tree->sval);  // pour p2: pas de parametres -> 0 
+	  printf("cup %d @%s\n", n_par, tree->sval);  
 	  break;
 
 	case AT_FORWARD :

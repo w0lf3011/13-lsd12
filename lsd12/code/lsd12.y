@@ -65,7 +65,6 @@ Lsd12: PROG VAR FIN Funct END FIN
 
 Funct: FUNCTION VAR HeadFunct TWOPOINT TYPE FIN Corps
 	{ $$ = createNode(AT_FUNCT, $5, 0, $2, $7, $3);}
-
 ;
 
 Corps: BlocDecla BEG Implement END FIN
@@ -93,8 +92,7 @@ ListParam: DeclaParam
 DeclaParam : REF VAR TWOPOINT TYPE
 	{ $$ = createNode(AT_ARG, $4, 0, $2, NULL, NULL);}
 	| VAR TWOPOINT TYPE
-	{ $$ = createNode(AT_ARG, $3, 0, $1, NULL, NULL);} // pour p3
-
+	{ $$ = createNode(AT_ARG, $3, 0, $1, NULL, NULL);}
 ;
 
 BlocDecla: REF Decla 
@@ -136,9 +134,7 @@ Instruction : ExprD
 	      | IF LP ExprD RP THEN InstructionIF FI 
 	      { $$ = createNode(AT_IF, VAL_NOTYPE, 0, NULL, $3, $6);}
 	      | WHILE LP ExprD RP DO InstructionList OD 
-	      { $$ = createNode(AT_WHILE, VAL_NOTYPE, 0, NULL, $3, $6);}
-
-	      	      
+	      { $$ = createNode(AT_WHILE, VAL_NOTYPE, 0, NULL, $3, $6);}	      	      
 ;
 
 FunctParam: { $$ = NULL;}
@@ -146,15 +142,12 @@ FunctParam: { $$ = NULL;}
            { $$ = createNode(AT_FUNCTPARAM, VAL_NOTYPE, 0, NULL, NULL, $1);}
 	   | ExprD COMMA FunctParam
            { $$ = createNode(AT_FUNCTPARAM, VAL_NOTYPE, 0, NULL, $3, $1);}
-
 ;
 
 InstructionIF : InstructionList
 	        { $$ = createNode(AT_InstructionIF, VAL_NOTYPE, 0, NULL, $1, NULL);}
 		| InstructionList ELSE InstructionList
-		{ $$ = createNode(AT_InstructionIFELSE, VAL_NOTYPE, 0, NULL, $1, $3);}
-		
-		
+		{ $$ = createNode(AT_InstructionIFELSE, VAL_NOTYPE, 0, NULL, $1, $3);}	
 ;
 
 // Expressions Droites 

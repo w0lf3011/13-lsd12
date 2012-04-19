@@ -106,9 +106,16 @@ lda i 0 5
 ;calcul diff de profondeur d
 mst 1
 ;calcul nombre para n_par
+;test
+;test
+;test
+;test
+;test
+;test
+;test
 ;generation pcode parametres
 ;appel de addTo2
-cup 1 @addTo2
+cup 3 @addTo2
 sto i
 ; type ret = 2
 lda i 0 0
@@ -128,14 +135,19 @@ ldc i 2
 sto i
 lda i 0 0
 ;calcul diff de profondeur d
-mst 0
+mst 1
 ;calcul nombre para n_par
+;test
+;test
+;test
+;test
+;test
 ;generation pcode parametres
 lda i 1 0
 ind i
 ldc i 3
 ;appel de addTo
-cup 1 @addTo
+cup 2 @addTo
 sto i
 lda i 0 0
 ind i
