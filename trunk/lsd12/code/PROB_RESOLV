@@ -1,5 +1,6 @@
 1) ajout d'un paramètre à la table des symboles -> nombre de fonction de mm nom (nb_repet)
 2) ajout d'un paramètre à l'arbre -> nombre de fonction de mm nom (nb_repet)
-3) sym.c -> modif du check symboleLevel -> avec parametre nb_repet dans le check (appel dans check.c de la fonction -> osef)
+----
+3) sym.c -> modif du check symboleLevel -> avec parametre fnctId dans le check (appel dans check.c de la fonction -> osef)
 4) dans sym.c -> si fct existe alors ajouter avec un +1 et ajouter dans l'arbre
 5) dans check.c -> appelf -> verifie si exist -> check parametre -> verifie si existe avec 1,... (check le nombre de repetition de la fonction) -> test des paramère et si nb_repet > au nom -> bottom
