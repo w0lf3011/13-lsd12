@@ -33,7 +33,7 @@ void pcodeGenAddress(ASTTREE tree, SYMTABLE s, SYMTABLE function) // function = 
       }
       // on peut le faire avec une valeur absolue -> a modifier
       
-      //int tmp = -5 * niveau;
+      //int tmp = 5 * niveau;
       int tmp = 0;
      
       if ( niveau == 0 && strcmp(function->id, "main") != 0 ) {
@@ -41,17 +41,9 @@ void pcodeGenAddress(ASTTREE tree, SYMTABLE s, SYMTABLE function) // function = 
       }
 
       if(s->varType == VAL_INT) {
-	//if( strcmp(function->id, "main") != 0 ) { 
-	//  printf("lda i %d %d\n",niveau,node->address + 5 );
-	//}
-	//else 
 	  printf("lda i %d %d\n",niveau,node->address + tmp);
       }
       if(s->varType == VAL_BOOL) {
-	//if( strcmp(function->id, "main") != 0 ) { 
-	//printf("lda b %d %d\n",niveau,node->address + 5);
-	//}
-	//else 
 	  printf("lda b %d %d\n",niveau,node->address + tmp);
       }
       //      if(s->ref == 1) {
@@ -75,10 +67,10 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
   SYMTABLE node;
   int location, argument, lvl;
   static int staticlabel = 0;
-  static int main_defined = 0;  // a supprimer?
+  //static int main_defined = 0;  // a supprimer?
   ASTTREE treeTmp = NULL;
 
-  static int n_par;
+  int n_par;
 
   int id_while;
   int id_if;
@@ -418,13 +410,11 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 
 	case AT_FUNCTPARAM :
 	  if( tree->right != NULL && tree->left == NULL ) {
-	    pcodeGenValue(tree->right,s);
-	    n_par++;
+	    pcodeGenValue(tree->right,s);	    
 	  }
 	  if( tree->left != NULL ) {
 	    pcodeGenValue(tree->right,s);
 	    pcodeGenValue(tree->left,s);
-	    n_par++;
 	  }
 	  break;
 
@@ -441,7 +431,13 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  
 	  printf("mst %d\n", niveau);  // pour le moment pas de fonctions imbriquees -> 0
 
-	  printf(";calcul nombre para n_par\n");
+	  printf(";calcul nombre para n_par\n");	  
+	  if(tree->right != NULL) {
+	    nPara(tree,&n_par);
+	  }
+	  
+
+	  printf(";generation pcode parametres\n");
 	  if(tree->right != NULL) {
 	    pcodeGenValue(tree->right, s->down);
 	  }
@@ -461,5 +457,23 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 
     }
 
+
+}
+
+void nPara( ASTTREE tree, int * n ) {
+
+  printf(";test\n");
+  if( tree->right != NULL && tree->left == NULL ) {
+    nPara(tree->right, n);        
+  }
+  
+  if( tree->left != NULL ) {  
+    nPara(tree->right, n);        
+    nPara(tree->left, n);  
+  }
+
+  if( tree->right == NULL ) {
+      *n = *n + 1;    
+  }
 
 }

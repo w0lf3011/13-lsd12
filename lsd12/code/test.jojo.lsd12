@@ -7,12 +7,25 @@ var
 
 	function addTo( a : int, b : int ) : int;
 		var
-		begin
+
+		function addTo2( c : int, d : int , e : int ) : int;
+			var
+			begin
+				return c + d;
+			end;
+
+
+		begin	
+			a := addTo2( a, a, 0 );
 			return a + b;
 		end;
+
+		
+
 begin
 	x := 2;
 	x := addTo( x, 3 );
+	write x;
 end;
 
 end;

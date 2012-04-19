@@ -23,5 +23,5 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s);
 	PRE : /
 	POST : Génère le p-code associé au noeud en train d'être analysé
 */
-
+void nPara( ASTTREE tree, int * n );
 #endif /*PCODE_H_*/
