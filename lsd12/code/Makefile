@@ -8,7 +8,7 @@
 all:
 	bison -dty lsd12.y
 	flex lsd12.l
-	gcc -ggdb -c *.c -lm
+	gcc -ggdb -c *.c
 	gcc -ggdb -o lsd12 *.o 
 
 clean:
