@@ -27,7 +27,9 @@ int check(ASTTREE tree, SYMTABLE tds)
 				break;
 
 			
-			case AT_FUNCT : node = alreadyIsSymbol(tds, tree->sval, 1, -1);
+			case AT_FUNCT : //node = alreadyIsSymbol(tds, tree->sval, 1, -1, 0);
+					node = alreadyIsSymbol(tds, tree->sval, 1, tree->fnctId, 1);
+					
 					if(node != NULL)
 					{
 						if(tree->left != NULL) {
@@ -36,7 +38,7 @@ int check(ASTTREE tree, SYMTABLE tds)
 						}
 						
 					}else {
-						printf(";ERROR : la fonction main est inexistante \n");
+						printf(";ERROR : la fonction %s est inexistante \n", tree->sval);
 						return KO;
 					}
 				
@@ -123,7 +125,7 @@ int check(ASTTREE tree, SYMTABLE tds)
 				break;
 			case AT_AFFECT : 
 				printf(";---GPS = tree_id : %d AT_AFFECT RIGHT ;---\n", tree->id);
-				node = alreadyIsSymbol(tds,tree->left->sval,3, tree->fnctId); 
+				node = alreadyIsSymbol(tds,tree->left->sval,3, tree->fnctId, 1); 
 				if (node != NULL)
 				{	//printf(";--varType : %d --\n", node->varType);
 					switch(node->varType)
@@ -314,7 +316,7 @@ int checkType(ASTTREE tree, int type, SYMTABLE tds)
 			case AT_VAR : 
 
 						printf(";---GPS = tree_id : %d AT_VAR ;---\n", tree->id);
-						node = alreadyIsSymbol(tds, tree->sval, 3, tree->fnctId); 
+						node = alreadyIsSymbol(tds, tree->sval, 3, tree->fnctId, 1); 
 						//printf("-- %s -- ", node->id);
 						if(node != NULL) // si variable existe
 						{
@@ -552,61 +554,104 @@ int checkType(ASTTREE tree, int type, SYMTABLE tds)
 	
 			case AT_APPELF :
 					printf(";---GPS = tree_id : %d AT_APPELF ;---\n", tree->id);
-					function = alreadyIsSymbol(tds, tree->sval,1, tree->fnctId);
+
+//-------------------------------------------------------------------------------------
+int nbOverLoad = checkNbFunctSymbol(tds, tree->sval, 1, -1, 0); // renvoie le nombre d'overload de la fonction
+
+if(nbOverLoad != -1) // si fonction existe
+{ 
+	printf("; APPELF -> %s\n",tree->sval);
+	int cpt = 1; // 1 car elle existe dans la TDS
+	while(cpt <= nbOverLoad)
+	{
+		function = alreadyIsSymbol(tds, tree->sval,1, cpt, 1);
+		printf("; APPELF -> %s ET cpt = %d\n",tree->sval, cpt);				
+		if(tree->right == NULL) // si appel de fonction sans arg
+		{
+			printf("; %s DOIT PASSER ICI!!! \n",tree->sval);
+			if(function->down->state != 2) // si la fonction a bien aucun argument dans sa déclaration
+			{
+				if(type == function->varType) 
+					return type;
+				else{	
+					
+					
+					printf("; La fonction %s retourne un type incorrect -> %d - %d \n",function->id,function->varType, type);
+					return KO;
+					
+				}
+			}else{
+				
+				
+				printf(";ERROR Appel de la fonction %s avec trop peu arguments\n",function->id);
+				return KO;
+				
+			}	
+		}
+		else
+		{
+			// si appel de fonction AVEC arg
+			node = function->down;
+			tree = tree->right;
+		
+			do{
+				if(node->state != 2 || node == NULL)
+				{
+					
+					
+					printf(";ERROR Appel de la fonction %s avec trop arguments\n",function->id);
+					return KO;
+					
+				}
+				if(checkType(tree->right,node->varType,tds) != node->varType)
+				{
+					
+					
+					
+					printf(";ERROR Argument mal type dans l'appel de fonction %s\n",function->id);
+					return KO;
+					
+				}
+				node = node->next; 
+				tree = tree->left; 
+				
+				
+			}while(tree != NULL || node != NULL); 
+		
+		
+			if(node != NULL && node->state == 2)
+			{
+				
+				
+				printf(";ERROR Appel de la fonction %s avec trop peu arguments\n",function->id);
+				return KO;
+				
+			}
+
+			if(type == function->varType) 
+			{
+				return type;
+			}else{
+				
+				
+				printf("; La fonction retourne un type incorrect\n");
+				return KO;
+				
+			}
+			cpt ++;
+		}
+		
+		
+		
+	}
+	// End while
+	return KO; // erreur général??
 	
-					if(function != NULL) // si fonction existe
-					{
-						// si appel de fonction sans arg				
-						if(tree->right == NULL)
-						{
-							// si la fonction a bien aucun argument dans sa déclaration
-							if(function->down->state != 2)
-							{
-								if(type == function->varType) 
-									return type;
-								else{	
-									printf("; La fonction %s retourne un type incorrect -> %d - %d \n",function->id,function->varType, type);
-									return KO;
-								}
-							}else{
-								printf(";ERROR Appel de la fonction %s avec trop peu arguments\n",function->id);
-								return KO;
-							}	
-						}
-						
-						node = function->down;
-						tree = tree->right; 
-						do{
-							if(node->state != 2 || node == NULL)
-							{
-								printf(";ERROR Appel de la fonction %s avec trop arguments\n",function->id);
-								return KO;
-							}
-							if(checkType(tree->right,node->varType,tds) != node->varType)
-							{
-								printf(";ERROR Argument mal type dans l'appel de fonction %s\n",function->id);
-								return KO;
-							}
-							node = node->next; 
-							tree = tree->left; 
-						}while(tree != NULL);	
-						if(node != NULL && node->state == 2)
-						{
-							printf(";ERROR Appel de la fonction %s avec trop peu arguments\n",function->id);
-							return KO;
-						}
-						
-						if(type == function->varType) 
-						{
-							return type;
-						}else{
-							printf("; La fonction retourne un type incorrect\n");
-							return KO;
-						}	
-					}else{
-						printf("; La fonction %s est inexistante\n",tree->sval);
-						return KO;
-					}
+}else{
+	printf("; La fonction %s est inexistante\n",tree->sval);
+	return KO;
+}
+//-------------------------------------------------------------------------------------
 					break;
 
 			

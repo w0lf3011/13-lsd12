@@ -9,18 +9,18 @@ var
 				return 2;
 			end;
 			
-		function fct1( var number : int) : int;
+		function fct1(var number : bool) : bool;
 			var
 			begin
-				return 2 + number;
+				return number;
 			end;
 			
-		function fct1( var number : int, number1 : int) : int;
+		function fct1(var number : int) : int;
 			var
 			begin
-				return 2 + number + number1;
+				return number ;
 			end;
-			
+{			
 		function fct2() : int;
 			forward;
 				
@@ -30,15 +30,15 @@ var
 			begin
 				return 2;
 			end;
-		
+}		
 	
 begin
 	write fct1();
 	write fct1(5);
-	write fct1(5, 9);
 	
+{	
 	write fct2();
-
+}
 end;
 
 end;

@@ -22,7 +22,7 @@ void pcodeGenAddress(ASTTREE tree, SYMTABLE s, SYMTABLE function) // function = 
     {
     case AT_ARG :
     case AT_VAR :
-      node = alreadyIsSymbol(s, tree->sval,0, tree->fnctId);
+      node = alreadyIsSymbol(s, tree->sval,0, tree->fnctId, 0);
    
       // calcul l'écart d'imbrication entre la fonction et la variable   
       niveau = s->levelNode - 1;
@@ -101,7 +101,7 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	case AT_FUNCT : 
 
 	  // trouver la fonction
-	  node = alreadyIsSymbol(s, tree->sval, 1, tree->fnctId);
+	  node = alreadyIsSymbol(s, tree->sval, 1, tree->fnctId, 0);
 	  if(node != NULL) {
 	      
 	    //if( strcmp(s->id, "main") == 0  ) {
@@ -212,7 +212,7 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 
 	case AT_AFFECT : 
 
-	  node = alreadyIsSymbol(s, tree->left->sval, 0, tree->fnctId);
+	  node = alreadyIsSymbol(s, tree->left->sval, 0, tree->fnctId, 0);
 
 	  if(node != NULL)
 	    {
@@ -241,7 +241,7 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  break;
 
 	case AT_READ : 
-	  node = alreadyIsSymbol(s, tree->right->sval, 0, tree->fnctId);  // dernier argument = 0 pour variable, 1 pour fonction  
+	  node = alreadyIsSymbol(s, tree->right->sval, 0, tree->fnctId, 0);  // dernier argument = 0 pour variable, 1 pour fonction  
 	  pcodeGenAddress(tree->right, node ,s->up);
 
 	  printf("read\n");
@@ -323,7 +323,7 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 		
 	case AT_VAR:
 	  
-	  node = alreadyIsSymbol(s, tree->sval, 0, tree->fnctId);  // dernier argument = 0 pour variable, 1 pour fonction  
+	  node = alreadyIsSymbol(s, tree->sval, 0, tree->fnctId, 0);  // dernier argument = 0 pour variable, 1 pour fonction  
 	  pcodeGenAddress(tree, node ,s->up);
 	  
 	  if(node->varType == VAL_INT) {
