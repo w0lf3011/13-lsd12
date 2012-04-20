@@ -27,7 +27,9 @@ int check(ASTTREE tree, SYMTABLE tds)
 				break;
 
 			
-			case AT_FUNCT : node = alreadyIsSymbol(tds, tree->sval, 1, -1);
+			case AT_FUNCT : //node = alreadyIsSymbol(tds, tree->sval, 1, -1, 0);
+					node = alreadyIsSymbol(tds, tree->sval, 1, tree->fnctId, 1);
+					
 					if(node != NULL)
 					{
 						if(tree->left != NULL) {
@@ -36,7 +38,7 @@ int check(ASTTREE tree, SYMTABLE tds)
 						}
 						
 					}else {
-						printf(";ERROR : la fonction main est inexistante \n");
+						printf(";ERROR : la fonction %s est inexistante \n", tree->sval);
 						return KO;
 					}
 				
@@ -123,7 +125,7 @@ int check(ASTTREE tree, SYMTABLE tds)
 				break;
 			case AT_AFFECT : 
 				printf(";---GPS = tree_id : %d AT_AFFECT RIGHT ;---\n", tree->id);
-				node = alreadyIsSymbol(tds,tree->left->sval,3, tree->fnctId); 
+				node = alreadyIsSymbol(tds,tree->left->sval,3, tree->fnctId, 1); 
 				if (node != NULL)
 				{	//printf(";--varType : %d --\n", node->varType);
 					switch(node->varType)
@@ -314,7 +316,7 @@ int checkType(ASTTREE tree, int type, SYMTABLE tds)
 			case AT_VAR : 
 
 						printf(";---GPS = tree_id : %d AT_VAR ;---\n", tree->id);
-						node = alreadyIsSymbol(tds, tree->sval, 3, tree->fnctId); 
+						node = alreadyIsSymbol(tds, tree->sval, 3, tree->fnctId, 1); 
 						//printf("-- %s -- ", node->id);
 						if(node != NULL) // si variable existe
 						{
@@ -552,7 +554,9 @@ int checkType(ASTTREE tree, int type, SYMTABLE tds)
 	
 			case AT_APPELF :
 					printf(";---GPS = tree_id : %d AT_APPELF ;---\n", tree->id);
-					function = alreadyIsSymbol(tds, tree->sval,1, -1);
+
+//-------------------------------------------------------------------------------------
+					function = alreadyIsSymbol(tds, tree->sval,1, -1, 0);
 	
 					if(function != NULL) // si fonction existe
 					{
@@ -607,6 +611,7 @@ int checkType(ASTTREE tree, int type, SYMTABLE tds)
 						printf("; La fonction %s est inexistante\n",tree->sval);
 						return KO;
 					}
+//-------------------------------------------------------------------------------------
 					break;
 
 			
