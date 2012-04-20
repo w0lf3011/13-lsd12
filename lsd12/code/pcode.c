@@ -433,17 +433,16 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  niveau = s->levelNode - 1; 
 	  //niveau = s->levelNode - s->up->levelNode; 
 	  
-	  printf("mst %d\n", niveau);  // pour le moment pas de fonctions imbriquees -> 0
+	  printf("mst %d\n", niveau);
 
 	  printf(";calcul nombre para n_par\n");	  
 	  if(tree->right != NULL) {
 	    nPara(tree,&n_par);
 	  }
-	  
 
 	  printf(";generation pcode parametres\n");
 	  if(tree->right != NULL) {
-	    pcodeGenValue(tree->right, s->down);
+	    pcodeGenValue(tree->right, s);
 	  }
 
 	  printf(";appel de %s\n", tree->sval);  
@@ -466,17 +465,19 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 
 void nPara( ASTTREE tree, int * n ) {
 
+  ASTTREE local = tree;
+
   printf(";test\n");
-  if( tree->right != NULL && tree->left == NULL ) {
-    nPara(tree->right, n);        
+  if( local->right != NULL && local->left == NULL ) {
+    nPara(local->right, n);        
   }
   
-  if( tree->left != NULL ) {  
-    nPara(tree->right, n);        
-    nPara(tree->left, n);  
+  if( local->left != NULL ) {  
+    nPara(local->right, n);        
+    nPara(local->left, n);  
   }
 
-  if( tree->right == NULL ) {
+  if( local->right == NULL ) {
       *n = *n + 1;    
   }
 
