@@ -1,52 +1,27 @@
 define @main
-ssp 1
+ssp 2
 ujp @main_body
 define @addTo
-ssp 7
+ssp 6
 ujp @addTo_body
-define @addTo2
-ssp 8
-ujp @addTo2_body
-define @addTo2_body
-lda i 0 6
-ldc i 4
-sto i
-; type ret = 2
-lda i 0 0
-lda i 0 5
+define @addTo_body
+;reference
+;s->levelNode 2
+lod a 1 0
+;reference
+;s->levelNode 2
+lod a 1 0
 ind i
-lda i 0 6
-ind i
+ldc i 3
 add i
 sto i
-retf
-;at_headfunc
-;at_listparam g
-;at_listparam d
-define @addTo_body
-lda i 0 6
-;calcul diff de profondeur d
-mst 1
-;calcul nombre para n_par
-;generation pcode parametres
-;test2
-lda i 0 5
-ind i
-lda i 0 5
-ind i
-ldc i 0
-;appel de addTo2
-cup 3 @addTo2
-sto i
-lda i 0 5
-ind i
-prin
 ; type ret = 2
 lda i 0 0
-lda i 0 5
+;reference
+;s->levelNode 2
+lod a 1 0
 ind i
-lda i 0 6
-ind i
+ldc i 3
 add i
 sto i
 retf
@@ -54,7 +29,7 @@ retf
 ;at_listparam g
 ;at_listparam d
 define @main_body
-lda i 0 0
+lda i 0 1
 ldc i 2
 sto i
 lda i 0 0
@@ -62,13 +37,14 @@ lda i 0 0
 mst 0
 ;calcul nombre para n_par
 ;generation pcode parametres
-;test2
-lda i 0 0
+lda i 0 1
 ind i
-ldc i 3
 ;appel de addTo
-cup 2 @addTo
+cup 1 @addTo
 sto i
+lda i 0 1
+ind i
+prin
 lda i 0 0
 ind i
 prin

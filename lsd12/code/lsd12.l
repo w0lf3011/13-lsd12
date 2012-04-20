@@ -46,7 +46,7 @@ type	  ("int"|"bool"|"iset"|"void")
 
 "function"     	{return FUNCTION;}
 "forward"	{return FORWARD;}	/* Postpose implementation*/
-"var" 		{return REF;}		/* Begin of declaration bloc */
+"var" 		{return REF;}		/* Variable passee par reference */
 "begin" 	{return BEG;}		/* Ending of declaration bloc (if exist), Begin of implementation */
 "end" 		{return END;}		/* Ending of implementation */
 
