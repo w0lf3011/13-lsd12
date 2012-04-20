@@ -27,31 +27,19 @@ int check(ASTTREE tree, SYMTABLE tds)
 				break;
 
 			
-			case AT_FUNCT : // Attention gérer le type retour de main -> TJ void
-				//if (strcmp(tree->sval, "main") == 0) {
-					node = alreadyIsSymbol(tds, tree->sval, 1, tree->fnctId);
+			case AT_FUNCT : node = alreadyIsSymbol(tds, tree->sval, 1, -1);
 					if(node != NULL)
 					{
 						if(tree->left != NULL) {
 							printf(";---GPS = tree_id : %d AT_FUNCT LEFT  ;---\n", tree->id);
 							return check(tree->left, node->down); //tds
 						}
-						/*
-						if(tree->right != NULL) {
-							printf(";---GPS = tree_id : %d AT_FUNCT right  ;---\n", tree->id);
-							return check(tree->right, node->down);  //tds
-						}
-						if(tree->left != NULL) {
-							printf(";---GPS = tree_id : %d AT_FUNCT LEFT  ;---\n", tree->id);
-							return check(tree->left, node->down) ; //tds
-						}*/
+						
 					}else {
 						printf(";ERROR : la fonction main est inexistante \n");
 						return KO;
 					}
-				/*} else {
-					return KO; // pas de gestion des fonctions pr le moment
-				}*/
+				
 				break; 
 			case AT_HEADFUNCT : printf(";---GPS = tree_id : %d AT_HEADFUNCT LEFT;---\n", tree->id);
 				if(tree->left != NULL) {
@@ -564,7 +552,7 @@ int checkType(ASTTREE tree, int type, SYMTABLE tds)
 	
 			case AT_APPELF :
 					printf(";---GPS = tree_id : %d AT_APPELF ;---\n", tree->id);
-					function = alreadyIsSymbol(tds, tree->sval,1, tree->fnctId);
+					function = alreadyIsSymbol(tds, tree->sval,1, -1);
 	
 					if(function != NULL) // si fonction existe
 					{

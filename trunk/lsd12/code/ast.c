@@ -140,7 +140,7 @@ void printTreeGraphViz(ASTTREE tree)
 			}
 			else
 			{
-			printf("\"%p\"[shape=box, color=\"#e6e8f2\", fontcolor=\"#000000\",label=\"%s \\n Sval = %s\"];\n", tree, humanReadableNodeType(tree->id), tree->sval);	
+			printf("\"%p\"[shape=box, color=\"#e6e8f2\", fontcolor=\"#000000\",label=\"%s \\n Sval = %s \\n fnctId = %d\" ];\n", tree, humanReadableNodeType(tree->id), tree->sval, tree->fnctId);	
 			}
 		}
 		else
@@ -151,7 +151,7 @@ void printTreeGraphViz(ASTTREE tree)
 			}
 			else
 			{
-			printf("\"%p\"[shape=box, color=\"#e6e8f2\", fontcolor=\"#000000\",label=\"%s \\n Ival = %d\\n Sval = %s\"];\n", tree, humanReadableNodeType(tree->id),tree->ival, tree->sval);
+			printf("\"%p\"[shape=box, color=\"#e6e8f2\", fontcolor=\"#000000\",label=\"%s \\n Ival = %d\\n Sval = %s \\n  fnctId=%d \"];\n", tree, humanReadableNodeType(tree->id),tree->ival, tree->sval, tree->fnctId);
 			}
 		}
 
