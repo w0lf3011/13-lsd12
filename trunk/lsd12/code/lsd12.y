@@ -90,7 +90,7 @@ ListParam: DeclaParam
 ;
 
 DeclaParam : REF VAR TWOPOINT TYPE
-	{ $$ = createNode(AT_ARG, $4, 0, 0, 0, $2, NULL, NULL);}
+	{ $$ = createNode(AT_ARG, $4, 1, 0, 0, $2, NULL, NULL);}
 	| VAR TWOPOINT TYPE
 	{ $$ = createNode(AT_ARG, $3, 0, 0, 0, $1, NULL, NULL);}
 ;
@@ -208,24 +208,26 @@ int main() {
   printf(";*** BEGIN yyparse() ***\n");
   yyparse();
   printf(";*** END yyparse() ***\n");
-  
+
+  /*
 printf(";*** BEGIN printTree(..) ***\n");
 printTree(root);
 printf(";*** END printTree(..) ***\n");
-
+  */
  
   printf(";*** BEGIN SymbolTable ***\n");
   sym = creaNode();
   fillTable(root, sym, -1);
   printf(";*** END SymbolTable ***\n");
- 
+  /*
 printf(";*** BEGIN printTreeGraphViz(..) ***\n");
 printTreeGraphViz(root);
 printf(";*** END printTreeGraphViz(..) ***\n");
- 
+
 printf(";*** BEGIN printSymbolTableGraphViz(..)  ***\n");
 printSymbolTableGraphViz(sym);
 printf(";*** END printSymbolTableGraphViz(..)  ***\n");
+  */
 
   printf("; * Verification de la specification LSD12 :\n");
   if (check(root,sym) != 1) {
@@ -239,15 +241,15 @@ printf(";*** END printSymbolTableGraphViz(..)  ***\n");
   printf(";*** BEGIN computeLocations(..) ***\n");
   computeLocations(sym);
   printf(";*** END computeLocations(..) ***\n");
-  
-printf(";*** BEGIN SymbolTable ***\n");
-printSymbolTable(sym);
-printf(";*** END SymbolTable ***\n");
 
-
+  /*  
+  printf(";*** BEGIN SymbolTable ***\n");
+  printSymbolTable(sym);
+  printf(";*** END SymbolTable ***\n");
+  */
   
   printf(";*** BEGIN PCodeGeneration ***\n");
-//  pcodeGenValue(root, sym);
+  pcodeGenValue(root, sym);
   printf(";*** END PCodeGeneration ***\n");
  
 
