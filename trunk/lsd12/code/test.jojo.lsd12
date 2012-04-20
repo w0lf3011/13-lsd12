@@ -8,15 +8,17 @@ var
 	function addTo( a : int, b : int ) : int;
 		var
 
-		function addTo2( c : int, d : int , e : int ) : int;
+		function addTo2( c : int, var d : int , e : int ) : int;
 			var
 			begin
+				d := 4;
 				return c + d;
 			end;
 
 
 		begin	
-			a := addTo2( a, a, 0 );
+			b := addTo2( a, a, 0 );
+			write a;
 			return a + b;
 		end;
 

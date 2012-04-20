@@ -1,63 +1,46 @@
-; *** Compiler ***
-;
-;*** BEGIN yyparse() ***
-;*** END yyparse() ***
-;*** BEGIN SymbolTable ***
-; ... ajout de main dans la table, state = 1, type = 5
-; BORDEL56; ....... s->id = main
-; ... ajout de addTo dans la table, state = 1, type = 2
-; BORDEL56; ....... s->id = addTo
-; ... ajout de a dans la table, state = 2, type = 2
-; BORDEL56; ....... s->id = a
-; ... ajout de b dans la table, state = 2, type = 2
-; BORDEL56; ....... s->id = b
-; ... ajout de x dans la table, state = 0, type = 2
-; BORDEL56; ....... s->id = x
-;*** END SymbolTable ***
-; * Verification de la specification LSD12 :
-;---GPS = tree_id : 12 AT_ROOT LEFT ;---
-;---GPS = tree_id : 3 AT_FUNCT LEFT  ;---
-;---GPS = tree_id : 5 AT_CORPS LEFT ;---
-;---GPS = tree_id : 1 AT_BLOCDECLA LEFT ;---
-;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
-;left ;---
-;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
-;Funct ;---
-;---GPS = tree_id : 3 AT_FUNCT LEFT  ;---
-;---GPS = tree_id : 5 AT_CORPS LEFT ;---
-;---GPS = tree_id : 1 AT_BLOCDECLA NULL NULL ;---
-;---GPS = tree_id : 6 AT_IMPLEMENT LEFT ;---
-;---GPS = tree_id : 8 AT_INSTRUCTION LEFT ;---
-;---GPS = tree_id : 30 AT_RETURN RIGHT ;---
-;---GPS = tree_id : 11 AT_PLUS ;---
-;---GPS = tree_id : 0 AT_VAR ;---
-;---GPS = tree_id : 0 AT_VAR ;---
-;---GPS = tree_id : 6 AT_IMPLEMENT LEFT ;---
-;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
-;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
-;---GPS = tree_id : 8 AT_INSTRUCTION LEFT ;---
-;---GPS = AT_WRITE RIGHT ;---
-;---GPS = tree_id : 0 AT_VAR ;---
-;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
-;---GPS = tree_id : 37 AT_APPELF ;---
-;---GPS = tree_id : 0 AT_VAR ;---
-;---GPS = tree_id : 9 AT_NB ;---
-;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
-;---GPS = tree_id : 9 AT_NB ;---
-; * Fin de la verification de la specification LSD12!
-;*** BEGIN computeLocations(..) ***
-; ... localisation de a : 5
-; ... localisation de b : 6
-; ... localisation de x : 0
-;*** END computeLocations(..) ***
-;*** BEGIN PCodeGeneration ***
 define @main
 ssp 1
 ujp @main_body
 define @addTo
 ssp 7
 ujp @addTo_body
+define @addTo2
+ssp 8
+ujp @addTo2_body
+define @addTo2_body
+lda i 0 6
+ldc i 4
+sto i
+; type ret = 2
+lda i 0 0
+lda i 0 5
+ind i
+lda i 0 6
+ind i
+add i
+sto i
+retf
+;at_headfunc
+;at_listparam g
+;at_listparam d
 define @addTo_body
+lda i 0 6
+;calcul diff de profondeur d
+mst 1
+;calcul nombre para n_par
+;generation pcode parametres
+;test2
+lda i 0 5
+ind i
+lda i 0 5
+ind i
+ldc i 0
+;appel de addTo2
+cup 3 @addTo2
+sto i
+lda i 0 5
+ind i
+prin
 ; type ret = 2
 lda i 0 0
 lda i 0 5
@@ -78,13 +61,9 @@ lda i 0 0
 ;calcul diff de profondeur d
 mst 0
 ;calcul nombre para n_par
-;test
-;test
-;test
-;test
-;test
 ;generation pcode parametres
-lda i 1 0
+;test2
+lda i 0 0
 ind i
 ldc i 3
 ;appel de addTo

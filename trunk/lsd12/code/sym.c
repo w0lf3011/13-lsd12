@@ -237,23 +237,19 @@ void computeLocations(SYMTABLE s) {
   }
   */
 
-    if( local->up != NULL ) {
-      if( strcmp(local->up->id, "main") == 0 ) {
-	available = 0;
-      }
+  if( local->up != NULL ) {
+    if( strcmp(local->up->id, "main") == 0 ) {
+      available = 0;
     }
-
+  }
 
   while(local != NULL) {
-    if(local->down != NULL)
+
+    if(local->down != NULL) {
       computeLocations(local->down);
-   
-
+    }
   
-    if(local->next != NULL) {
-
-      // a verifier!
-
+    if(local->next != NULL) {        
       if ( local->state != 1 ) { // pour n identifier que les adresses relatives des variables/constantes 
 	local->address = available;
 	printf("; ... localisation de %s : %d\n", local->id, available);
