@@ -38,7 +38,7 @@ void printSymbolTableGraphViz(SYMTABLE s)
  		if (s->id == NULL)
  			printf("NULL");
  		else{
- 		printf("\"%p\"[shape=box, color=\"#e6e8f2\", fontcolor=\"#000000\",label=\"addr: %p id: %s address: %d type: %d niv: %d state: %d;\"];\n", s,s,s->id,s->address,s->varType,s->levelNode,s->state);
+ 		printf("\"%p\"[shape=box, color=\"#e6e8f2\", fontcolor=\"#000000\",label=\"addr: %p id: %s address: %d type: %d niv: %d state: %d fnctId : %d;\"];\n", s,s,s->id,s->address,s->varType,s->levelNode,s->state,s->fnctId);
 			if(s->next!=NULL)
 			{
 			printf("\"%p\" -> \"%p\" [color=\"#1DED16\", label=\"Next\"];\n", s, s->next);
@@ -71,7 +71,7 @@ SYMTABLE checkSymbolLevel(SYMTABLE s, char* name, int state, int fnctId)
  		else{
 			if(state == 1) // recherche d'une variable ou d'un argument
 			{
-				if(strcmp(name,"main")==0)
+				if(fnctId==-1)
 					retour = s;
 				else
 					if(fnctId != 0) // elle existe dans la TDS
@@ -96,7 +96,7 @@ SYMTABLE checkSymbolLevel(SYMTABLE s, char* name, int state, int fnctId)
 				if(state == 3)
 				{
 					if(s->state == 0 || s->state == 2)
-						retour = s
+						retour = s;
 					else
 						return checkSymbolLevel(s->previous, name, state, fnctId);
 				}
@@ -163,7 +163,7 @@ SYMTABLE alreadyIsSymbol(SYMTABLE s, char* name, int state, int fnctId)
 SYMTABLE addToSymbolTable(SYMTABLE s, char* name, int state, int type, int fnctId)
 {	
 
-	printf("; ... ajout de %s dans la table, state = %d, type = %d\n", name, state, type); // a virer
+	printf("; ... ajout de %s dans la table, state = %d, type = %d, fnctId = %d\n", name, state, type, fnctId); // a virer
 	if (alreadyIsSymbolLevel(s,name,state,fnctId) != NULL) {
 		printf("; BORDEL2");
 		return NULL;
@@ -311,9 +311,9 @@ int fillTable(ASTTREE tree, SYMTABLE s, int currentType)
 		if(tree->id == AT_FUNCT) // change de fonction courante
 		{
 			type = tree->type; 
-			s = addToSymbolTable(s, tree->sval,1, type, tree->fnctId);
+			s = addToSymbolTable(s, tree->sval,1, type, 1);
 			 
-			int ID = tree->fnctId;			
+			int ID = 1;			
 			while(s == NULL) // ajouter la fonction sur le niveau courant imbrication "s->level"
 			{
 				ID=tree->fnctId+1;
@@ -326,6 +326,7 @@ int fillTable(ASTTREE tree, SYMTABLE s, int currentType)
 				exit(1);
 				*/
 			}
+			printf("; HAHA - ID = %d", ID);
 			tree->fnctId = ID;
 			type = -1;// on n'est plus dans les déclarations, on nettoye le type sauvé
 			
