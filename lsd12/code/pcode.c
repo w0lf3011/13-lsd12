@@ -1,11 +1,9 @@
 /* pcode.c
- * test p2 ok
  */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include "pcode.h"
-//#include <math.h>
 
 void pcodeGenAddress(ASTTREE tree, SYMTABLE s, SYMTABLE function) // function = fonction courante
 { 
@@ -31,7 +29,6 @@ void pcodeGenAddress(ASTTREE tree, SYMTABLE s, SYMTABLE function) // function = 
       else{
 	niveau = niveau - function->levelNode;
       }
-      // on peut le faire avec une valeur absolue -> a modifier
       
       int tmp = 0;
      
@@ -63,7 +60,7 @@ void pcodeGenAddress(ASTTREE tree, SYMTABLE s, SYMTABLE function) // function = 
 	if( function->levelNode == 1 ) {
 	  tmp = - 5;
 	}
-	printf("lod a %d %d\n",niveau + 1,node->address + tmp );  // jouer ici, mais les mst ne seront pas plus eleves que 1!
+	printf("lda a %d %d\n",niveau + 1,node->address + tmp );
 
       }
 
@@ -150,11 +147,10 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  break;
 
 	case AT_LISTPARAM :
-	  printf(";at_listparam g\n");
+	  printf(";at_listparam \n");
 	  if( tree->left != NULL ) {
 	    pcodeGenValue(tree->left,s->down);
 	  }
-	  printf(";at_listparam d\n");
 	  if( tree->right != NULL ) {
 	    pcodeGenValue(tree->right,s->down);
 	  }
@@ -205,7 +201,7 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  break;
 		
 	case AT_DECLA : 
-	  if(tree->right->id != AT_VAR ) {
+	  if(tree->right->id != AT_VAR) {
 	      pcodeGenValue(tree->right,s);
 	  }
 	  if(tree->left != NULL ) {
@@ -339,14 +335,13 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 		
 	case AT_VAR:
 	  
-	  node = alreadyIsSymbol(s, tree->sval, 0, -1, 0);  // avant dernier argument = 0 pour variable, 1 pour fonction  
+	  node = alreadyIsSymbol(s, tree->sval, 0, -1, 0);  // avant dernier argument = 0 pour variable, 1 pour fonction
 	  pcodeGenAddress(tree, node ,s->up);
 	  
 	  if(node->varType == VAL_INT) {
 	    printf("ind i\n");
 	  }
 	  if(node->varType == VAL_BOOL) {
-	    //printf(";bool var\n");
 	    printf("ind b\n");
 	  }
 	  
@@ -428,10 +423,11 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 
 
 	case AT_FUNCTPARAM :
+	  printf(";entree funcparam\n");
 	  if( tree->right != NULL && tree->left == NULL ) {
 	    pcodeGenValue(tree->right,s);	    
 	  }
-	  if( tree->left != NULL ) {
+	  else if( tree->left != NULL ) {
 	    pcodeGenValue(tree->right,s);
 	    pcodeGenValue(tree->left,s);
 	  }
@@ -439,45 +435,23 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 
 	case AT_ARG :
 	  pcodeGenAddress(tree, node ,s->up);
+	  //	  printf(";test arf\n");
 	  break;
 
 	case AT_APPELF :
-	  
-	  n_par = 0;
 
 	  printf(";calcul diff de profondeur d\n");
-
-	  /*
-	  if( s->up != NULL ) {
-	    printf("; ........... calcul mst: level up: %d level cur: %d\n", s->up->levelNode, s->levelNode);
-	    niveau =  s->levelNode -  s->up->levelNode - 1;
-	  }
-	  */
-
-	  //else
-	  //if( s->levelNode > 1 ) {
-	  //  niveau = 1;
-	  //}
-	  //else {
-	  //  niveau = 0;
-	  //}
-
 	  node = alreadyIsSymbol(s, tree->sval, 1, -1, 0);
-
-	  //niveau = abs(s->levelNode - node->levelNode );
-
 	  niveau = s->levelNode;
 	  if(niveau <= node->levelNode) 	
 	    niveau = node->levelNode - niveau;
 	  else{
 	    niveau = niveau - node->levelNode;
-	  }
-
-	    //niveau = s->levelNode - 1; 
-	  
+	  }	 
 	  printf("mst %d\n", niveau);
 
 	  printf(";calcul nombre para n_par\n");	  
+	  n_par = 0;
 	  if(tree->right != NULL) {
 	    nPara(tree,&n_par);
 	  }

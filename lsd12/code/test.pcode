@@ -7,11 +7,10 @@ ujp @addTo_body
 define @addTo_body
 ;reference
 ;s->levelNode 2
-lod a 1 0
+lda a 1 0
 ;reference
 ;s->levelNode 2
 lod a 1 0
-ind i
 ldc i 3
 add i
 sto i
@@ -19,15 +18,14 @@ sto i
 lda i 0 0
 ;reference
 ;s->levelNode 2
-lod a 1 0
+lda a 1 0
 ind i
 ldc i 3
 add i
 sto i
 retf
 ;at_headfunc
-;at_listparam g
-;at_listparam d
+;at_listparam 
 define @main_body
 lda i 0 1
 ldc i 2
@@ -37,8 +35,8 @@ lda i 0 0
 mst 0
 ;calcul nombre para n_par
 ;generation pcode parametres
-lda i 0 1
-ind i
+;entree funcparam
+lda a 0 1
 ;appel de addTo
 cup 1 @addTo
 sto i
@@ -50,6 +48,4 @@ ind i
 prin
 ;at_headfunc
 stp
-;*** END PCodeGeneration ***
-;*** BEGIN Cleaning ***
-;*** END Cleaning ***
+
