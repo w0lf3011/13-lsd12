@@ -15,8 +15,7 @@ void pcodeGenAddress(ASTTREE tree, SYMTABLE s, SYMTABLE function) // function = 
   int niveau;
   
   if (tree == NULL) {
-    return ;
-
+    return;
   }
   
   switch (tree->id) 
@@ -340,7 +339,7 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 		
 	case AT_VAR:
 	  
-	  node = alreadyIsSymbol(s, tree->sval, 0, -1, 0);  // dernier argument = 0 pour variable, 1 pour fonction  
+	  node = alreadyIsSymbol(s, tree->sval, 0, -1, 0);  // avant dernier argument = 0 pour variable, 1 pour fonction  
 	  pcodeGenAddress(tree, node ,s->up);
 	  
 	  if(node->varType == VAL_INT) {
