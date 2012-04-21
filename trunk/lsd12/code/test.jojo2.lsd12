@@ -1,0 +1,26 @@
+program LSD12;
+
+function main(): void;
+var 
+
+	x int;
+	y int;
+
+	function addTo( var a : int ) : int;
+		var
+
+		begin	
+			a := a + 3;
+		        return a + 3;
+		end;
+
+		
+
+begin
+	x := 2;
+	y := addTo( x );
+	write x;
+	write y;
+end;
+
+end;
