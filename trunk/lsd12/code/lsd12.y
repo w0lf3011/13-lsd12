@@ -219,7 +219,7 @@ printf(";*** END printTree(..) ***\n");
   sym = creaNode();
   fillTable(root, sym, -1);
   printf(";*** END SymbolTable ***\n");
-  /*
+/*
 printf(";*** BEGIN printTreeGraphViz(..) ***\n");
 printTreeGraphViz(root);
 printf(";*** END printTreeGraphViz(..) ***\n");
@@ -227,7 +227,7 @@ printf(";*** END printTreeGraphViz(..) ***\n");
 printf(";*** BEGIN printSymbolTableGraphViz(..)  ***\n");
 printSymbolTableGraphViz(sym);
 printf(";*** END printSymbolTableGraphViz(..)  ***\n");
-  */
+ */ 
 
   printf("; * Verification de la specification LSD12 :\n");
   if (check(root,sym) != 1) {
@@ -249,7 +249,7 @@ printf(";*** END printSymbolTableGraphViz(..)  ***\n");
   */
   
   printf(";*** BEGIN PCodeGeneration ***\n");
-  pcodeGenValue(root, sym);
+pcodeGenValue(root, sym);
   printf(";*** END PCodeGeneration ***\n");
  
 
