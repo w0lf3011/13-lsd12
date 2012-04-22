@@ -49,6 +49,7 @@ void freeNode(ASTTREE node)
     }
 }
 
+
 void freeTree(ASTTREE tree) // idem above but top root is static
 {
   if (tree != NULL)
