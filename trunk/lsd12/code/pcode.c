@@ -1,4 +1,5 @@
 /* pcode.c
+ * 
  */
 
 #include <stdio.h>
@@ -22,7 +23,7 @@ void pcodeGenAddress(ASTTREE tree, SYMTABLE s, SYMTABLE function) // function = 
     {
     case AT_ARG :
     case AT_VAR :
-      node = alreadyIsSymbol(s, tree->sval,0, -1, 0);
+      node = alreadyIsSymbol(s, tree->sval,0, -1, 0, 0);
    
       // calcul l'écart d'imbrication entre la fonction et la variable   
       niveau = s->levelNode - 1;
@@ -112,8 +113,8 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	case AT_FUNCT : 
 
 	  // trouver la fonction
-	  node = alreadyIsSymbol(s, tree->sval, 1, -1, 0);
-	  if(node != NULL) {
+	  node = alreadyIsSymbol(s, tree->sval, 1, tree->fnctId, 0, 0);
+	  if(node != NULL  ) {
 
 	    if (tree->left != NULL) {
 	      pcodeGenValue(tree->left,node->down);
@@ -123,10 +124,10 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	    }
 	      	      
 	    // return des fonction void et diffente du main
-	    if(node->varType == VAL_NOTYPE && strcmp(s->id, "main") != 0) {
+	    if(node->varType == VAL_NOTYPE && strcmp(s->id, "main") != 0 && node->fnctFor != 1 ) {
 	      printf("retp\n");
 	    }
-
+	    
 	  }
 	  
 	  break; 
@@ -154,7 +155,7 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	case AT_CORPS :
 
 	  // reservation memoire pour les fonctions autre que main
-	  printf("define @%s\n", s->up->id);
+	  printf("define @%s_%d_%d\n", s->up->id, s->up->levelNode, s->up->fnctId);  
 
 	  if( strcmp(s->up->id, "main") != 0 ) {
 	    printf("ssp %d\n",getMaxMemoryUsage(s->up) + 5);
@@ -162,7 +163,7 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  else {
 	    printf("ssp %d\n",getMaxMemoryUsage(s->up) + 0);
 	  }
-	  printf("ujp @%s_body\n", s->up->id);
+	  printf("ujp @%s_body_%d_%d\n", s->up->id, s->up->levelNode, s->up->fnctId);
 	  
 	  // pcode bloc decla
 	  if (tree->left != NULL ){
@@ -170,7 +171,7 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  }
 	  // pcode implementation	  
 	  if (tree->right != NULL ){
-	    printf("define @%s_body\n", s->up->id);
+	    printf("define @%s_body_%d_%d\n", s->up->id, s->up->levelNode, s->up->fnctId);
 	    pcodeGenValue(tree->right,s);
 	  }
 	  break;
@@ -197,35 +198,29 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  break;			
 	
 	case AT_INSTRUCTION : 	
-
 	  if(tree->right != NULL && tree->left != NULL) {
 		pcodeGenValue(tree->left,s);		
 		pcodeGenValue(tree->right,s);		
 	  }
-
 	  if(tree->right == NULL && tree->left != NULL) {
 		pcodeGenValue(tree->left,s);
 	  }
-
 	  break;
 
 	case AT_AFFECT : 
-
-	  node = alreadyIsSymbol(s, tree->left->sval, 0, -1, 0);
-
-	  if(node != NULL)
-	    {
-	      pcodeGenAddress(tree->left, node ,s->up);
-	      pcodeGenValue(tree->right, s);
-	      if(node->varType == VAL_INT) // affectation d'entier
-		{
-		  printf("sto i\n");
-		}
-	      if(node->varType == VAL_BOOL) // ... ou de booleens
-		{
-		  printf("sto b\n");
-		}
-	    }
+	  node = alreadyIsSymbol(s, tree->left->sval, 0, -1, 0, 0);
+	  if(node != NULL) {
+	    pcodeGenAddress(tree->left, node ,s->up);
+	    pcodeGenValue(tree->right, s);
+	    if(node->varType == VAL_INT) // affectation d'entier
+	      {
+		printf("sto i\n");
+	      }
+	    if(node->varType == VAL_BOOL) // ... ou de booleens
+	      {
+		printf("sto b\n");
+	      }
+	  }
 	  break;	
 
 	case AT_EXPRD :  
@@ -240,7 +235,7 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  break;
 
 	case AT_READ : 
-	  node = alreadyIsSymbol(s, tree->right->sval, 0, -1, 0);
+	  node = alreadyIsSymbol(s, tree->right->sval, 0, -1, 0, 0);
 	  pcodeGenAddress(tree->right, node ,s->up);
 
 	  printf("read\n");
@@ -282,7 +277,6 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  break;
 		
 	case AT_AND : 
-
 	  pcodeGenValue(tree->left, s);
 	  pcodeGenValue(tree->right, s);
 	  printf("and b\n");
@@ -322,7 +316,7 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 		
 	case AT_VAR:
 	  
-	  node = alreadyIsSymbol(s, tree->sval, 0, -1, 0);
+	  node = alreadyIsSymbol(s, tree->sval, 0, -1, 0, 0);
 	  pcodeGenAddress(tree, node ,s->up);	  
 
 	  if(node->varType == VAL_INT) {
@@ -392,7 +386,7 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	case AT_RETURN :
 	  // determiner type de retour: entier ou booleen
 	  printf("; type ret = %d\n", s->up->varType);
-	  if( s->up->varType == 2 ) { //VAL_INT ????
+	  if( s->up->varType == VAL_INT ) {
 	    type_return = 'i';
 	  }
 	  else {
@@ -426,7 +420,8 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	case AT_APPELF :
 
 	  printf(";calcul diff de profondeur d\n");
-	  node = alreadyIsSymbol(s, tree->sval, 1, -1, 0);
+	  node = alreadyIsSymbol(s, tree->sval, 1, tree->fnctId, 0, 0);
+	  SYMTABLE nodeTemp = node;
 	  niveau = s->levelNode;
 	  if(niveau <= node->levelNode) 	
 	    niveau = node->levelNode - niveau;
@@ -438,12 +433,11 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  printf(";generation pcode parametres\n");	  	  
 	  node = node->down;
 
+	  // a virer au dessus!
 	  ASTTREE treeTmp = tree;
 	  int     tmp     = 0;
 	  int     upBound = getMaxMemoryUsage(node->up);
-	  if( upBound > 0 ) {
-	    upBound--;
-	  }
+	  if( upBound > 0 ) { upBound--; }
 
 	  n_par = 0;
 	  if (tree->right != NULL) {
@@ -491,9 +485,9 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  }
 
 	  node = node->up;	  
-	  
-	  printf(";appel de %s\n", treeTmp->sval);  
-	  printf("cup %d @%s\n", n_par, treeTmp->sval);
+	 
+	  printf(";appel de %s_%d_%d\n", nodeTemp->id, nodeTemp->levelNode, nodeTemp->fnctId);  
+	  printf("cup %d @%s_%d_%d\n", n_par, nodeTemp->id, nodeTemp->levelNode, nodeTemp->fnctId);
 	  break;
 	  
 	case AT_FORWARD :
