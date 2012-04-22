@@ -53,14 +53,14 @@ void pcodeGenAddress(ASTTREE tree, SYMTABLE s, SYMTABLE function) // function = 
 	}
       }
 
-      if(s->ref == 1) {   // argument passe par reference	
+      if(node->ref == 1) {   // argument passe par reference	
 
 	printf(";reference\n");
 	printf(";s->levelNode %d\n",s->levelNode);
 	if( function->levelNode == 1 ) {
 	  tmp = - 5;
 	}
-	printf("lda a %d %d\n",niveau + 1,node->address + tmp );
+	printf("lda a %d %d\n",niveau + 1,node->address + tmp ); // variable passee par adresse se trouve juste a un niveau superieur (pas 2)
 
       }
 
@@ -69,7 +69,7 @@ void pcodeGenAddress(ASTTREE tree, SYMTABLE s, SYMTABLE function) // function = 
     default:
       printf(";ERROR : unrecognized type=%d in pcodeGenAddress(..)\n", tree->type);
 
-//ASTTREE id: %d\ntype: %d\nival: %d\nsval: %s\n", tree->type, tree->id, tree->type, tree->ival, tree->sval);*/
+//ASTTREE id: %d\ntype: %d\nival: %d\nsval: %s\n", tree->type, tree->id, tree->type, tree->ival, tree->sval);
       fprintf(stderr,";KO\n");
       exit(1);
     }
@@ -147,14 +147,17 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  break;
 
 	case AT_LISTPARAM :
-	  printf(";at_listparam \n");
-	  if( tree->left != NULL ) {
-	    pcodeGenValue(tree->left,s->down);
+
+	  printf(";entree listparam\n");
+	  if( tree->left != NULL && tree->right == NULL ) {
+	    pcodeGenValue(tree->left,s->down);	    
 	  }
-	  if( tree->right != NULL ) {
+	  else if( tree->right != NULL ) {
+	    pcodeGenValue(tree->left,s->down);
 	    pcodeGenValue(tree->right,s->down);
 	  }
 	  break;
+	  
 
 	case AT_CORPS :
 
@@ -428,14 +431,15 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	    pcodeGenValue(tree->right,s);	    
 	  }
 	  else if( tree->left != NULL ) {
-	    pcodeGenValue(tree->right,s);
 	    pcodeGenValue(tree->left,s);
+	    pcodeGenValue(tree->right,s);
+	    
 	  }
 	  break;
 
 	case AT_ARG :
-	  pcodeGenAddress(tree, node ,s->up);
-	  //	  printf(";test arf\n");
+	  printf(";-------------------------test arg\n");
+	  pcodeGenAddress(tree, node ,s);
 	  break;
 
 	case AT_APPELF :
@@ -456,15 +460,80 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	    nPara(tree,&n_par);
 	  }
 
+
+	  
 	  printf(";generation pcode parametres\n");
+	  
 	  if(tree->right != NULL) {
 	    pcodeGenValue(tree->right, s);
 	  }
+	  
+
+	  /*
+	  if( tree->right != NULL && tree->left == NULL ) {
+	    pcodeGenValue(tree->right,s);	    
+	  }
+	  else if( tree->left != NULL ) {
+	    pcodeGenValue(tree->left,s);
+	    pcodeGenValue(tree->right,s);
+	    
+	  }
+	  break;
+	  */
+
+
+	  //-------------------------------------------------------
+
+
+	  /*
+	  SYMTABLE nodeR;
+	  argument = 0;
+	  node = node->down; // pour connaitre si le type de argument formel est ref ou pas
+	  if(tree->right != NULL) // si argument
+	    {
+	      tree = tree->left;
+					
+	      if(node->ref == 1) // pas de ind i ou b pour arg par ref
+		{
+		  nodeR = alreadyIsSymbol(s, tree->left->sval, 2, -1, 0);
+		  printf("lda i 0 %d\n",nodeR->address);
+		  if(nodeR->ref == 1) // si argument effectif et lui aussi une référence
+							printf("ind a\n");
+		}else{
+		// si arg par copie, copier sa valeur 
+		pcodeGenValue(tree->left,s);
+	      }
+	      argument = 1;
+	      while(tree->t != NULL)
+		{
+		  argument++;
+		  tree = tree->right;
+		  node = node->next;
+		  if(node->ref == 1) // pas de ind i ou b pour arg par ref
+		    {
+		      nodeR = alreadyIsSymbol(s, tree->left->sval, 2, -1, 0);
+		      printf("lda i 0 %d\n",nodeR->address);
+		      if(nodeR->ref == 1) // si argument effectif et lui aussi une référence
+			printf("ind a\n");
+		    }else{
+		    // si arg par copie, copier sa valeur 
+		    pcodeGenValue(tree->left,s);
+		  }
+		}
+	      
+	    }
+	  node = node->up;
+	  printf("cup %d @%s\n",argument,node->id);
+	  */
+
+	  //-------------------------------------------------------
+
 
 	  printf(";appel de %s\n", tree->sval);  
+	  
 	  printf("cup %d @%s\n", n_par, tree->sval);  
 	  break;
-
+	  
 	case AT_FORWARD :
 	  break;
 
