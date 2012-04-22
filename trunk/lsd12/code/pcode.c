@@ -423,8 +423,9 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  node = alreadyIsSymbol(s, tree->sval, 1, tree->fnctId, 0, 0);
 	  SYMTABLE nodeTemp = node;
 	  niveau = s->levelNode;
-	  if(niveau <= node->levelNode) 	
+	  if(niveau <= node->levelNode) {
 	    niveau = node->levelNode - niveau;
+	  }
 	  else{
 	    niveau = niveau - node->levelNode;
 	  }	 
@@ -437,7 +438,7 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  ASTTREE treeTmp = tree;
 	  int     tmp     = 0;
 	  int     upBound = getMaxMemoryUsage(node->up);
-	  if( upBound > 0 ) { upBound--; }
+	  if( upBound > 0 ) { upBound--; }                 // cause : parcours a l envers
 
 	  n_par = 0;
 	  if (tree->right != NULL) {
