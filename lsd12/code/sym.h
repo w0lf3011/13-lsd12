@@ -19,6 +19,7 @@ struct SYMBOLETABLE {
   int state;     // Etat : D = {variable,function,argument} : 0 variable, 1 function, 2 argument, 3 D\{function}
   int ref;       // arg par copie (0) ou par reference (1)
   int fnctId;    // suffixe du nom de la fonction -> 0 par defaut et 1 si au moins une fonction créée
+  int fnctFor; // Boolean si fonction est une fonction forward (1) ou pas (0)
   
 	
   struct SYMBOLETABLE* next;     // Pointeur vers le prochain symbole
@@ -38,17 +39,17 @@ SYMTABLE creaNode();
 
 void printSymbolTableGraphViz(SYMTABLE s);
 
-SYMTABLE checkSymbolLevel(SYMTABLE s, char* name, int state, int fnctId, int schFnct);
+SYMTABLE checkSymbolLevel(SYMTABLE s, char* name, int state, int fnctId, int schFnct, int fnctFor);
 
-SYMTABLE alreadyIsSymbolLevel(SYMTABLE s, char* name,int state, int fnctId, int schFnct);
+SYMTABLE alreadyIsSymbolLevel(SYMTABLE s, char* name,int state, int fnctId, int schFnct, int fnctFor);
 
-SYMTABLE alreadyIsSymbol(SYMTABLE s, char* name, int state, int fnctId, int schFnct);
+SYMTABLE alreadyIsSymbol(SYMTABLE s, char* name, int state, int fnctId, int schFnct, int fnctFor);
 
-SYMTABLE addToSymbolTable(SYMTABLE s, char* name, int state, int type, int fnctId, int schFnct);
+SYMTABLE addToSymbolTable(SYMTABLE s, char* name, int state, int type, int fnctId, int schFnct, int fnctFor);
 
-int checkNbFunctSymbol(SYMTABLE s, char* name, int state, int fnctId, int schFnct);
+int checkNbFunctSymbol(SYMTABLE s, char* name, int state, int fnctId, int schFnct, int fnctFor);
 
-SYMTABLE returnFunctSymbol(SYMTABLE s, char* name, int state, int fnctId, int schFnct);
+SYMTABLE returnFunctSymbol(SYMTABLE s, char* name, int state, int fnctId, int schFnct, int fnctFor);
 
 void freeSymbolTable(SYMTABLE s);
 
