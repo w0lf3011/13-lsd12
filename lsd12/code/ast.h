@@ -4,7 +4,7 @@
 #ifndef AST_H
 #define AST_H
 
-// do not change values below, or also edit humanReadableNodeType() in ast.c
+
 #define AT_VAR     0
 #define AT_BLOCDECLA 1
 #define AT_DECLA 2
@@ -45,7 +45,6 @@
 #define AT_APPELF 37
 #define AT_FUNCTPARAM 38
 
-//
 #define VAL_VOID 1
 #define VAL_INT 2
 #define VAL_BOOL 3
@@ -61,7 +60,7 @@ struct astnode {
   char* sval;
 
   int varRef;     // indique is variable passee par ref (1) ou pas (0)
-  int fnctId;     // suffixe nom fonction (l5)
+  int fnctId;     // numero de surcharge d'une fonction (l5)
 
   struct astnode * left;
   struct astnode * right;

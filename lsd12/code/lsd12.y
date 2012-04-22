@@ -249,7 +249,7 @@ printf(";*** END printSymbolTableGraphViz(..)  ***\n");
   */
   
   printf(";*** BEGIN PCodeGeneration ***\n");
-pcodeGenValue(root, sym);
+//pcodeGenValue(root, sym);
   printf(";*** END PCodeGeneration ***\n");
  
 

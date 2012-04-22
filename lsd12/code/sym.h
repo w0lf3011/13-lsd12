@@ -16,7 +16,7 @@ struct SYMBOLETABLE {
   int address;   // Position de la variable en mémoire
   int varType;   // Type de variable : entier, boolean
   int levelNode; // Niveau d'imbrication
-  int state;     // Etat : D = {variable,function,argument} : 0 variable, 1 function, 2 argument, 3 D\{function}
+  int state;     // Etat :  0 variable, 1 function, 2 argument, 3 (tout sauf fonction)
   int ref;       // arg par copie (0) ou par reference (1)
   int fnctId;    // suffixe du nom de la fonction -> 0 par defaut et 1 si au moins une fonction créée
   int fnctFor; // Boolean si fonction est une fonction forward (1) ou pas (0)
@@ -34,6 +34,7 @@ typedef struct SYMBOLETABLE NOEUD;
 typedef NOEUD * SYMTABLE;
 
 // int schFnct;	 utilisé pour rechercher une fonction en fonction de sa surcharge. 0 -> pas rechercher, 1 -> chercher
+
 // Declaration et prototypes des fonctions
 SYMTABLE creaNode();
 
