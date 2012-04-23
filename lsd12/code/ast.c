@@ -32,6 +32,7 @@ ASTTREE createNode(int id,
       node->sval = sval;
       node->left = left;
       node->right = right;      
+      //node->level = -1;
 
       return node;
     }

@@ -21,6 +21,7 @@ struct SYMBOLETABLE {
   int fnctId;    // suffixe du nom de la fonction -> 0 par defaut et 1 si au moins une fonction créée
   int fnctFor; // Boolean si fonction est une fonction forward (1) ou pas (0)
   
+  int UId;
 	
   struct SYMBOLETABLE* next;     // Pointeur vers le prochain symbole
   struct SYMBOLETABLE* previous; // Pointeur vers le symbole précedent

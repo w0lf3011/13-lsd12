@@ -5,31 +5,45 @@ var
 
 	f int;
 
-	function facto( l : bool ) : void ;
+	function facto( l : bool ) : int ;
 		 var
 			y int;
 
 		 	function facto( x : int ) : int ;
 			var
+				test int;
+
+				function facto() : int;
+					var
+						x int;
+					begin
+						x := 1;
+						write(x);
+						return x;
+					end;
+
 			
 				begin
+					test := facto();
 					if ( x = 0 ) then
 					   return 1;
 					else
 			   		   return x * facto(x-1);
-				       fi;
+					fi;
 			
 			end;
 
 		begin
 			y := facto(4);
+			write facto(4);
+			return y;
 			
 		end;
 
 
 begin
 
-	facto(true);
+	f := facto(true);
 	
 end;
 end;
