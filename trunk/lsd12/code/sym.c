@@ -21,12 +21,13 @@ SYMTABLE creaNode()
 	node->ref = 0;         // variable par défaut
 	node->fnctId = 0;      // suffixe du nom de la fonction
 	node->fnctFor = 0;	// si fonction forward ou non
-			
-	
+				
  	node->next = NULL;     // Pointeur next du noeud
  	node->previous = NULL; // Pointeur previous du noeud
  	node->up = NULL;       // Pointeur parent du noeud
- 	node->down = NULL;     // Pointeur child du noeud
+ 	node->down = NULL;     // Pointeur child du noeud		
+
+	node->UId = -1;        // Id unique pour les fonctions
 
  	return node;
 }
@@ -170,7 +171,7 @@ SYMTABLE addToSymbolTable(SYMTABLE s, char* name, int state, int type, int fnctI
 	}
 	else {
 
-	printf("; ... ajout de %s dans la table, state = %d, type = %d, fnctId = %d, fnctFor = %d\n", name, state, type, fnctId, fnctFor); // a virer	
+	printf("; ... ajout de %s dans la table, state = %d, type = %d, fnctId = %d, fnctFor = %d\n", name, state, type, fnctId, fnctFor);
 
 	  while(s->next != NULL) {
 	    s = s->next;
@@ -196,17 +197,21 @@ SYMTABLE addToSymbolTable(SYMTABLE s, char* name, int state, int type, int fnctI
 	  if (s->previous != NULL) {
 	    s->up= s->previous->up;
 	    s->levelNode = s->previous->levelNode;
+
+	    
 	  }
 	
 	  // Si c'est une fonction on ajoute un enfant
 	  if(state == 1) {
-		
 	    s->down = creaNode();
 	    s->down->up = s;
 	    s->down->levelNode = s->levelNode + 1;
+
+	    printf("; ....... au niveau %d\n", s->levelNode);
 	  }
 	  
 	  return s;
+
 	}
 }
 
@@ -341,6 +346,9 @@ void printSymbolTable(SYMTABLE s)
 
 int fillTable(ASTTREE tree, SYMTABLE s, int currentType)
 {
+
+
+
 	int type = currentType;
  	if (tree == NULL)
 	{
@@ -441,6 +449,10 @@ int fillTable(ASTTREE tree, SYMTABLE s, int currentType)
 			tree->fnctId = ID;
 			type = -1;// on n'est plus dans les déclarations, on nettoye le type sauvé
 			
+			
+			
+			//tree->level = s->levelNode; // modif jojo
+
 		} 
 		
 		
@@ -499,6 +511,13 @@ int fillTable(ASTTREE tree, SYMTABLE s, int currentType)
  				fillTable(tree->right, s,type);
 		}
  
+		if(tree->id == AT_APPELF)
+		  {
+		    //tree->level = s->levelNode;    // ajout jojo
+		    //printf("--------------------- %d %s %s\n",tree->level, tree->sval, s->up->id);
+		  }
+
+
  		return 1;
  	}
 }

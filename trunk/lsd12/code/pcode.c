@@ -422,6 +422,10 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  printf(";calcul diff de profondeur d\n");
 	  node = alreadyIsSymbol(s, tree->sval, 1, tree->fnctId, 0, 0);
 	  SYMTABLE nodeTemp = node;
+
+	  //int treeLevel = tree->level;
+	  //printf(";level tree %d\n",tree->level);	  
+
 	  niveau = s->levelNode;
 	  if(niveau <= node->levelNode) {
 	    niveau = node->levelNode - niveau;
@@ -431,10 +435,10 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  }	 
 	  printf("mst %d\n", niveau);
  	  
-	  printf(";generation pcode parametres\n");	  	  
+	  printf(";generation nombre et pcode parametres\n");	  	  
 	  node = node->down;
 
-	  // a virer au dessus!
+	  // a mettre au dessus!
 	  ASTTREE treeTmp = tree;
 	  int     tmp     = 0;
 	  int     upBound = getMaxMemoryUsage(node->up);
