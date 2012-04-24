@@ -1,5 +1,12 @@
 /* check.c
  *
+ * File of LSD12 Compiler Project (group 11)
+ * Exercise LSD12: INFOB314/IHDCB332 : LSD12 - Group LSD12-HD-G11
+ * 
+ * Team :
+ * 	- 	Johan BARTHELEMY	johan.barthelemy@fundp.ac.be
+ * 	-	Xavier PEREMANS		xavier.peremans@student.fundp.ac.be
+ *	-	Quentin FRANSSEN	quentin.franssen@student.fundp.ac.be
  */
 
 #include "check.h"
