@@ -18,12 +18,18 @@
 #define OK 1
 #define KO 0
 
-/**
- * 
- * Pré-condiction : tree et tds ne peuvent être null, sinon le message "KO" sera renvoyé.
+/*
+ * Check si chaque élement de l'arbre est bien présent dans la table des symboles.
+ * Pré-condition : /
+ * Post-condition: renvoie 1 pour "OK" et 0 pour "KO".
  */
 int check (ASTTREE tree, SYMTABLE tds);
 
+/*
+ * Check si chaque élement de l'arbre est bien présent dans la table des symboles.
+ * Pré-condition : type != NULL et tds != NULL
+ * Post-condition: renvoie 0 pour "KO", 2 pour "VAL_INT" ou 3 pour "VAL_BOOL".
+ */
 int checkType (ASTTREE tree, int type, SYMTABLE tds);
 
 #endif 
