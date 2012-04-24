@@ -98,13 +98,6 @@ SYMTABLE addToSymbolTable(SYMTABLE s, char* name, int state, int type, int fnctI
 int checkNbFunctSymbol(SYMTABLE s, char* name, int state, int fnctId, int schFnct, int fnctFor);
 
 /*
- * inutil???
- * Pré-condition :
- * Post-condition:
- */
-//SYMTABLE returnFunctSymbol(SYMTABLE s, char* name, int state, int fnctId, int schFnct, int fnctFor);
-
-/*
  * Libère la table de symbole "s".
  * Pré-condition : /
  * Post-condition: Libère l'espace alloué dans la mémoire pour la tables des symboles.
