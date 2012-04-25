@@ -59,7 +59,7 @@ ASTTREE root;
 %left PLUS MINUS
 %left TIMES DIVISE
 
-%type <tval> Lsd12 BlocDecla Decla Var Funct HeadFunct Corps Implement ExprD Instruction InstructionList InstructionIF ListParam DeclaParam FunctParam
+%type <tval> Lsd12 BlocDecla Decla Var Funct HeadFunct Corps Implement ExprDInstruction InstructionList InstructionIF ListParam DeclaParam FunctParam
 
 // indiquer le non-terminal de commencement
 %start Lsd12
@@ -270,5 +270,4 @@ int main() {
   fprintf(stderr,"OK\n");
  
   return 0;
-
 }

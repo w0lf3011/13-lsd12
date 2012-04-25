@@ -34,11 +34,11 @@ type	  ("int"|"bool"|"iset"|"void")
 
 "{"	{BEGIN(comment);}
 <comment>"}"   {BEGIN(INITIAL);}
-<comment>"{"   {
-                  fprintf(stderr,"KO\n");
-                  printf("ERROR : invalid '%s' in line %d\n",yytext, num_lines);
-                  exit(0);
-                  }
+<comment>"{" {
+	fprintf(stderr,"KO\n");
+	printf("ERROR : invalid '%s' in line %d\n",yytext, num_lines);
+	exit(0);
+}
 <comment>"\n"	{++num_lines;}
 <comment>.	{/*On passe*/}
 
@@ -49,7 +49,7 @@ type	  ("int"|"bool"|"iset"|"void")
 "read"   	{return READ;}		/* scanf */
 "write"  	{return WRITE;}		/* printf */
 
-"function"     	{return FUNCTION;}
+"function"  {return FUNCTION;}
 "forward"	{return FORWARD;}	/* Postpose implementation*/
 "var" 		{return REF;}		/* Variable passee par reference */
 "begin" 	{return BEG;}		/* Ending of declaration bloc (if exist), Begin of implementation */
@@ -79,17 +79,17 @@ type	  ("int"|"bool"|"iset"|"void")
 ")"     {return RP;}
 ","     {return COMMA;}
 "||"	{return OR;}
-"="	{return EQUAL;}
-"!"	{return NOT;}
+"="		{return EQUAL;}
+"!"		{return NOT;}
 
-":"	{return TWOPOINT;}
-"<"	{return LT;}
+":"		{return TWOPOINT;}
+"<"		{return LT;}
 "<="	{return LE;}
 "&&"	{return AND;}
 
-"/"	{return DIVISE;}
+"/"		{return DIVISE;}
 
-"#"	{return CARDINAL;}
+"#"		{return CARDINAL;}
 ";" 	{return FIN;}		/* End of instruction */
 
 
@@ -141,4 +141,3 @@ type	  ("int"|"bool"|"iset"|"void")
 }
 
 %%
-
