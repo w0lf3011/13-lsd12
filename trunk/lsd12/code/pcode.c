@@ -153,17 +153,18 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  break;
 
 	case AT_LISTPARAM :
-
+	  /*
 	  printf(";entree listparam\n");
 	  if( tree->left != NULL && tree->right == NULL ) {
-	    pcodeGenValue(tree->left,s->down);	    
+	    pcodeGenValue(tree->left,s);	    
 	  }
 	  else if( tree->right != NULL ) {
 	    pcodeGenValue(tree->left,s->down);
 	    pcodeGenValue(tree->right,s->down);
 	  }
+	  printf(";fin listparam\n");
 	  break;
-
+	  */
 	case AT_CORPS :
 
 	  // reservation memoire pour les fonctions autre que main
@@ -432,7 +433,12 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	case AT_APPELF :
 
 	  printf(";calcul diff de profondeur d\n");
-	  node = alreadyIsSymbol(s, tree->sval, 1, tree->fnctId, 0, 0);
+	  
+	 
+	 node = alreadyIsSymbol(s, tree->sval, 1, tree->fnctId, 0, 0);
+	 
+	  
+	  printf("; !!!!! ----- LULU = %d - s->id = %s s->levelNode = %d \n", node->levelNode, s->id, s->levelNode);
 	  SYMTABLE nodeTemp = node;
 
 	  //int treeLevel = tree->level;
