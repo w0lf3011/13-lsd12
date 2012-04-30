@@ -59,7 +59,7 @@ ASTTREE root;
 %left PLUS MINUS
 %left TIMES DIVISE
 
-%type <tval> Lsd12 BlocDecla Decla Var Funct HeadFunct Corps Implement ExprDInstruction InstructionList InstructionIF ListParam DeclaParam FunctParam
+%type <tval> Lsd12 BlocDecla Decla Var Funct HeadFunct Corps Implement ExprD Instruction InstructionList InstructionIF ListParam DeclaParam FunctParam
 
 // indiquer le non-terminal de commencement
 %start Lsd12
@@ -236,7 +236,7 @@ int main() {
     printf(";*** BEGIN printSymbolTableGraphViz(..)  ***\n");
     printSymbolTableGraphViz(sym);
     printf(";*** END printSymbolTableGraphViz(..)  ***\n");
-  */ 
+  */
 
   printf("; * Verification de la specification LSD12 :\n");
   if (check(root,sym) != 1) {
