@@ -3,17 +3,31 @@ program Factorielle;
 function main() : void;
 var 
 
-	f int;
-	z int;
+	f bool;
+	b bool;
 
-	function facto( x : int ) : int ;
+	function test( var w : bool ) : bool ;
 		var
+
+		function test2( x : int ) : int ;
+			var
+			begin
+				if ( x = 5 ) then
+				   return 10;
+				else
+				   return 11;
+				fi;
+			end;
+
 		begin	
 					
-			if ( x = 0 ) then
-				return 1;
+			if ( w ) then
+			        w := false;
+				write test2(5);
+				return false;
 			else
-		   		return x * facto(x-1);
+		   		write 999;
+				return true;
 			fi;
 			
 		end;
@@ -22,10 +36,9 @@ var
 
 
 begin
-
-	read z;
-	f := facto(z);
-	write f;
+	
+	b := true;
+	f := test(b);
 	
 end;
 end;

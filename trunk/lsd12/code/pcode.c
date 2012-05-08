@@ -35,11 +35,11 @@ void pcodeGenAddress(ASTTREE tree, SYMTABLE s, SYMTABLE function) // function = 
       
       tmp = 0;
      
-      if(s->ref != 1) {   // argument ou variable passee par valeur
-	if(s->varType == VAL_INT) {
+      if(node->ref != 1) {   // argument ou variable passee par valeur (avant s)
+	if(node->varType == VAL_INT) {
 	  printf("lda i %d %d\n",niveau,node->address);
 	}
-	if(s->varType == VAL_BOOL) {
+	if(node->varType == VAL_BOOL) {
 	  printf("lda b %d %d\n",niveau,node->address);
 	}
       }
@@ -47,22 +47,28 @@ void pcodeGenAddress(ASTTREE tree, SYMTABLE s, SYMTABLE function) // function = 
       if(node->ref == 1) {   // argument passe par reference	
 
 	printf(";reference pcodegenadress\n");
-	printf(";s->levelNode %d s->id %s %s \n",s->levelNode, s->id, node->id);
+	printf(";s->levelNode %d s->id %s %s niveau = %d state %d type %d \n",s->levelNode, s->id, node->id, function->levelNode, node->state, node->varType );
 	if( function->levelNode == 1 ) {
 	  tmp = - 5;
 	}
 
 	upBound = getMaxMemoryUsage(function->up);
-        if ( upBound > 0 ) {
+	if ( upBound > 0 ) {
 	  upBound--;
 	}
-
+	
+	/*
 	if(s->varType == VAL_INT) {
-	  printf("lda i %d %d\n",niveau,(node->address + tmp + 5) ); // variable passee par adresse se trouve juste a un niveau superieur
+	  //printf("lod a %d %d\n",niveau,(node->address + tmp + 5) ); // ok p4? 
+	  printf("lda i %d %d\n",niveau ,upBound - (node->address + tmp)  ); // ok p3 
 	}
 	else if (s->varType == VAL_BOOL) {
-	  printf("lda b %d %d\n",niveau + 1,upBound - (node->address + tmp+ 5)  ); // variable passee par adresse se trouve juste a un niveau superieur
+	  printf("lda b %d %d\n",niveau + 1,upBound - (node->address + tmp)  ); // ok p3 
+	  //printf("lod a %d %d\n",niveau,(node->address + tmp + 5)  ); // ok p4?
 	}
+	*/	
+
+	printf("lod a %d %d\n",niveau,(node->address + tmp + 5)  ); // ok p4?
 
       }
       
@@ -319,15 +325,13 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  node = alreadyIsSymbol(s, tree->sval, 0, -1, 0, 0);
 	  pcodeGenAddress(tree, node ,s->up);	  
 
-
-	    if(node->varType == VAL_INT) {
-	      printf("ind i\n");
-	    }
-	    if(node->varType == VAL_BOOL) {
+	  if(node->varType == VAL_INT ) {
+	    printf("ind i\n");
+	  }
+	  if(node->varType == VAL_BOOL) {
 	      printf("ind b\n");
-	    }
-
-	  
+	  }
+	  	  
 	  break;
 	  
 	// condition bool du if
@@ -416,17 +420,16 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  break;
 
 	case AT_ARG :
+	 
 	  pcodeGenAddress(tree, node ,s);
+	  
 	  break;
 
 	case AT_APPELF :
-
+	  
 	  printf(";calcul diff de profondeur d\n");
 	  node = alreadyIsSymbol(s, tree->sval, 1, tree->fnctId, 0, 0);
 	  SYMTABLE nodeTemp = node;
-
-	  //int treeLevel = tree->level;
-	  //printf(";level tree %d\n",tree->level);	  
 
 	  niveau = s->levelNode;
 	  if(niveau <= node->levelNode) {
@@ -446,24 +449,42 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	  int     upBound = getMaxMemoryUsage(node->up);
 	  if( upBound > 0 ) { upBound--; }                 // cause : parcours a l envers
 	  SYMTABLE nodeL = NULL;
-
+	  
 	  n_par = 0;
+	  
 	  if (tree->right != NULL) {
 	    tree = tree->right;
 	    n_par++;
 	    if (node->ref == 1) {
 	      
-	      if( node->levelNode == 2 ) {
-		tmp = 5;
-	      }
+	      nodeL = alreadyIsSymbol(s, tree->right->sval, 2, -1, 0, 0);
 
+	      if( node->levelNode == 1 ) {
+	        tmp = 5;
+	      }
 	      
-
 	      if(node->varType == VAL_INT) {
-		printf("lda i %d %d\n",niveau, upBound - (node->address - tmp) );
+		//printf("lda i %d %d\n",niveau, upBound - (node->address - tmp) );
+		
+		if(niveau == 0) {
+		  printf("lda i %d %d\n",niveau,nodeL->address - tmp );  // ok :)
+		}
+		else {
+		  printf("lod a %d %d\n",0,nodeL->address - tmp );
+		}
+		
 	      }
+	      
 	      else if (node->varType == VAL_BOOL) {
-		printf("lda b %d %d\n",niveau, upBound - (node->address - tmp) );
+		//printf("lda b %d %d\n",niveau, upBound - (node->address - tmp) );
+		
+		if(niveau == 0) {
+		  printf("lda b %d %d\n",niveau,nodeL->address - tmp );  // ok :)
+		}
+		else {
+		  printf("lod a %d %d\n",0,nodeL->address - tmp );
+		}
+		
 	      }
 	      
 	    }
@@ -471,27 +492,42 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	      pcodeGenValue(tree->right, s);
 	    }
 	    
+	    
 	    while (tree->left != NULL) {
 	      tree = tree->left;
 	      node = node->next;
 	      n_par++;
 	      if (node->ref == 1) {
 		
-		printf("; **** appel ref 2 pour var %s, tree = %s\n", node->id, tree->right->sval);
-	
 		nodeL = alreadyIsSymbol(s, tree->right->sval, 2, -1, 0, 0);
 	
-		if( nodeL->levelNode == 2 ) {
-		  tmp = 5;
+		printf("; **** appel ref 2 pour var %s, tree = %s, level = %d\n", node->id, tree->right->sval, nodeL->levelNode);
+	
+		if( node->levelNode == 1 ) {
+		 tmp = 5;
 		}
 		
 		if(node->varType == VAL_INT) {
 		  //		  printf("lda i %d %d\n",niveau,upBound - (nodeL->address - tmp) );
-
-		  printf("lda i %d %d\n",niveau,nodeL->address - tmp );  // ok :)
+		  
+		  if(niveau == 0) {
+		    printf("lda i %d %d\n",niveau,nodeL->address - tmp );  // ok :)
+		  }
+		  else {
+		    printf("lod a %d %d\n",0,nodeL->address - tmp );
+		  }
 		}
+		
 		else if (node->varType == VAL_BOOL) {
-		  printf("lda b %d %d\n",niveau, upBound - (node->address - tmp) );
+		  //printf("lda b %d %d\n",niveau, upBound - (node->address - tmp) );
+		
+		  if(niveau == 0) {
+		    printf("lda b %d %d\n",niveau,nodeL->address - tmp );  // ok :)
+		  }
+		  else {
+		    printf("lod a %d %d\n",0,nodeL->address - tmp );
+		  }
+
 		}
 		
 		
@@ -501,12 +537,14 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
 	      }
 	    }
 	    
+	    
 	  }
-
+	  
 	  node = node->up;	  
 	 
 	  printf(";appel de %s_%d_%d\n", nodeTemp->id, nodeTemp->levelNode, nodeTemp->fnctId);  
 	  printf("cup %d @%s_%d_%d\n", n_par, nodeTemp->id, nodeTemp->levelNode, nodeTemp->fnctId);
+
 	  break;
 	  
 	case AT_FORWARD :
@@ -519,7 +557,6 @@ void pcodeGenValue(ASTTREE tree, SYMTABLE s)
   	}
 
     }
-
 
 }
 
