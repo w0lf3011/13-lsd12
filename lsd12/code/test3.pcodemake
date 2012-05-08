@@ -1,0 +1,154 @@
+; *** Compiler ***
+;
+;*** BEGIN yyparse() ***
+;*** END yyparse() ***
+;*** BEGIN SymbolTable ***
+; ... ajout de main dans la table, state = 1, type = 5, fnctId = 1
+; BORDEL56; ....... s->id = main, s->fnctId = 1
+; ... ajout de addTo dans la table, state = 1, type = 2, fnctId = 1
+; BORDEL56; ....... s->id = addTo, s->fnctId = 1
+; ... ajout de a dans la table, state = 2, type = 2, fnctId = 0
+; BORDEL56; ....... s->id = a, s->fnctId = 0
+; ... ajout de b dans la table, state = 2, type = 2, fnctId = 0
+; BORDEL56; ....... s->id = b, s->fnctId = 0
+; ... ajout de c dans la table, state = 2, type = 3, fnctId = 0
+; BORDEL56; ....... s->id = c, s->fnctId = 0
+; ... ajout de z dans la table, state = 0, type = 3, fnctId = 0
+; BORDEL56; ....... s->id = z, s->fnctId = 0
+; ... ajout de y dans la table, state = 0, type = 2, fnctId = 0
+; BORDEL56; ....... s->id = y, s->fnctId = 0
+; ... ajout de x dans la table, state = 0, type = 2, fnctId = 0
+; BORDEL56; ....... s->id = x, s->fnctId = 0
+;*** END SymbolTable ***
+; * Verification de la specification LSD12 :
+;---GPS = tree_id : 12 AT_ROOT LEFT ;---
+;---GPS = tree_id : 3 AT_FUNCT LEFT  ;---
+;---GPS = tree_id : 5 AT_CORPS LEFT ;---
+;---GPS = tree_id : 1 AT_BLOCDECLA LEFT ;---
+;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
+;left ;---
+;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
+;left ;---
+;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
+;left ;---
+;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
+;Funct ;---
+;---GPS = tree_id : 3 AT_FUNCT LEFT  ;---
+;---GPS = tree_id : 5 AT_CORPS LEFT ;---
+;---GPS = tree_id : 1 AT_BLOCDECLA NULL NULL ;---
+;---GPS = tree_id : 6 AT_IMPLEMENT LEFT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION LEFT ;---
+;---GPS = tree_id : 30 AT_RETURN RIGHT ;---
+;---GPS = tree_id : 11 AT_PLUS ;---
+;---GPS = tree_id : 0 AT_VAR ;---
+;---GPS = tree_id : 0 AT_VAR ;---
+;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
+;---GPS = tree_id : 10 AT_BOOL ;---
+;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
+;---GPS = tree_id : 9 AT_NB ;---
+;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
+;---GPS = tree_id : 9 AT_NB ;---
+;---GPS = tree_id : 6 AT_IMPLEMENT LEFT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION LEFT ;---
+;---GPS = AT_WRITE RIGHT ;---
+;---GPS = tree_id : 0 AT_VAR ;---
+;---GPS = AT_WRITE RIGHT ;---
+;---GPS = tree_id : 0 AT_VAR ;---
+;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
+;---GPS = tree_id : 37 AT_APPELF ;---
+;---GPS = tree_id : 0 AT_VAR ;---
+;---GPS = tree_id : 0 AT_VAR ;---
+;---GPS = tree_id : 0 AT_VAR ;---
+;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
+;---GPS = tree_id : 10 AT_BOOL ;---
+;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
+;---GPS = tree_id : 9 AT_NB ;---
+;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
+;---GPS = tree_id : 9 AT_NB ;---
+; * Fin de la verification de la specification LSD12!
+;*** BEGIN computeLocations(..) ***
+; ... localisation de a : 5
+; ... localisation de b : 6
+; ... localisation de c : 7
+; ... localisation de z : 0
+; ... localisation de y : 1
+; ... localisation de x : 2
+;*** END computeLocations(..) ***
+;*** BEGIN PCodeGeneration ***
+define @main
+ssp 3
+ujp @main_body
+define @addTo
+ssp 8
+ujp @addTo_body
+define @addTo_body
+;reference
+;s->levelNode 2
+lda i 1 1
+ldc i 99
+sto i
+lda i 0 6
+ldc i 5
+sto i
+lda b 1 0
+ldc b 0
+sto b
+; type ret = 2
+lda i 0 0
+;reference
+;s->levelNode 2
+lda i 1 1
+ind i
+lda i 0 6
+ind i
+add i
+sto i
+retf
+;at_headfunc
+;entree listparam
+define @main_body
+lda i 0 2
+ldc i 2
+sto i
+lda i 0 1
+ldc i 10
+sto i
+lda b 0 0
+ldc b 1
+sto b
+lda i 0 1
+;calcul diff de profondeur d
+mst 0
+;calcul nombre para n_par
+;generation pcode parametres
+;test1011101, a, 1
+;reference
+lda i 0 -7
+lda i 0 1
+ind i
+;test1011101********, c, 1
+;reference
+;referencevvvvvv
+lda b 0 -9
+;appel de addTo
+cup 3 @addTo
+sto i
+lda i 0 2
+ind i
+prin
+lda i 0 1
+ind i
+prin
+;at_headfunc
+stp
+;*** END PCodeGeneration ***
+;*** BEGIN Cleaning ***
+;*** END Cleaning ***
