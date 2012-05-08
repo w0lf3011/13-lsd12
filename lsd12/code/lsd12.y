@@ -1,12 +1,5 @@
 /* lsd12.y
  *
- * File of LSD12 Compiler Project (group 11)
- * Exercise LSD12: INFOB314/IHDCB332 : LSD12 - Group LSD12-HD-G11
- * 
- * Team :
- * 	- 	Johan BARTHELEMY	johan.barthelemy@fundp.ac.be
- * 	-	Xavier PEREMANS		xavier.peremans@student.fundp.ac.be
- *	-	Quentin FRANSSEN	quentin.franssen@student.fundp.ac.be
  */
 
 %{
@@ -236,7 +229,7 @@ int main() {
     printf(";*** BEGIN printSymbolTableGraphViz(..)  ***\n");
     printSymbolTableGraphViz(sym);
     printf(";*** END printSymbolTableGraphViz(..)  ***\n");
-  */
+  */ 
 
   printf("; * Verification de la specification LSD12 :\n");
   if (check(root,sym) != 1) {
@@ -270,4 +263,5 @@ int main() {
   fprintf(stderr,"OK\n");
  
   return 0;
+
 }

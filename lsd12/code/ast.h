@@ -1,18 +1,10 @@
 /* ast.h
- *
- * File of LSD12 Compiler Project (group 11)
- * Exercise LSD12: INFOB314/IHDCB332 : LSD12 - Group LSD12-HD-G11
- * 
- * Team :
- * 	- 	Johan BARTHELEMY	johan.barthelemy@fundp.ac.be
- * 	-	Xavier PEREMANS		xavier.peremans@student.fundp.ac.be
- *	-	Quentin FRANSSEN	quentin.franssen@student.fundp.ac.be
  */
 
 #ifndef AST_H
 #define AST_H
 
-// Valeur des types de Noeuds.
+
 #define AT_VAR     0
 #define AT_BLOCDECLA 1
 #define AT_DECLA 2
@@ -53,57 +45,34 @@
 #define AT_APPELF 37
 #define AT_FUNCTPARAM 38
 
-// Valeur des types.
 #define VAL_VOID 1
 #define VAL_INT 2
 #define VAL_BOOL 3
 #define VAL_ENS 4
 #define VAL_NOTYPE 5
 
-// Structure de notre arbre.
+
 struct astnode {
-  int id;		// identification d'un noeud;
-  int type;		// identifie le type de noeud;
+  int id;
+  int type;
 
-  int ival;		// valeur entiere (constante);
-  char* sval;	// nom de l'identificateur (variable ou fonction);
+  int ival;
+  char* sval;
 
-  int varRef;	// indique is variable passee par ref (1) ou pas (0);
-  int fnctId;	// numero de surcharge d'une fonction (l5);
+  int varRef;     // indique is variable passee par ref (1) ou pas (0)
+  int fnctId;     // numero de surcharge d'une fonction (l5)
  
-  struct astnode * left;	// pointe vers le fils de gauche;
-  struct astnode * right;	// pointe vers le fils de droite;
+  struct astnode * left;
+  struct astnode * right;
 };
 
 typedef struct astnode * ASTTREE;
 typedef struct astnode   ASTNODE; // detail
 
-/*
- * Créer un noeud de type ASTTREE.
- * Pré-condition : /
- * Post-condition: Créer un nouveau noeud dans l'arbre et retourne le nouvel arbre.
- */
 extern ASTTREE createNode(int id, int type, int varRef, int fnctId, int ival, char* sval, ASTTREE left, ASTTREE right);
-
-/*
- * Supprime le noeud et libère la mémoire.
- * Pré-condition : node != null
- * Post-condition: libère la mémoire alloué par la variable "node".
- */
 extern void freeNode(ASTTREE node);
-
-/*
- * Supprime l'arbre et libère la mémoire.
- * Pré-condition : tree != null
- * Post-condition: libère la mémoire alloué par la variable "tree".
- */
 extern void freeTree(ASTTREE tree);
 
-/*
- * Affiche l'arbre en partant de la racine
- * Pré-condition : tree != null
- * Post-condition: Convertit les identifiants des noeuds en un nom représentables.
- */
 extern void printTree(ASTTREE tree);
 
 #endif
