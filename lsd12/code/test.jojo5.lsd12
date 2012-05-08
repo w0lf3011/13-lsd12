@@ -19,9 +19,13 @@ var
 			fi;
 		end;
 begin
-	read x;
+	{read x;
 	read y;
-	read z;
+	read z;}
+
+	x := 1;
+        y := 2;
+	z := 3;
 	
 	i := 0;
 	j := 0;

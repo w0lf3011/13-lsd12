@@ -61,6 +61,7 @@ struct astnode {
 
   int varRef;     // indique is variable passee par ref (1) ou pas (0)
   int fnctId;     // numero de surcharge d'une fonction (l5)
+  int fnctId2;
  
   struct astnode * left;
   struct astnode * right;

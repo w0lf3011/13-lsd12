@@ -13,18 +13,11 @@ var
 			var
 				test int;
 
-				function facto() : int;
-					var
-						x int;
-					begin
-						x := 1;
-						write 64;
-						return x;
-					end;
+				
 
 			
 				begin
-					test := facto();
+					
 					if ( x = 0 ) then
 					   return 1;
 					else
