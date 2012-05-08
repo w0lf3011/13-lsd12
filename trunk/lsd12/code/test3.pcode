@@ -1,0 +1,464 @@
+; *** Compiler ***
+;
+;*** BEGIN yyparse() ***
+;*** END yyparse() ***
+;*** BEGIN SymbolTable ***
+; ... ajout de main dans la table, state = 1, type = 5, fnctId = 1
+; BORDEL56; ....... s->id = main, s->fnctId = 1
+; ... ajout de fctRecurcive dans la table, state = 1, type = 5, fnctId = 1
+; BORDEL56; ....... s->id = fctRecurcive, s->fnctId = 1
+; ... ajout de pNum dans la table, state = 2, type = 2, fnctId = 0
+; BORDEL56; ....... s->id = pNum, s->fnctId = 0
+; ... ajout de cNum dans la table, state = 2, type = 2, fnctId = 0
+; BORDEL56; ....... s->id = cNum, s->fnctId = 0
+; ... ajout de tmp dans la table, state = 0, type = 2, fnctId = 0
+; BORDEL56; ....... s->id = tmp, s->fnctId = 0
+; ... ajout de fctImbriquer dans la table, state = 1, type = 5, fnctId = 1
+; BORDEL56; ....... s->id = fctImbriquer, s->fnctId = 1
+; ... ajout de fct02 dans la table, state = 1, type = 3, fnctId = 1
+; BORDEL56; ....... s->id = fct02, s->fnctId = 1
+; ... ajout de fct01 dans la table, state = 1, type = 2, fnctId = 1
+; BORDEL56; ....... s->id = fct01, s->fnctId = 1
+; ... ajout de int2 dans la table, state = 0, type = 2, fnctId = 0
+; BORDEL56; ....... s->id = int2, s->fnctId = 0
+; ... ajout de int1 dans la table, state = 0, type = 2, fnctId = 0
+; BORDEL56; ....... s->id = int1, s->fnctId = 0
+; ... ajout de fct11 dans la table, state = 1, type = 5, fnctId = 1
+; BORDEL56; ....... s->id = fct11, s->fnctId = 1
+; ... ajout de test1 dans la table, state = 2, type = 2, fnctId = 0
+; BORDEL56; ....... s->id = test1, s->fnctId = 0
+; ... ajout de test2 dans la table, state = 2, type = 3, fnctId = 0
+; BORDEL56; ....... s->id = test2, s->fnctId = 0
+; ... ajout de fct10 dans la table, state = 1, type = 5, fnctId = 1
+; BORDEL56; ....... s->id = fct10, s->fnctId = 1
+; ... ajout de test1 dans la table, state = 2, type = 3, fnctId = 0
+; BORDEL56; ....... s->id = test1, s->fnctId = 0
+; ... ajout de test2 dans la table, state = 2, type = 3, fnctId = 0
+; BORDEL56; ....... s->id = test2, s->fnctId = 0
+; ... ajout de fct9 dans la table, state = 1, type = 5, fnctId = 1
+; BORDEL56; ....... s->id = fct9, s->fnctId = 1
+; ... ajout de test1 dans la table, state = 2, type = 2, fnctId = 0
+; BORDEL56; ....... s->id = test1, s->fnctId = 0
+; ... ajout de test2 dans la table, state = 2, type = 2, fnctId = 0
+; BORDEL56; ....... s->id = test2, s->fnctId = 0
+; ... ajout de fct8 dans la table, state = 1, type = 5, fnctId = 1
+; BORDEL56; ....... s->id = fct8, s->fnctId = 1
+; ... ajout de test1 dans la table, state = 2, type = 3, fnctId = 0
+; BORDEL56; ....... s->id = test1, s->fnctId = 0
+; ... ajout de fct7 dans la table, state = 1, type = 5, fnctId = 1
+; BORDEL56; ....... s->id = fct7, s->fnctId = 1
+; ... ajout de test1 dans la table, state = 2, type = 2, fnctId = 0
+; BORDEL56; ....... s->id = test1, s->fnctId = 0
+; ... ajout de fct6 dans la table, state = 1, type = 3, fnctId = 1
+; BORDEL56; ....... s->id = fct6, s->fnctId = 1
+; ... ajout de fct5 dans la table, state = 1, type = 2, fnctId = 1
+; BORDEL56; ....... s->id = fct5, s->fnctId = 1
+; ... ajout de globalInt dans la table, state = 0, type = 2, fnctId = 0
+; BORDEL56; ....... s->id = globalInt, s->fnctId = 0
+;*** END SymbolTable ***
+; * Verification de la specification LSD12 :
+;---GPS = tree_id : 12 AT_ROOT LEFT ;---
+;---GPS = tree_id : 3 AT_FUNCT LEFT  ;---
+;---GPS = tree_id : 5 AT_CORPS LEFT ;---
+;---GPS = tree_id : 1 AT_BLOCDECLA LEFT ;---
+;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
+;left ;---
+;---GPS = tree_id : 2 AT_DECLA RIGHT->LEFT ;---
+;Funct ;---
+;---GPS = tree_id : 3 AT_FUNCT LEFT  ;---
+;---GPS = tree_id : 5 AT_CORPS LEFT ;---
+;---GPS = tree_id : 1 AT_BLOCDECLA NULL NULL ;---
+;---GPS = tree_id : 6 AT_IMPLEMENT LEFT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION LEFT ;---
+;---GPS = tree_id : 30 AT_RETURN RIGHT ;---
+;---GPS = tree_id : 9 AT_NB ;---
+;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
+;---GPS = tree_id : 11 AT_PLUS ;---
+;---GPS = tree_id : 0 AT_VAR ;---
+;---GPS = tree_id : 9 AT_NB ;---
+;---GPS = tree_id : 6 AT_IMPLEMENT LEFT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION RIGHT ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION LEFT ;---
+;---GPS = AT_WRITE RIGHT ;---
+;---GPS = tree_id : 0 AT_VAR ;---
+;---GPS = AT_EXPRD LEFT ;---
+;---GPS = tree_id : 37 AT_APPELF ;---
+;---GPS = tree_id : 9 AT_NB ;---
+;---GPS = tree_id : 9 AT_NB ;---
+;---GPS = AT_EXPRD LEFT ;---
+;---GPS = tree_id : 37 AT_APPELF ;---
+;---GPS = AT_EXPRD LEFT ;---
+;---GPS = tree_id : 37 AT_APPELF ;---
+;---GPS = tree_id : 10 AT_BOOL ;---
+;---GPS = AT_EXPRD LEFT ;---
+;---GPS = tree_id : 37 AT_APPELF ;---
+;---GPS = tree_id : 9 AT_NB ;---
+;---GPS = tree_id : 37 AT_APPELF ;---
+;---GPS = tree_id : 8 AT_INSTRUCTION LEFT ;---
+;---GPS = AT_WRITE RIGHT ;---
+;---GPS = tree_id : 9 AT_NB ;---
+;---GPS = AT_WRITE RIGHT ;---
+;---GPS = tree_id : 37 AT_APPELF ;---
+;---GPS = tree_id : 27 AT_AFFECT RIGHT ;---
+;---GPS = tree_id : 9 AT_NB ;---
+; * Fin de la verification de la specification LSD12!
+;*** BEGIN computeLocations(..) ***
+; ... localisation de pNum : 5
+; ... localisation de cNum : 6
+; ... localisation de tmp : 7
+; ... localisation de int2 : 5
+; ... localisation de int1 : 6
+; ... localisation de test1 : 5
+; ... localisation de test2 : 6
+; ... localisation de test1 : 5
+; ... localisation de test2 : 6
+; ... localisation de test1 : 5
+; ... localisation de test2 : 6
+; ... localisation de test1 : 5
+; ... localisation de test1 : 5
+; ... localisation de globalInt : 0
+;*** END computeLocations(..) ***
+;*** BEGIN PCodeGeneration ***
+define @main
+ssp 1
+ujp @main_body
+define @fct5
+ssp 5
+ujp @fct5_body
+define @fct5_body
+lda i 1 0
+lda i 1 0
+ind i
+ldc i 1
+add i
+sto i
+; type ret = 2
+lda i 0 0
+ldc i 2
+sto i
+retf
+;at_headfunc
+define @fct6
+ssp 5
+ujp @fct6_body
+define @fct6_body
+lda i 1 0
+lda i 1 0
+ind i
+ldc i 1
+add i
+sto i
+; type ret = 3
+lda b 0 0
+ldc b 0
+sto b
+retf
+;at_headfunc
+define @fct7
+ssp 6
+ujp @fct7_body
+define @fct7_body
+lda i 1 0
+lda i 1 0
+ind i
+ldc i 1
+add i
+sto i
+;reference
+;s->levelNode 2
+;upBound sup: 0
+lda i 1 0
+ind i
+prin
+;at_headfunc
+;entree listparam
+retp
+define @fct8
+ssp 6
+ujp @fct8_body
+define @fct8_body
+;reference
+;s->levelNode 2
+;upBound sup: 0
+lda b 1 0
+ind b
+fjp @else_58
+ldc i 1
+prin
+ujp @fi_58
+define @else_58
+ldc i 0
+prin
+define @fi_58
+lda i 1 0
+lda i 1 0
+ind i
+ldc i 1
+add i
+sto i
+;at_headfunc
+;entree listparam
+retp
+define @fct9
+ssp 7
+ujp @fct9_body
+define @fct9_body
+;reference
+;s->levelNode 2
+;upBound sup: 0
+lda i 1 0
+ind i
+lda i 0 6
+ind i
+add i
+prin
+;at_headfunc
+;entree listparam
+retp
+define @fct10
+ssp 7
+ujp @fct10_body
+define @fct10_body
+;reference
+;s->levelNode 2
+;upBound sup: 0
+lda b 1 0
+ind b
+fjp @else_95
+lda b 0 6
+ind b
+fjp @else_99
+ldc i 1
+prin
+ujp @fi_99
+define @else_99
+ldc i 0
+prin
+define @fi_99
+ujp @fi_95
+define @else_95
+ldc i 0
+prin
+define @fi_95
+;at_headfunc
+;entree listparam
+retp
+define @fct11
+ssp 7
+ujp @fct11_body
+define @fct11_body
+lda b 0 6
+ind b
+fjp @else_121
+;reference
+;s->levelNode 2
+;upBound sup: 0
+lda i 1 0
+ind i
+prin
+ujp @fi_121
+define @else_121
+ldc i 0
+prin
+define @fi_121
+;at_headfunc
+;entree listparam
+retp
+define @fctImbriquer
+ssp 7
+ujp @fctImbriquer_body
+define @fct01
+ssp 5
+ujp @fct01_body
+define @fct01_body
+lda i 2 0
+lda i 2 0
+ind i
+ldc i 1
+add i
+sto i
+; type ret = 2
+lda i 0 0
+lda i 1 6
+ind i
+sto i
+retf
+;at_headfunc
+define @fct02
+ssp 5
+ujp @fct02_body
+define @fct02_body
+lda i 2 0
+lda i 2 0
+ind i
+ldc i 1
+add i
+sto i
+lda i 1 6
+ind i
+lda i 1 5
+ind i
+equ b
+fjp @else_167
+; type ret = 3
+lda b 0 0
+ldc b 1
+sto b
+retf
+ujp @fi_167
+define @else_167
+; type ret = 3
+lda b 0 0
+ldc b 0
+sto b
+retf
+define @fi_167
+;at_headfunc
+define @fctImbriquer_body
+lda i 0 6
+ldc i 5
+sto i
+lda i 0 5
+ldc i 5
+sto i
+;calcul diff de profondeur d
+mst 0
+;generation pcode parametres
+;appel de fct01
+cup 0 @fct01
+prin
+;calcul diff de profondeur d
+mst 0
+;generation pcode parametres
+;appel de fct02
+cup 0 @fct02
+fjp @else_188
+ldc i 1
+prin
+ujp @fi_188
+define @else_188
+ldc i 0
+prin
+define @fi_188
+lda i 1 0
+lda i 1 0
+ind i
+ldc i 1
+add i
+sto i
+;at_headfunc
+retp
+define @fctRecurcive
+ssp 8
+ujp @fctRecurcive_body
+define @fctRecurcive_body
+lda i 0 6
+ind i
+prin
+lda i 0 7
+lda i 0 6
+ind i
+sto i
+lda i 0 6
+lda i 0 6
+ind i
+;reference
+;s->levelNode 2
+;upBound sup: 0
+lda i 1 0
+ind i
+add i
+sto i
+;reference
+;s->levelNode 2
+;upBound sup: 0
+lda i 1 0
+lda i 0 7
+ind i
+sto i
+lda i 1 0
+lda i 1 0
+ind i
+ldc i 1
+add i
+sto i
+lda i 0 6
+ind i
+ldc i 1000
+les b
+fjp @fi_231
+;calcul diff de profondeur d
+mst 1
+;generation pcode parametres
+lda i 1 2
+lda i 0 6
+ind i
+;appel de fctRecurcive
+cup 2 @fctRecurcive
+ujp @fi_231
+define @fi_231
+;at_headfunc
+;entree listparam
+retp
+define @main_body
+lda i 0 0
+ldc i 0
+sto i
+;calcul diff de profondeur d
+mst 0
+;generation pcode parametres
+;appel de fct5
+cup 0 @fct5
+prin
+;calcul diff de profondeur d
+mst 0
+;generation pcode parametres
+;appel de fct6
+cup 0 @fct6
+fjp @else_250
+ldc i 1
+prin
+ujp @fi_250
+define @else_250
+ldc i 0
+prin
+define @fi_250
+;calcul diff de profondeur d
+mst 0
+;generation pcode parametres
+lda i 0 0
+;appel de fct7
+cup 1 @fct7
+;calcul diff de profondeur d
+mst 0
+;generation pcode parametres
+lda b 0 0
+;appel de fct8
+cup 1 @fct8
+;calcul diff de profondeur d
+mst 0
+;generation pcode parametres
+;appel de fctImbriquer
+cup 0 @fctImbriquer
+;calcul diff de profondeur d
+mst 0
+;generation pcode parametres
+lda i 0 2
+ldc i 1
+;appel de fctRecurcive
+cup 2 @fctRecurcive
+lda i 0 0
+ind i
+prin
+;at_headfunc
+stp
+;*** END PCodeGeneration ***
+;*** BEGIN Cleaning ***
+;*** END Cleaning ***

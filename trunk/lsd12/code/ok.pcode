@@ -1,0 +1,100 @@
+define @main_0_1
+ssp 1
+ujp @main_body_0_1
+define @facto_1_1
+ssp 7
+ujp @facto_body_1_1
+define @facto_2_1
+ssp 7
+ujp @facto_body_2_1
+define @facto_3_1
+ssp 6
+ujp @facto_body_3_1
+define @facto_body_3_1
+lda i 0 5
+ldc i 1
+sto i
+lda i 0 5
+ind i
+prin
+; type ret = 2
+lda i 0 0
+lda i 0 5
+ind i
+sto i
+retf
+;at_headfunc
+define @facto_body_2_1
+lda i 0 6
+;calcul diff de profondeur d
+mst 0
+;generation pcode parametres
+;appel de facto_3_1
+cup 0 @facto_3_1
+sto i
+lda i 0 5
+ind i
+ldc i 0
+equ b
+fjp @else_41
+; type ret = 2
+lda i 0 0
+ldc i 1
+sto i
+retf
+ujp @fi_41
+define @else_41
+; type ret = 2
+lda i 0 0
+lda i 0 5
+ind i
+;calcul diff de profondeur d
+mst 0
+;generation pcode parametres
+lda i 0 5
+ind i
+ldc i 1
+sub i
+;appel de facto_2_1 !!!!!!!!!!!!!!!!
+cup 1 @facto_2_1
+mul i
+sto i
+retf
+define @fi_41
+;at_headfunc
+;entree listparam
+define @facto_body_1_1
+lda i 0 6
+;calcul diff de profondeur d
+mst 0
+;generation pcode parametres
+ldc i 4
+;appel de facto_2_1
+cup 1 @facto_2_1
+sto i
+;calcul diff de profondeur d
+mst 0
+;generation pcode parametres
+ldc i 4
+;appel de facto_2_1
+cup 1 @facto_2_1
+prin
+; type ret = 2
+lda i 0 0
+lda i 0 6
+ind i
+sto i
+retf
+;at_headfunc
+;entree listparam
+define @main_body_0_1
+lda i 0 0
+;calcul diff de profondeur d
+mst 0
+;generation pcode parametres
+ldc b 1
+;appel de facto_1_1
+cup 1 @facto_1_1
+sto i
+;at_headfunc
+stp

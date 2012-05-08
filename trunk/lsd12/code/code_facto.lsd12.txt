@@ -1,0 +1,31 @@
+program Factorielle;
+
+function main() : void;
+var 
+
+	f int;
+	z int;
+
+	function facto( x : int ) : int ;
+		var
+		begin	
+					
+			if ( x = 0 ) then
+				return 1;
+			else
+		   		return x * facto(x-1);
+			fi;
+			
+		end;
+
+	
+
+
+begin
+
+	read z;
+	f := facto(z);
+	write f;
+	
+end;
+end;
