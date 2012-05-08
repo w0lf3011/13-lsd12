@@ -24,7 +24,7 @@ var
 
 			
 				begin
-					{ test := facto(); }
+					test := facto();
 					if ( x = 0 ) then
 					   return 1;
 					else
